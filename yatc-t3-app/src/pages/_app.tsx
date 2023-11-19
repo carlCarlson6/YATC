@@ -1,20 +1,19 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-
 import { api } from "yact/utils/api";
-
-import "yact/styles/globals.css";
+import '@radix-ui/themes/styles.css';
+import { Theme } from "@radix-ui/themes";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
-}) => {
-  return (
-    <SessionProvider session={session}>
+}) => (
+  <SessionProvider session={session}>
+    <Theme appearance="dark">
       <Component {...pageProps} />
-    </SessionProvider>
-  );
-};
+    </Theme>
+  </SessionProvider>
+);
 
 export default api.withTRPC(MyApp);
