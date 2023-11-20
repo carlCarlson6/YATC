@@ -1,9 +1,10 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-import { api } from "yact/utils/api";
+import { api } from "yact/ui/api";
 import '@radix-ui/themes/styles.css';
-import { Theme } from "@radix-ui/themes";
+import { Box, Container, Theme } from "@radix-ui/themes";
+import "yact/ui/styles.css"
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -11,7 +12,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => (
   <SessionProvider session={session}>
     <Theme appearance="dark">
-      <Component {...pageProps} />
+      <Box p={'5'}>
+        <Component {...pageProps} />
+      </Box>
     </Theme>
   </SessionProvider>
 );

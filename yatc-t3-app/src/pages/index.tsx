@@ -24,6 +24,9 @@ export default () => (
 				<Button
 					variant={'outline'}
 					onClick={() => signIn()}
+					style={{
+						cursor: 'pointer'
+					}}
 				>
 					<Flex
 						align={'center'}
@@ -45,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	if (session) {
 		return {
 			redirect: {
-				destination: `${session.user.name}/time-line`,
+				destination: `${session.user.name}/timeline`,
 				permanent: false,
 			},
 		}
