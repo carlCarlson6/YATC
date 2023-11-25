@@ -24,18 +24,26 @@ export const env = createEnv({
 		DISCORD_CLIENT_ID: z.string(),
 		DISCORD_CLIENT_SECRET: z.string(),
 		APP_ENV: z.enum(["dev", "test", "prod"]),
+		QSTASH_URL: z.string().url(),
+		QSTASH_TOKEN: z.string(),
+		QSTASH_CURRENT_SIGNING_KEY: z.string(),
+		QSTASH_CURRENT_NEXT_KEY: z.string()
 	},
 
 	client: {},
-
+	
 	runtimeEnv: {
-		DATABASE_URL: 					process.env.DATABASE_URL,
-		NODE_ENV: 							process.env.NODE_ENV,
-		NEXTAUTH_SECRET: 				process.env.NEXTAUTH_SECRET,
-		NEXTAUTH_URL: 					process.env.NEXTAUTH_URL,
-		DISCORD_CLIENT_ID: 			process.env.DISCORD_CLIENT_ID,
-		DISCORD_CLIENT_SECRET: 	process.env.DISCORD_CLIENT_SECRET,
-		APP_ENV: 								process.env.APP_ENV,
+		DATABASE_URL: 							process.env.DATABASE_URL,
+		NODE_ENV: 									process.env.NODE_ENV,
+		NEXTAUTH_SECRET: 						process.env.NEXTAUTH_SECRET,
+		NEXTAUTH_URL: 							process.env.NEXTAUTH_URL,
+		DISCORD_CLIENT_ID: 					process.env.DISCORD_CLIENT_ID,
+		DISCORD_CLIENT_SECRET: 			process.env.DISCORD_CLIENT_SECRET,
+		APP_ENV: 										process.env.APP_ENV,
+		QSTASH_URL:									process.env.QSTASH_URL,
+		QSTASH_TOKEN: 							process.env.QSTASH_TOKEN,
+		QSTASH_CURRENT_SIGNING_KEY: process.env.QSTASH_CURRENT_SIGNING_KEY,
+		QSTASH_CURRENT_NEXT_KEY: 		process.env.QSTASH_CURRENT_NEXT_KEY
 	},
 
 	skipValidation: !!process.env.SKIP_ENV_VALIDATION,

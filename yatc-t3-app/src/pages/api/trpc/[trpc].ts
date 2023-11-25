@@ -1,6 +1,6 @@
 import { createNextApiHandler } from "@trpc/server/adapters/next";
 import { env } from "yact/env.mjs";
-import { appRouter } from "yact/server/infrastructure/trpc/root";
+import { appRouter } from "yact/server/infrastructure/trpc/app-router";
 import { createTRPCContext } from "yact/server/infrastructure/trpc";
 
 export default createNextApiHandler({

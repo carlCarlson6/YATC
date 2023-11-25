@@ -2,17 +2,16 @@ import { relations, sql } from "drizzle-orm";
 import {
   index,
   int,
-  mysqlTableCreator,
   primaryKey,
   text,
   timestamp,
   varchar,
 } from "drizzle-orm/mysql-core";
 import { type AdapterAccount } from "next-auth/adapters";
+import { tweets } from "yact/server/send-tweet/tweet.drizzle.schema";
+import { drizzleMySqlTable } from "./drizzleMySqlTable";
 
-export const mysqlTable = mysqlTableCreator((name) => `yatc-t3-app_${name}`);
-
-export const users = mysqlTable("user", {
+export const users = drizzleMySqlTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
@@ -25,9 +24,10 @@ export const users = mysqlTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
+  tweets: many(tweets),
 }));
 
-export const accounts = mysqlTable(
+export const accounts = drizzleMySqlTable(
   "account",
   {
     userId: varchar("userId", { length: 255 }).notNull(),
@@ -54,7 +54,7 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
   user: one(users, { fields: [accounts.userId], references: [users.id] }),
 }));
 
-export const sessions = mysqlTable(
+export const sessions = drizzleMySqlTable(
   "session",
   {
     sessionToken: varchar("sessionToken", { length: 255 })
@@ -72,7 +72,7 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
   user: one(users, { fields: [sessions.userId], references: [users.id] }),
 }));
 
-export const verificationTokens = mysqlTable(
+export const verificationTokens = drizzleMySqlTable(
   "verificationToken",
   {
     identifier: varchar("identifier", { length: 255 }).notNull(),

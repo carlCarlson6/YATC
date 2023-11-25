@@ -4,24 +4,27 @@ import { type Session } from "next-auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
 import { getServerAuthSession } from "yact/server/infrastructure/next-auth";
-import { db } from "yact/server/infrastructure/drizzle";
+import { drizzleDb } from "yact/server/infrastructure/drizzle";
+import absoluteUrl from 'next-absolute-url'
 
 interface CreateContextOptions {
   session: Session | null;
+  serverUrl: string;
 }
 
-const createInnerTRPCContext = (opts: CreateContextOptions) => {
-  return {
-    session: opts.session,
-    db,
-  };
-};
+const createInnerTRPCContext = (opts: CreateContextOptions) => ({
+  session: opts.session,
+  db: drizzleDb,
+  serverUrl: opts.serverUrl
+});
 
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
   const session = await getServerAuthSession({ req, res });
+  const { origin } = absoluteUrl(req);
   return createInnerTRPCContext({
     session,
+    serverUrl: origin,
   });
 };
 

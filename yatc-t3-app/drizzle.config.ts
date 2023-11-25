@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     connectionString: env.DATABASE_URL,
   },
-  tablesFilter: ["yatc-t3-app_*"],
+  tablesFilter: [`${env.APP_ENV}yatct3app*`],
 } satisfies Config;

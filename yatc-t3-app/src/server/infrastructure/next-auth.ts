@@ -8,8 +8,8 @@ import {
 import DiscordProvider from "next-auth/providers/discord";
 
 import { env } from "yact/env.mjs";
-import { db } from "yact/server/infrastructure/drizzle";
-import { mysqlTable } from "yact/server/infrastructure/drizzle/base.drizzle.schema";
+import { drizzleDb } from "yact/server/infrastructure/drizzle";
+import { drizzleMySqlTable } from "./drizzle/drizzleMySqlTable";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
-  adapter: DrizzleAdapter(db, mysqlTable),
+  adapter: DrizzleAdapter(drizzleDb, drizzleMySqlTable),
   providers: [
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
