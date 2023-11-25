@@ -1,6 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Box } from "@radix-ui/themes";
-import { TimeLineControls } from "../ui/timeline/timeline-controls";
+import { TimeLineControls } from "../ui/timeline/TimelineControls";
 import { TimelineDisplay } from "../ui/timeline/timeline-display";
 import { Timeline, buildTimeline } from "yact/server/timeline/build-timeline";
 import { TimelineProvider } from "yact/ui/timeline/store";

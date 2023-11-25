@@ -1,38 +1,7 @@
 import { Box, Button, Dialog, Flex, TextArea, Text, IconButton, HoverCard } from "@radix-ui/themes";
 import { PlusCircledIcon, TrashIcon, UploadIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
-import { api } from "../api";
-import { useTimeline } from "./store";
 import { SyncLoader } from "react-spinners";
-
-const useAddTweet = () => {
-  const addTweet = useTimeline(x => x.addTweet);
-  const [open, setOpen] = useState(false);
-  const [newTweetText, setNewTweetText] = useState("");
-  const { mutate, isLoading } = api.sendTweet.useMutation({onSuccess: (result) => {
-    addTweet(result);
-    setNewTweetText("");
-    setOpen(false);
-  }});
-
-  return {
-    newTweet: {
-      text: newTweetText,  
-      progress: newTweetText.length/280,
-      color: ((): "indigo" | "red" => newTweetText.length < 280 ? "indigo" : "red")(),
-      length: newTweetText.length,
-    },
-    form: {
-      isOpen: open,
-      setIsOpen: setOpen,
-      onClose: () => setNewTweetText(""),
-      setText: setNewTweetText,
-      send: () => mutate({text: newTweetText}),
-      canSend: newTweetText.length <= 0 || newTweetText.length > 280,
-      isSending: isLoading
-    }
-  };
-}
+import { useAddTweet } from "./useAddTweet";
 
 export const TimeLineControls: React.FC = () => {
   const { newTweet, form } = useAddTweet();
