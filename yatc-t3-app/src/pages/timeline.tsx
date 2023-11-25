@@ -14,7 +14,6 @@ const Timeline = ({serverTimeline, user}: TimelineProps) => (
       <TimelineDisplay />
     </Box>
   </TimelineProvider>
-  
 );
 
 export default Timeline;

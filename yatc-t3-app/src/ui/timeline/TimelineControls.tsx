@@ -11,15 +11,9 @@ export const TimeLineControls: React.FC<{user: User}> = ({user}) => {
     <Box style={{ width: "10%", float: 'left' }} position={'fixed'}>
       <Flex direction={'column'} gap={'2'}>
         <AddTweetButton />
-        <Button variant={'outline'} style={{ cursor: 'pointer' }} onClick={_ => router.refresh()}>
-          <ReloadIcon />
-        </Button>
-        <Button variant={'outline'} style={{ cursor: 'pointer' }} onClick={_ => router.push(`user/${user.name}`)}>
-          <PersonIcon />
-        </Button>
-        <Button variant={'outline'} style={{ cursor: 'pointer' }} >
-          <MagnifyingGlassIcon />
-        </Button>
+        <RealoadButton />
+        <UserProfileButton user={user}/>
+        <SearchUsersButton />
       </Flex>
     </Box>
   );
@@ -100,3 +94,27 @@ const AddTweetButton = () => {
     </Dialog.Root>
   );
 }
+
+const RealoadButton = () => {
+  const router = useRouter();
+  return (
+    <Button variant={'outline'} style={{ cursor: 'pointer' }} onClick={_ => router.refresh()}>
+      <ReloadIcon />
+    </Button>
+  );
+};
+
+const UserProfileButton: React.FC<{user: User}> = ({user}) => {
+  const router = useRouter();
+  return (
+    <Button variant={'outline'} style={{ cursor: 'pointer' }} onClick={_ => router.push(`user/${user.name}`)}>
+      <PersonIcon />
+    </Button>
+  );
+}
+
+const SearchUsersButton = () => (
+  <Button variant={'outline'} style={{ cursor: 'pointer' }} >
+    <MagnifyingGlassIcon />
+  </Button>
+);
