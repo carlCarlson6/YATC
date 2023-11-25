@@ -1,4 +1,3 @@
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
@@ -10,6 +9,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import { env } from "yact/env.mjs";
 import { drizzleDb } from "yact/server/infrastructure/drizzle";
 import { drizzleMySqlTable } from "./drizzle/drizzleMySqlTable";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
