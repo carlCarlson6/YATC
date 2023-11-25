@@ -1,6 +1,6 @@
-import { DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
+import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 const getUserProfileWithDrizzle = (db: DrizzleDb) => async (userName: string) => {
   const result = await db

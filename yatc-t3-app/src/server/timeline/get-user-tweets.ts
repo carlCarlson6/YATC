@@ -1,8 +1,8 @@
-import { DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
+import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
 import { tweets } from "../send-tweet/tweet.drizzle.schema";
 import { desc, eq } from "drizzle-orm";
-import { Timeline } from "./build-timeline";
+import type { Timeline } from "./build-timeline";
 
 const getUserTweetsWithDrizzle = (db: DrizzleDb) => async (userId: string): Promise<Timeline> => {
   const result = await db

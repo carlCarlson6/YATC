@@ -1,11 +1,11 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { authPageGuard } from "yact/server/infrastructure/nextauth/page-auth-guard";
-import { Timeline } from "yact/server/timeline/build-timeline";
+import type { Timeline } from "yact/server/timeline/build-timeline";
 import { getUserTweets } from "yact/server/timeline/get-user-tweets";
-import { User } from "yact/server/user/user";
+import type { User } from "yact/server/user/user";
 import { sanitizeQueryParams } from "../../server/infrastructure/sanitize-query-params";
 import { findUserProfile } from "yact/server/user/get-user-profile";
-import { Avatar, Box, Flex, Text, Separator, Container } from "@radix-ui/themes";
+import { Avatar, Box, Flex, Text, Separator } from "@radix-ui/themes";
 import { TweetsDisplay } from "yact/ui/TweetsDisplay";
 
 const UserProfile = ({user, tweets}: UserProfileProps) => {
@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<{
   if (authResult.result == "unauthenticated")
     return authResult.redirectReturn;
     
-  const sanitizedUserName = sanitizeQueryParams(context.query["userName"]);
+  const sanitizedUserName = sanitizeQueryParams(context.query.userName);
   const maybeUser = await findUserProfile(sanitizedUserName);
   return !maybeUser
     ? { notFound: true }

@@ -9,7 +9,7 @@ import {
 } from "drizzle-orm/mysql-core";
 import { tweets } from "yact/server/send-tweet/tweet.drizzle.schema";
 import { drizzleMySqlTable } from "./drizzleMySqlTable";
-import { AdapterAccount } from "node_modules/next-auth/adapters";
+import type { AdapterAccount } from "node_modules/next-auth/adapters";
 
 export const users = drizzleMySqlTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
