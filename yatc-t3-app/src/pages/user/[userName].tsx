@@ -7,12 +7,20 @@ import { sanitizeQueryParams } from "../../server/infrastructure/sanitize-query-
 import { findUserProfile } from "yact/server/user/get-user-profile";
 import { Box } from "@radix-ui/themes";
 import { UserProfileDisplay } from "../../ui/user-profile/UserProfileDisplay";
-import { UserProfileControls } from "../../ui/user-profile/UserProfileControls";
+import { UserProfileControls } from "../../ui/user-profile/controls/UserProfileControls";
+import { checkIfFollowing } from "yact/server/user/follow/followUser";
 
 const UserProfile = ({user, tweets}: UserProfileProps) => (
   <Box>
-    <UserProfileControls isOwnProfile={user.isOwnProfile} followed={user.followed}/>
-    <UserProfileDisplay user={user} tweets={tweets} />
+    <UserProfileControls 
+      isOwnProfile={user.isOwnProfile} 
+      followed={user.followed}
+      userId={user.id}
+    />
+    <UserProfileDisplay 
+      user={user} 
+      tweets={tweets} 
+    />
   </Box>
 );
 
@@ -36,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<{
       user: { 
         ...maybeUser, 
         isOwnProfile: maybeUser.id === authResult.user.id, 
-        followed: false 
+        followed: await checkIfFollowing(authResult.user.id, maybeUser.id), 
       },
       tweets: await getUserTweets(maybeUser.id),
     }};

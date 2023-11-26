@@ -6,12 +6,12 @@ import { drizzleMySqlTable } from "../infrastructure/drizzle/drizzleMySqlTable";
 export type TweetEntity = typeof tweets.$inferSelect;
 
 export const tweets = drizzleMySqlTable("tweet", {
-  id:   varchar("id", { length: 255 }).notNull().primaryKey(),
-  text: varchar("text", { length: 280 }).notNull(),
-  publishedBy: varchar("publishedBy", { length: 255 }).notNull(),
-  publishedAt: int("publishedAt").notNull(),
+  id:           varchar("id", { length: 255 }).notNull().primaryKey(),
+  text:         varchar("text", { length: 280 }).notNull(),
+  publishedBy:  varchar("publishedBy", { length: 255 }).notNull(),
+  publishedAt:  int("publishedAt").notNull(),
 });
 
-export const tweetsReations = relations(tweets, ({one}) => ({
+export const tweetsRelations = relations(tweets, ({one}) => ({
   user: one(users, { fields: [tweets.publishedBy], references: [users.id] })
 }));

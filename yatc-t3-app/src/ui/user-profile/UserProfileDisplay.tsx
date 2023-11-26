@@ -4,9 +4,9 @@ import type { UserProfileProps } from "../../pages/user/[userName]";
 
 export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>
   <Box style={{ width: '85%', float: 'right' }}>
-    <Flex align={'center'} justify={'center'} direction={'column'} gap={'5'}>
+    <Flex  direction={'column'} gap={'5'}>
       <Box pb={'2'} grow={'1'}>
-        <Flex align={'center'} justify={'center'} direction={'column'} gap={'2'}>
+        <Flex  gap={'2'}>
           <Avatar
             size={'7'}
             src={user.avatar}
@@ -14,8 +14,8 @@ export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>
           <Text>{user.name}</Text>
         </Flex>
       </Box>
-      <Separator size={'3'} />
-      <Box style={{ width: '85%', float: 'right' }}>
+      <Separator size={'4'} />
+      <Box>
         <TweetsDisplay tweets={tweets} />
       </Box>
     </Flex>
