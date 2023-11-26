@@ -4,17 +4,22 @@ import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
 import { ButtonLoaderIcon } from "yact/ui/ButtonLoaderIcon";
 import { api } from "yact/ui/api";
 import { useRouter } from 'next/navigation';
+import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
+
 
 const useFollowAction = (isAlreadyFollowing: boolean) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const router = useRouter();
-  const { mutate, isLoading } = api.follow.useMutation({ onSuccess: _ => {
+  const onMutationSuccess = () => {
     setIsRefreshing(true);
     router.refresh();
-  }});
+  }
+
+  const { mutate: mutateFollow, isLoading: isLoadingFollow } = api.follow.useMutation({ onSuccess: onMutationSuccess });
+  const { mutate: mutateUnFollow, isLoading: isLoadingUnfollow } = api.unfollow.useMutation({ onSuccess: onMutationSuccess });
   return {
-    isExecuting: isLoading || isRefreshing,
-    execute: mutate
+    isExecuting: isLoadingFollow || isLoadingUnfollow || isRefreshing,
+    execute: (userId: string) => isAlreadyFollowing ? mutateUnFollow({userToUnfollow: userId}) : mutateFollow({userToFollow: userId}),
   }
 }
 
@@ -24,7 +29,7 @@ export const FollowButton: React.FC<{ followed: boolean; userId: string }> = ({ 
     <Button
       variant={'outline'}
       style={{ cursor: 'pointer' }}
-      onClick={_ => execute({userToFollow: userId})}
+      onClick={_ => execute(userId)}
     >{ !isExecuting ?
       <FollowButtonIcon followed={followed}/> :
       <ButtonLoaderIcon />
@@ -35,6 +40,6 @@ export const FollowButton: React.FC<{ followed: boolean; userId: string }> = ({ 
 
 const FollowButtonIcon: React.FC<{followed: boolean}> = ({followed}) => (<> 
 { followed ?
-  <SlUserFollowing /> :
-  <SlUserFollow />
+  <IoPersonRemoveOutline /> :
+  <IoPersonAddOutline />
 }</>);

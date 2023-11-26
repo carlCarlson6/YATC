@@ -8,7 +8,7 @@ import { findUserProfile } from "yact/server/user/get-user-profile";
 import { Box } from "@radix-ui/themes";
 import { UserProfileDisplay } from "../../ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "../../ui/user-profile/controls/UserProfileControls";
-import { checkIfFollowing } from "yact/server/user/follow/followUser";
+import { checkIfFollowing } from "yact/server/user/follow/checkIfFollowing";
 
 const UserProfile = ({user, tweets}: UserProfileProps) => (
   <Box>
