@@ -6,12 +6,19 @@ export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>
   <Box style={{ width: '85%', float: 'right' }}>
     <Flex  direction={'column'} gap={'5'}>
       <Box pb={'2'} grow={'1'}>
-        <Flex  gap={'2'}>
+        <Flex gap={'3'}>
           <Avatar
             size={'7'}
             src={user.avatar}
-            fallback={user.name} />
-          <Text>{user.name}</Text>
+            fallback={user.name} 
+          />
+          <Flex direction={'column'} gap={'4'}>
+            <Text>{user.name}</Text>
+            <Flex direction={'column'}>
+              <Text>Followers: {user.followersCount}</Text>
+              <Text>Following: {user.followingCount}</Text>
+            </Flex>
+          </Flex>
         </Flex>
       </Box>
       <Separator size={'4'} />

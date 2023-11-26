@@ -9,6 +9,7 @@ import { Box } from "@radix-ui/themes";
 import { UserProfileDisplay } from "../../ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "../../ui/user-profile/controls/UserProfileControls";
 import { checkIfFollowing } from "yact/server/user/follow/checkIfFollowing";
+import { countFollowers, countFollowing } from "yact/server/user/follow/counting";
 
 const UserProfile = ({user, tweets}: UserProfileProps) => (
   <Box>
@@ -30,7 +31,12 @@ export type UserProfileProps = InferGetServerSidePropsType<typeof getServerSideP
 
 export const getServerSideProps: GetServerSideProps<{
   tweets: Timeline,
-  user: User & { isOwnProfile: boolean, followed: boolean } ,
+  user: User & { 
+    isOwnProfile: boolean, 
+    followed: boolean, 
+    followersCount: number, 
+    followingCount: number 
+  },
 }> = async (context) => {
   const authResult = await authPageGuard(context);
   if (authResult.result == "unauthenticated")
@@ -44,7 +50,9 @@ export const getServerSideProps: GetServerSideProps<{
       user: { 
         ...maybeUser, 
         isOwnProfile: maybeUser.id === authResult.user.id, 
-        followed: await checkIfFollowing(authResult.user.id, maybeUser.id), 
+        followed: await checkIfFollowing(authResult.user.id, maybeUser.id),
+        followersCount: await countFollowers(maybeUser.id),
+        followingCount: await countFollowing(maybeUser.id),
       },
       tweets: await getUserTweets(maybeUser.id),
     }};
