@@ -6,10 +6,6 @@
   max-width: 30rem;
 }
 
-.tweet-separator {
-  max-width: 15rem;
-}
-
 .StackImage:hover {
   background-color: #FFFFFF55;
 }

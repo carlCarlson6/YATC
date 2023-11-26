@@ -10,12 +10,11 @@ import { UserProfileDisplay } from "../../ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "../../ui/user-profile/UserProfileControls";
 
 const UserProfile = ({user, tweets}: UserProfileProps) => (
-<>
   <Box>
     <UserProfileControls />
     <UserProfileDisplay user={user} tweets={tweets} />
   </Box>
-</>);
+);
 
 export default UserProfile;
 

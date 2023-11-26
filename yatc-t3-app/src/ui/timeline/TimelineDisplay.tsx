@@ -1,6 +1,6 @@
 import { Box } from "@radix-ui/themes";
 import { useTimeline } from "./store";
-import { TweetsDisplay } from "./TweetsDisplay";
+import { TweetsDisplay } from "../TweetsDisplay";
 
 export const TimelineDisplay: React.FC = () => {
   const timeline = useTimeline(x => x.timeline);

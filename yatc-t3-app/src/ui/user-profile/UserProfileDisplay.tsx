@@ -1,9 +1,9 @@
 import { Avatar, Box, Flex, Text, Separator } from "@radix-ui/themes";
-import { TweetsDisplay } from "yact/ui/timeline/TweetsDisplay";
+import { TweetsDisplay } from "yact/ui/TweetsDisplay";
 import type { UserProfileProps } from "../../pages/user/[userName]";
 
 export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>
-  <Box>
+  <Box style={{ width: '85%', float: 'right' }}>
     <Flex align={'center'} justify={'center'} direction={'column'} gap={'5'}>
       <Box pb={'2'} grow={'1'}>
         <Flex align={'center'} justify={'center'} direction={'column'} gap={'2'}>
@@ -15,7 +15,9 @@ export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>
         </Flex>
       </Box>
       <Separator size={'3'} />
-      <TweetsDisplay tweets={tweets} />
+      <Box style={{ width: '85%', float: 'right' }}>
+        <TweetsDisplay tweets={tweets} />
+      </Box>
     </Flex>
   </Box>
 </>);
