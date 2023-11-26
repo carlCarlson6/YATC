@@ -1,7 +1,7 @@
 import { protectedProcedure } from "yact/server/infrastructure/trpc";
 import z from "zod";
-import { CheckIfFollowing, checkIfFollowingWithDrizzle } from "./checkIfFollowing";
-import { DrizzleDb } from "yact/server/infrastructure/drizzle";
+import { type CheckIfFollowing, checkIfFollowingWithDrizzle } from "./checkIfFollowing";
+import type { DrizzleDb } from "yact/server/infrastructure/drizzle";
 import { follows } from "./follow.drizzle.schema";
 import { eq } from "drizzle-orm";
 

@@ -2,7 +2,7 @@ import { type DrizzleDb } from "yact/server/infrastructure/drizzle";
 import { protectedProcedure } from "yact/server/infrastructure/trpc";
 import z from "zod";
 import { follows } from "./follow.drizzle.schema";
-import { CheckIfFollowing, checkIfFollowingWithDrizzle } from "./checkIfFollowing";
+import { type CheckIfFollowing, checkIfFollowingWithDrizzle } from "./checkIfFollowing";
 
 export const followUserProcedure = protectedProcedure
   .input(z.object({

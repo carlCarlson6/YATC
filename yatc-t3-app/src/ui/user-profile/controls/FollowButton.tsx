@@ -1,6 +1,5 @@
 import { Button } from "@radix-ui/themes";
 import React, { useState } from "react";
-import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
 import { ButtonLoaderIcon } from "yact/ui/ButtonLoaderIcon";
 import { api } from "yact/ui/api";
 import { useRouter } from 'next/navigation';
