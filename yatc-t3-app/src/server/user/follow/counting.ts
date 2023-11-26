@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { DrizzleDb, drizzleDb } from "yact/server/infrastructure/drizzle"
+import { type DrizzleDb, drizzleDb } from "yact/server/infrastructure/drizzle"
 import { follows } from "./follow.drizzle.schema";
 
 const countFollowersOnDrizzle = (db: DrizzleDb) => async (userWhoIsFollowed: string) => {
