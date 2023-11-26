@@ -44,23 +44,26 @@ export const AddTweetButton = () => {
                   <SyncLoader
                     size={7}
                     color="#9EB1FF"
-                    speedMultiplier={0.5} />
-                </Box>
-                :
-                <><IconButton
-                  color="plum"
-                  variant="outline"
-                  style={{ cursor: 'pointer' }}
-                  disabled={form.canSend}
-                  onClick={form.send}
-                >
-                  <UploadIcon />
-                </IconButton>
+                    speedMultiplier={0.5}
+                  />
+                </Box> :
+                <>
+                  <IconButton
+                    color="plum"
+                    variant="outline"
+                    style={{ cursor: 'pointer' }}
+                    disabled={form.canSend}
+                    onClick={form.send}
+                  >
+                    <UploadIcon />
+                  </IconButton>
                   <Dialog.Close onClick={form.onClose}>
                     <IconButton color="red" variant='outline' style={{ cursor: 'pointer' }}>
                       <TrashIcon />
                     </IconButton>
-                  </Dialog.Close></>}
+                  </Dialog.Close>
+                </>
+              }
             </Flex>
           </Flex>
         </Flex>

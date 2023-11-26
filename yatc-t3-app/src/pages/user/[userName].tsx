@@ -11,7 +11,7 @@ import { UserProfileControls } from "../../ui/user-profile/UserProfileControls";
 
 const UserProfile = ({user, tweets}: UserProfileProps) => (
   <Box>
-    <UserProfileControls />
+    <UserProfileControls isOwnProfile={user.isOwnProfile} followed={user.followed}/>
     <UserProfileDisplay user={user} tweets={tweets} />
   </Box>
 );
@@ -22,7 +22,7 @@ export type UserProfileProps = InferGetServerSidePropsType<typeof getServerSideP
 
 export const getServerSideProps: GetServerSideProps<{
   tweets: Timeline,
-  user: User,
+  user: User & { isOwnProfile: boolean, followed: boolean } ,
 }> = async (context) => {
   const authResult = await authPageGuard(context);
   if (authResult.result == "unauthenticated")
@@ -33,7 +33,11 @@ export const getServerSideProps: GetServerSideProps<{
   return !maybeUser
     ? { notFound: true }
     : { props: { 
-      user: maybeUser,
+      user: { 
+        ...maybeUser, 
+        isOwnProfile: maybeUser.id === authResult.user.id, 
+        followed: false 
+      },
       tweets: await getUserTweets(maybeUser.id),
     }};
 }

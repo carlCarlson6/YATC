@@ -9,7 +9,7 @@ export const TweetsDisplay: React.FC<{ tweets: Tweet[]; }> = ({ tweets }) => (
     > 
     {tweets.map(x =>
       <Card 
-        id={x.id} 
+        key={x.id}
         size={'1'} 
         className="tweet"
       >
