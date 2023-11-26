@@ -5,18 +5,19 @@ import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 export const RealoadButton = () => {
+  // TODO bla blabla
   const router = useRouter();
-  const [isNavigating, setIsNavigating] = useState(false);
+  const [isReloading, setIsReloading] = useState(false);
   return (
     <Button 
       variant={'outline'} 
       style={{ cursor: 'pointer' }} 
       onClick={_ => {
-        setIsNavigating(true);
+        setIsReloading(true);
         router.refresh();
       }}
     >
-      { !isNavigating ?
+      { !isReloading ?
         <ReloadIcon /> :
         <Flex align={'center'} justify={'center'}>
           <ClipLoader

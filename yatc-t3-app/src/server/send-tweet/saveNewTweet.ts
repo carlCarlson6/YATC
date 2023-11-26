@@ -1,7 +1,7 @@
 import type { DrizzleDb } from "../infrastructure/drizzle";
 import { tweets, type TweetEntity } from "./tweet.drizzle.schema";
 
-export const saveNewTweet = ({storeTweet, sendNewTweetPublished}:{
+export const saveNewTweet = ({storeTweet, sendNewTweetPublished}: {
   storeTweet: (tweet: TweetEntity) => Promise<void>,
   sendNewTweetPublished: (tweet: TweetEntity) => Promise<void>,
 }) => async (

@@ -24,7 +24,7 @@ export const users = drizzleMySqlTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
-  tweets: many(tweets),
+  tweets: many(tweets)
 }));
 
 export const accounts = drizzleMySqlTable(
