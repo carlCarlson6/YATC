@@ -9,8 +9,12 @@ export const follows = drizzleMySqlTable("follows", {
 });
 
 export const followsRelation = relations(follows, ({one}) => ({
-  user: one(users, { 
-    fields: [follows.userWhoIsFollowing, follows.userWhoIsFollowing], 
-    references: [users.id, users.id] 
-  })
+  userWhoIsFollowing: one(users, { 
+    fields: [follows.userWhoIsFollowing], 
+    references: [users.id],
+  }),
+  userWhoIsFollowed: one(users, { 
+    fields: [follows.userWhoIsFollowed], 
+    references: [users.id],
+  }),
 }));
