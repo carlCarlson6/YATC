@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, Flex, TextArea, Text, IconButton, HoverCard } from "@radix-ui/themes";
+import { Box, Button, Dialog, Flex, TextArea, Text, IconButton } from "@radix-ui/themes";
 import { PlusCircledIcon, TrashIcon, UploadIcon } from "@radix-ui/react-icons";
 import { SyncLoader } from "react-spinners";
 import { useAddTweet } from "../useAddTweet";
@@ -7,28 +7,21 @@ export const AddTweetButton = () => {
   const { newTweet, form } = useAddTweet();
   return (
     <Dialog.Root open={form.isOpen} onOpenChange={form.setIsOpen}>
-      <HoverCard.Root>
-        <HoverCard.Trigger>
-          <Dialog.Trigger>
-            <Button
-              variant={'outline'}
-              style={{ cursor: 'pointer' }}
-            >
-              <Flex
-                align={'center'}
-                justify={'center'}
-                direction={'row'}
-                gap={'3'}
-              >
-                <PlusCircledIcon />
-              </Flex>
-            </Button>
-          </Dialog.Trigger>
-        </HoverCard.Trigger>
-        <HoverCard.Content size={'1'}>
-          <Text color={'indigo'}>publish a new tweet</Text>
-        </HoverCard.Content>
-      </HoverCard.Root>
+      <Dialog.Trigger>
+      <Button
+        variant={'outline'}
+        style={{ cursor: 'pointer' }}
+      >
+        <Flex
+          align={'center'}
+          justify={'center'}
+          direction={'row'}
+          gap={'3'}
+        >
+          <PlusCircledIcon />
+        </Flex>
+      </Button>
+      </Dialog.Trigger>
       <Dialog.Content>
         <Flex direction={'column'} gap={'3'}>
           <TextArea

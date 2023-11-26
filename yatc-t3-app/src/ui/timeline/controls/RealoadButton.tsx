@@ -5,7 +5,11 @@ import { useRouter } from 'next/navigation';
 export const RealoadButton = () => {
   const router = useRouter();
   return (
-    <Button variant={'outline'} style={{ cursor: 'pointer' }} onClick={_ => router.refresh()}>
+    <Button 
+      variant={'outline'} 
+      style={{ cursor: 'pointer' }} 
+      onClick={_ => router.refresh()}
+    >
       <ReloadIcon />
     </Button>
   );

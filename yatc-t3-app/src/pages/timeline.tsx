@@ -1,7 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Box } from "@radix-ui/themes";
 import { TimeLineControls } from "../ui/timeline/controls/TimelineControls";
-import { TimelineDisplay } from "../ui/timeline/timeline-display";
+import { TimelineDisplay } from "../ui/timeline/TimelineDisplay";
 import { Timeline, buildTimeline } from "yact/server/timeline/build-timeline";
 import { TimelineProvider } from "yact/ui/timeline/store";
 import { authPageGuard } from "yact/server/infrastructure/nextauth/page-auth-guard";

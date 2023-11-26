@@ -5,31 +5,21 @@ import { getUserTweets } from "yact/server/timeline/get-user-tweets";
 import type { User } from "yact/server/user/user";
 import { sanitizeQueryParams } from "../../server/infrastructure/sanitize-query-params";
 import { findUserProfile } from "yact/server/user/get-user-profile";
-import { Avatar, Box, Flex, Text, Separator } from "@radix-ui/themes";
-import { TweetsDisplay } from "yact/ui/TweetsDisplay";
+import { Box } from "@radix-ui/themes";
+import { UserProfileDisplay } from "../../ui/user-profile/UserProfileDisplay";
+import { UserProfileControls } from "../../ui/user-profile/UserProfileControls";
 
-const UserProfile = ({user, tweets}: UserProfileProps) => {
-  return (<>
-    <Flex align={'center'} justify={'center'} direction={'column'} gap={'5'}>
-      <Box pb={'2'} grow={'1'}>
-        <Flex align={'center'} justify={'center'} direction={'column'} gap={'2'}>
-          <Avatar
-            size={'7'}
-            src={user.avatar}
-            fallback={user.name}
-          />
-          <Text>{user.name}</Text>
-        </Flex>
-      </Box>
-      <Separator size={'3'} />
-      <TweetsDisplay tweets={tweets}/>
-    </Flex>
-  </>);
-}
+const UserProfile = ({user, tweets}: UserProfileProps) => (
+<>
+  <Box>
+    <UserProfileControls />
+    <UserProfileDisplay user={user} tweets={tweets} />
+  </Box>
+</>);
 
 export default UserProfile;
 
-type UserProfileProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+export type UserProfileProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export const getServerSideProps: GetServerSideProps<{
   tweets: Timeline,
