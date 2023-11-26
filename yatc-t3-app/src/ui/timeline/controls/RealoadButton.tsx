@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 export const RealoadButton = () => {
+  // TODO bla blabla
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
   return (
