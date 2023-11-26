@@ -1,4 +1,4 @@
-import { getUserTweets } from "yact/server/timeline/get-user-tweets";
+import { getUserTweets } from "yact/server/user/get-user-tweets";
 import type { User } from "yact/server/user/user";
 import { findUserProfile } from "yact/server/user/get-user-profile";
 import { checkIfFollowing } from "yact/server/user/follow/checkIfFollowing";
