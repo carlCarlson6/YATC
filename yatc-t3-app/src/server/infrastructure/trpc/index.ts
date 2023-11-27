@@ -6,6 +6,7 @@ import { ZodError } from "zod";
 import { getServerAuthSession } from "yact/server/infrastructure/nextauth";
 import { drizzleDb } from "yact/server/infrastructure/drizzle";
 import absoluteUrl from 'next-absolute-url'
+import { env } from "yact/env.mjs";
 
 interface CreateContextOptions {
   session: Session | null;
@@ -21,10 +22,14 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => ({
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
   const session = await getServerAuthSession({ req, res });
-  const { origin } = absoluteUrl(req);
+  
+  const serverUrl = env.APP_ENV === "local"
+    ? env.LOCAL_DEV_TUNNEL ?? absoluteUrl(req).origin
+    : absoluteUrl(req).origin;
+  
   return createInnerTRPCContext({
     session,
-    serverUrl: origin,
+    serverUrl
   });
 };
 

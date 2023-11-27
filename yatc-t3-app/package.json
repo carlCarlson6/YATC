@@ -23,6 +23,7 @@
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
+    "@upstash/qstash": "^2.3.0",
     "drizzle-orm": "^0.28.5",
     "drizzle-zod": "^0.5.1",
     "next": "^14.0.0",

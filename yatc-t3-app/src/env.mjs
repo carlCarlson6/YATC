@@ -21,13 +21,14 @@ export const env = createEnv({
 			(str) => process.env.VERCEL_URL ?? str,
 			process.env.VERCEL ? z.string() : z.string().url()
 		),
-		DISCORD_CLIENT_ID: z.string(),
-		DISCORD_CLIENT_SECRET: z.string(),
-		APP_ENV: z.enum(["dev", "test", "prod"]),
-		QSTASH_URL: z.string().url(),
-		QSTASH_TOKEN: z.string(),
-		QSTASH_CURRENT_SIGNING_KEY: z.string(),
-		QSTASH_CURRENT_NEXT_KEY: z.string()
+		DISCORD_CLIENT_ID: 					z.string(),
+		DISCORD_CLIENT_SECRET: 			z.string(),
+		APP_ENV: 										z.enum(["local", "dev", "test", "prod"]),
+		QSTASH_URL: 								z.string().url(),
+		QSTASH_TOKEN: 							z.string(),
+		QSTASH_CURRENT_SIGNING_KEY:	z.string(),
+		QSTASH_CURRENT_NEXT_KEY: 		z.string(),
+		LOCAL_DEV_TUNNEL:	process.env.APP_ENV === "local" ? z.string().url() : z.string().optional(),
 	},
 
 	client: {},
@@ -43,7 +44,8 @@ export const env = createEnv({
 		QSTASH_URL:									process.env.QSTASH_URL,
 		QSTASH_TOKEN: 							process.env.QSTASH_TOKEN,
 		QSTASH_CURRENT_SIGNING_KEY: process.env.QSTASH_CURRENT_SIGNING_KEY,
-		QSTASH_CURRENT_NEXT_KEY: 		process.env.QSTASH_CURRENT_NEXT_KEY
+		QSTASH_CURRENT_NEXT_KEY: 		process.env.QSTASH_CURRENT_NEXT_KEY,
+		LOCAL_DEV_TUNNEL:						process.env.LOCAL_DEV_TUNNEL
 	},
 
 	skipValidation: !!process.env.SKIP_ENV_VALIDATION,

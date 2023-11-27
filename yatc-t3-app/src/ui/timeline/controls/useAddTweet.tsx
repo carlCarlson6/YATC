@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { api } from "../api";
-import { useTimeline } from "./store";
+import { api } from "../../api";
+import { useTimeline } from "../store";
 
 export const useAddTweet = () => {
   const addTweet = useTimeline(x => x.addTweet);
@@ -14,11 +14,12 @@ export const useAddTweet = () => {
     }
   });
 
+  const textColor: "indigo" | "red" = newTweetText.length < 280 ? "indigo" : "red";
   return {
     newTweet: {
       text: newTweetText,
       progress: newTweetText.length / 280,
-      color: ((): "indigo" | "red" => newTweetText.length < 280 ? "indigo" : "red")(),
+      color: textColor,
       length: newTweetText.length,
     },
     form: {
