@@ -1,5 +1,5 @@
 import z from 'zod';
-import { QStashPublisher } from "../infrastructure/qstash";
+import type { QStashPublisher } from "../infrastructure/qstash";
 
 export type SendUpdateUserTimeline = ReturnType<typeof sendUpdateUserTimelineWithQStash>;
 
@@ -10,8 +10,8 @@ export const sendUpdateUserTimelineWithQStash = (qstash: QStashPublisher, appUrl
   });
 }
 
-export const handleUpdateUserTimeline = (command: UpdateUserTimelineCommand) => {
-  
+export const handleUpdateUserTimeline = (_: UpdateUserTimelineCommand) => {
+  return Promise.resolve();
 }
 
 export const updateUserTimelineCommanSchema = z.object({

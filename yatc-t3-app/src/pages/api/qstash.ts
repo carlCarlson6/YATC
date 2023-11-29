@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/dist/nextjs";
-import { domainEventsTypesSchema, newTweetPublishedSchema, DomainMessagesTypes } from "yact/server/domain";
+import { domainEventsTypesSchema, newTweetPublishedSchema, type DomainMessagesTypes } from "yact/server/domain";
 import { match } from 'ts-pattern';
 import { fetchFollorers, handleNewTweetPublished } from "yact/server/send-tweet/handleNewTweetPublished";
 import { drizzleDb } from "yact/server/infrastructure/drizzle";

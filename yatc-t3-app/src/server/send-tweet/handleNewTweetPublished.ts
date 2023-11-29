@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
-import { DrizzleDb } from "../infrastructure/drizzle";
+import type { DrizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
 import { follows } from "../user/follow/follow.drizzle.schema";
-import { SendUpdateUserTimeline } from "../timeline/sendUpdateUserTimeline";
+import type { SendUpdateUserTimeline } from "../timeline/sendUpdateUserTimeline";
 
 export const handleNewTweetPublished = ({loadFollower, publish}: {
   loadFollower: (userId: string) => Promise<string[]>, 
@@ -12,9 +12,8 @@ export const handleNewTweetPublished = ({loadFollower, publish}: {
   publishedBy: string
 }) => {
   const followers = await loadFollower(event.publishedBy);
-  followers.forEach(async (follower) => {
-    await publish({tweetId: event.tweetId, userId: follower});
-  });
+  const publishAction = followers.map(follower => publish({tweetId: event.tweetId, userId: follower}));
+  await Promise.all(publishAction);
 }
 
 export const fetchFollorers = (db: DrizzleDb) => async (userId: string) => {
