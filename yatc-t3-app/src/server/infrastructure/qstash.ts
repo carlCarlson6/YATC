@@ -1,13 +1,15 @@
 import { env } from "yact/env.mjs"
+import type { DomainCommandsTypes, DomainEventsTypes } from "../domain";
 
-export const qStashPublisher = (destination: string, payload: string) => fetch(
+export const qStashPublisher = (destination: string, message: {payload: string, type: DomainEventsTypes | DomainCommandsTypes}) => fetch(
   `${env.QSTASH_URL}/${destination}`, 
   {
     method: "POST",
-    body: payload,
+    body: message.payload,
     headers: {
       "Authorization": `Bearer ${env.QSTASH_TOKEN}`,
-      "Content-Type": "applicatioj/json"
+      "Content-Type": "applicatioj/json",
+      "Upstash-Forward-MessageType": message.type
     }
 });
 
