@@ -1,10 +1,14 @@
 import { eq } from "drizzle-orm";
-import type { DrizzleDb } from "../infrastructure/drizzle";
+import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
 import { follows } from "../user/follow/follow.drizzle.schema";
-import type { SendUpdateUserTimeline } from "../timeline/sendUpdateUserTimeline";
+import { sendUpdateUserTimelineWithQStash, type SendUpdateUserTimeline } from "../timeline/sendUpdateUserTimeline";
+import type { NextApiRequest } from "next";
+import { newTweetPublishedSchema } from "../domain";
+import { getServerUrl } from "../infrastructure/getServerUrl";
+import { qStashPublisher } from "yact/server/infrastructure/qstash";
 
-export const handleNewTweetPublished = ({loadFollower, publish}: {
+const handleNewTweetPublished = ({loadFollower, publish}: {
   loadFollower: (userId: string) => Promise<string[]>, 
   publish: SendUpdateUserTimeline
 }) => async (event: {
@@ -16,7 +20,7 @@ export const handleNewTweetPublished = ({loadFollower, publish}: {
   await Promise.all(publishAction);
 }
 
-export const fetchFollorers = (db: DrizzleDb) => async (userId: string) => {
+const loadFollowersFromDrizzleDb = (db: DrizzleDb) => async (userId: string) => {
   const result = await db
     .select({
       follower: users.id
@@ -27,3 +31,8 @@ export const fetchFollorers = (db: DrizzleDb) => async (userId: string) => {
     .execute();
   return result.map(({follower}) => follower);
 }
+
+export const executeHandler = (req: NextApiRequest) => () => handleNewTweetPublished({
+  loadFollower: loadFollowersFromDrizzleDb(drizzleDb),
+  publish: sendUpdateUserTimelineWithQStash(qStashPublisher, getServerUrl(req))
+})(newTweetPublishedSchema.parse(JSON.parse(req.body as string)));

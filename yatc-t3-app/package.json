@@ -5,6 +5,7 @@
   "scripts": {
     "build": "next build",
     "db:push": "dotenv drizzle-kit push:mysql",
+    "db:migrate": "dotenv drizzle-kit generate:mysql",
     "db:studio": "dotenv drizzle-kit studio",
     "dev": "next dev",
     "lint": "next lint",
@@ -24,6 +25,7 @@
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
     "@upstash/qstash": "^2.3.0",
+    "@vercel/kv": "^1.0.0",
     "drizzle-orm": "^0.28.5",
     "drizzle-zod": "^0.5.1",
     "next": "^14.0.0",

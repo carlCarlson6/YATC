@@ -3,6 +3,7 @@ import { type Config } from "drizzle-kit";
 import { env } from "yact/env.mjs";
 
 export default {
+  out: "./drizzle-migration",
   schema: "./src/**/*.drizzle.schema.ts",
   driver: "mysql2",
   dbCredentials: {

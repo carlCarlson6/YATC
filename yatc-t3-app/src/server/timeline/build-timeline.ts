@@ -1,9 +1,10 @@
 import { desc, eq } from "drizzle-orm";
-import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
+import { type DrizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
 import { tweets } from "../send-tweet/tweet.drizzle.schema";
+import type { ArrElement } from "../core/ArrElement";
 
-const buildTimelineWithDrizzle = (db: DrizzleDb) => async () => {
+export const loadAllTweetsFromDrizzleDb = (db: DrizzleDb) => async () => {
   const result = await db
     .select({
       id: tweets.id,
@@ -29,8 +30,8 @@ const buildTimelineWithDrizzle = (db: DrizzleDb) => async () => {
   }))
 };
 
-export const buildTimeline = buildTimelineWithDrizzle(drizzleDb);
+export type Timeline = Awaited<ReturnType<ReturnType<typeof loadAllTweetsFromDrizzleDb>>>;
 
-export type Timeline = Awaited<ReturnType<typeof buildTimeline>>;
-type ArrElement<ArrType> = ArrType extends readonly (infer ElementType)[] ? ElementType : never;
 export type Tweet = ArrElement<Timeline>;
+
+export const buildTimeline = () => Promise.resolve([])
