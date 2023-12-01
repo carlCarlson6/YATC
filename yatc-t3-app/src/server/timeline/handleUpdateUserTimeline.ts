@@ -5,6 +5,8 @@ import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
 import { eq } from "drizzle-orm";
 import type { NextApiRequest } from "next";
 import { vercelKvCache } from "../infrastructure/vercelKv";
+import { buildTimelineFromDb } from "./build-timeline";
+import { timelineId } from "./timelineId";
 
 export const updateUserTimelineCommanSchema = z.object({
   userId:   z.string().min(1),
@@ -12,8 +14,6 @@ export const updateUserTimelineCommanSchema = z.object({
 });
 
 export type UpdateUserTimelineCommand = z.infer<typeof updateUserTimelineCommanSchema>;
-
-const timelineId = (userId: string) => `timelines:${userId}`;
 
 const handleUpdateUserTimeline = ({cache, findTweet, buildTimeline}: {
   cache: AppCache,
@@ -27,7 +27,7 @@ const handleUpdateUserTimeline = ({cache, findTweet, buildTimeline}: {
   if (!tweet) return;
 
   const timeline = await cache.read<TweetEntity[]>(timelineId(userId));
-  if (!timeline) {
+  if (!timeline || timeline.length === 0) {
     const builtTimeline = await buildTimeline(userId);
     await cache.upsert(timelineId(userId), builtTimeline);
     return;
@@ -45,5 +45,5 @@ const findTweetOnDrizzleDb = (db: DrizzleDb) => async (tweetId: string) => {
 export const executeHandler = (req: NextApiRequest) => () => handleUpdateUserTimeline({
   cache: vercelKvCache,
   findTweet: findTweetOnDrizzleDb(drizzleDb),
-  buildTimeline: () => Promise.resolve([]),
+  buildTimeline: buildTimelineFromDb(drizzleDb),
 })(updateUserTimelineCommanSchema.parse(JSON.parse(req.body as string)));

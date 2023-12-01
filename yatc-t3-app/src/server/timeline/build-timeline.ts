@@ -1,8 +1,11 @@
 import { desc, eq } from "drizzle-orm";
 import { type DrizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
-import { tweets } from "../send-tweet/tweet.drizzle.schema";
+import { TweetEntity, tweets } from "../send-tweet/tweet.drizzle.schema";
 import type { ArrElement } from "../core/ArrElement";
+import { follows } from "../user/follow/follow.drizzle.schema";
+import { AppCache } from "../core/AppCache";
+import { timelineId } from "./timelineId";
 
 export const loadAllTweetsFromDrizzleDb = (db: DrizzleDb) => async () => {
   const result = await db
@@ -34,4 +37,34 @@ export type Timeline = Awaited<ReturnType<ReturnType<typeof loadAllTweetsFromDri
 
 export type Tweet = ArrElement<Timeline>;
 
-export const buildTimeline = () => Promise.resolve([])
+export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string) => {
+  const result = await db
+    .select({ tweet: tweets })
+    .from(follows)
+    .where(eq(follows.userWhoIsFollowing, userId))
+    .innerJoin(tweets, eq(follows.userWhoIsFollowed, tweets.publishedBy))
+    .execute();
+  const followsTweets = result.map(x => x.tweet);
+
+  const userTweets = await db
+    .select()
+    .from(tweets)
+    .where(eq(tweets.publishedBy, userId))
+    .execute();
+
+  return [...followsTweets, ...userTweets].sort(x => x.publishedAt);
+}
+
+export const getTimeline = ({cache, buildTimeline, addUserData}: {
+  cache: AppCache,
+  buildTimeline: (userId: string) => Promise<TweetEntity[]>,
+  addUserData: (tweets: TweetEntity[]) => Promise<Tweet[]>,
+}) => async (userId: string) => {
+  const timeline = await cache.read<TweetEntity[]>(timelineId(userId));
+  if (!timeline || timeline.length === 0) {
+    const builtTimeline = await buildTimeline(userId);
+    await cache.upsert(timelineId(userId), builtTimeline);
+    return await addUserData(builtTimeline);
+  }
+  return await addUserData(timeline);
+}
