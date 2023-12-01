@@ -1,10 +1,10 @@
 import { desc, eq } from "drizzle-orm";
 import { type DrizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
-import { TweetEntity, tweets } from "../send-tweet/tweet.drizzle.schema";
+import { type TweetEntity, tweets } from "../send-tweet/tweet.drizzle.schema";
 import type { ArrElement } from "../core/ArrElement";
 import { follows } from "../user/follow/follow.drizzle.schema";
-import { AppCache } from "../core/AppCache";
+import type { AppCache } from "../core/AppCache";
 import { timelineId } from "./timelineId";
 
 export const loadAllTweetsFromDrizzleDb = (db: DrizzleDb) => async () => {
