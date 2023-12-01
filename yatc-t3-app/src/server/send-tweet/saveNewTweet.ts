@@ -32,8 +32,9 @@ export const storeTweetWithDrizzle = (db: DrizzleDb) => async (tweet: TweetEntit
 
 export const sendNewTweetPublishedWithQStash = (qstash: QStashPublisher, appUrl: string) => async (tweet: TweetEntity) => {
   console.log("publishing event", "tweet-published", "to", `${appUrl}/api/qstash`);
-  await qstash(`${appUrl}/api/qstash`, {
+  const result = await qstash(`${appUrl}/api/qstash`, {
     type: "tweet-published",
     payload: JSON.stringify({ tweetId: tweet.id, publishedBy: tweet.publishedBy })
   });
+  console.log("result of send message", result);
 }
