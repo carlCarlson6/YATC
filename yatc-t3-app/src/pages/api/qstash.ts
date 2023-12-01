@@ -15,11 +15,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 const handleEvent = async (eventType: DomainMessagesTypes, req: NextApiRequest) => await match(eventType)
   .with("tweet-published", executeTweetPublished(req))
-  .with("user-followed", executeHandleUserFollowed(req))
+  .with("user-followed", () => Promise.resolve())
   .with("update-user-timeline", executeUpdateUserTimeline(req))
   .exhaustive();
-
-const executeHandleUserFollowed = (_: NextApiRequest) => () => Promise.resolve();
 
 export default verifySignature(handler);
 
