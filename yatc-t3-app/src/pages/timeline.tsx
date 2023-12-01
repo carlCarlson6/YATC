@@ -2,11 +2,10 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Box } from "@radix-ui/themes";
 import { TimeLineControls } from "../ui/timeline/controls/TimelineControls";
 import { TimelineDisplay } from "../ui/timeline/TimelineDisplay";
-import { type Timeline, loadAllTweetsFromDrizzleDb } from "yact/server/timeline/build-timeline";
+import { type Timeline, executeGetTimeline } from "yact/server/timeline/build-timeline";
 import { TimelineProvider } from "yact/ui/timeline/store";
 import { authPageGuard } from "yact/server/infrastructure/nextauth/page-auth-guard";
 import type { User } from "yact/server/user/user";
-import { drizzleDb } from "yact/server/infrastructure/drizzle";
 
 export default function Timeline({serverTimeline, user}: TimelineProps) {
   return (
@@ -30,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       user: authResult.user,
-      serverTimeline: await loadAllTweetsFromDrizzleDb(drizzleDb)(),
+      serverTimeline: await executeGetTimeline(authResult.user),
     }
   }
 }

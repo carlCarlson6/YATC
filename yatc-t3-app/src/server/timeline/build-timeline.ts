@@ -1,11 +1,13 @@
-import { desc, eq } from "drizzle-orm";
-import { type DrizzleDb } from "../infrastructure/drizzle";
+import { desc, eq, inArray } from "drizzle-orm";
+import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
 import { users } from "../infrastructure/drizzle/base.drizzle.schema";
 import { type TweetEntity, tweets } from "../send-tweet/tweet.drizzle.schema";
 import type { ArrElement } from "../core/ArrElement";
 import { follows } from "../user/follow/follow.drizzle.schema";
 import type { AppCache } from "../core/AppCache";
 import { timelineId } from "./timelineId";
+import { User } from "../user/user";
+import { vercelKvCache } from "../infrastructure/vercelKv";
 
 export const loadAllTweetsFromDrizzleDb = (db: DrizzleDb) => async () => {
   const result = await db
@@ -52,10 +54,31 @@ export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string) => 
     .where(eq(tweets.publishedBy, userId))
     .execute();
 
-  return [...followsTweets, ...userTweets].sort(x => x.publishedAt);
+  return [...followsTweets, ...userTweets].sort(x => x.publishedAt).reverse();
 }
 
-export const getTimeline = ({cache, buildTimeline, addUserData}: {
+const addUserData = (db: DrizzleDb) => async (tweetsEntities: TweetEntity[]): Promise<Timeline> => {
+  if (tweetsEntities.length === 0) return [];
+
+  const usersData = await db.select({
+  id: users.id,
+  name: users.name,
+  avatar: users.image
+  }).from(users).where(inArray(users.id, tweetsEntities.map(t => t.publishedBy))).execute();
+  return tweetsEntities.map(tweet => {
+  const maybeUser = usersData.filter(x => x.id === tweet.publishedBy).map(x => ({
+    id: x.id,
+    name: x.name ?? "",
+    avatar: x.avatar ?? ""
+  })).at(0);
+  return {
+    ...tweet,
+    user: maybeUser ?? { id: "", name: "", avatar: "" }
+  };
+  });
+}
+
+const getTimeline = ({cache, buildTimeline, addUserData}: {
   cache: AppCache,
   buildTimeline: (userId: string) => Promise<TweetEntity[]>,
   addUserData: (tweets: TweetEntity[]) => Promise<Tweet[]>,
@@ -68,3 +91,8 @@ export const getTimeline = ({cache, buildTimeline, addUserData}: {
   }
   return await addUserData(timeline);
 }
+export const executeGetTimeline = (user: User) => getTimeline({
+  cache: vercelKvCache,
+  buildTimeline: buildTimelineFromDb(drizzleDb),
+  addUserData: addUserData(drizzleDb),
+})(user.id)
