@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, Flex, TextArea, Text, IconButton } from "@radix-ui/themes";
 import { PlusCircledIcon, TrashIcon, UploadIcon } from "@radix-ui/react-icons";
 import { SyncLoader } from "react-spinners";
-import { useAddTweet } from "../useAddTweet";
+import { useAddTweet } from "./useAddTweet";
 
 export const AddTweetButton = () => {
   const { newTweet, form } = useAddTweet();

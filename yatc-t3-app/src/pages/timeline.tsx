@@ -2,21 +2,21 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Box } from "@radix-ui/themes";
 import { TimeLineControls } from "../ui/timeline/controls/TimelineControls";
 import { TimelineDisplay } from "../ui/timeline/TimelineDisplay";
-import { Timeline, buildTimeline } from "yact/server/timeline/build-timeline";
+import { type Timeline, executeGetTimeline } from "yact/server/timeline/build-timeline";
 import { TimelineProvider } from "yact/ui/timeline/store";
 import { authPageGuard } from "yact/server/infrastructure/nextauth/page-auth-guard";
 import type { User } from "yact/server/user/user";
 
-const Timeline = ({serverTimeline, user}: TimelineProps) => (
-  <TimelineProvider timeline={serverTimeline}>
-    <Box>
-      <TimeLineControls user={user}/>
-      <TimelineDisplay />
-    </Box>
-  </TimelineProvider>
-);
-
-export default Timeline;
+export default function Timeline({serverTimeline, user}: TimelineProps) {
+  return (
+    <TimelineProvider timeline={serverTimeline}>
+      <Box>
+        <TimeLineControls user={user}/>
+        <TimelineDisplay />
+      </Box>
+    </TimelineProvider>
+  );
+}
 
 export const getServerSideProps: GetServerSideProps<{
   serverTimeline: Timeline,
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       user: authResult.user,
-      serverTimeline: await buildTimeline(),
+      serverTimeline: await executeGetTimeline(authResult.user),
     }
   }
 }

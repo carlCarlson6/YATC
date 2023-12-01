@@ -1,11 +1,13 @@
 import type { DrizzleDb } from "../infrastructure/drizzle";
+import type { QStashPublisher } from "../infrastructure/qstash";
+import type { User } from "../user/user";
 import { tweets, type TweetEntity } from "./tweet.drizzle.schema";
 
 export const saveNewTweet = ({storeTweet, sendNewTweetPublished}: {
   storeTweet: (tweet: TweetEntity) => Promise<void>,
   sendNewTweetPublished: (tweet: TweetEntity) => Promise<void>,
 }) => async (
-  userPublisher: { id: string; name: string; avatar: string; },
+  userPublisher: User,
   tweetText: string
 ) => {
   const tweet = {
@@ -26,4 +28,11 @@ export const saveNewTweet = ({storeTweet, sendNewTweetPublished}: {
 
 export const storeTweetWithDrizzle = (db: DrizzleDb) => async (tweet: TweetEntity) => {
   await db.insert(tweets).values(tweet).execute();
+}
+
+export const sendNewTweetPublishedWithQStash = (qstash: QStashPublisher, appUrl: string) => async (tweet: TweetEntity) => {
+  await qstash(`${appUrl}/api/qstash`, {
+    type: "tweet-published",
+    payload: JSON.stringify({ tweetId: tweet.id, publishedBy: tweet.publishedBy })
+  });
 }
