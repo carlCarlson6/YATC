@@ -15,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 const handleEvent = async (eventType: DomainMessagesTypes, req: NextApiRequest) => await match(eventType)
   .with("tweet-published", executeTweetPublished(req))
-  .with("user-followed", () => {})
+  .with("user-followed", () => Promise.resolve())
   .with("update-user-timeline", executeUpdateUserTimeline(req))
   .exhaustive();
 
