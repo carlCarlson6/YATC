@@ -32,7 +32,7 @@ const loadFollowersFromDrizzleDb = (db: DrizzleDb) => async (userId: string) => 
     })
     .from(follows)
     .where(eq(follows.userWhoIsFollowed, userId))
-    .rightJoin(users, eq(follows.userWhoIsFollowing, users.id))
+    .rightJoin(users, eq(follows.userWhoIsFollowed, users.id))
     .execute();
   return result.map(({follower}) => follower);
 }
