@@ -6,7 +6,7 @@ import type { ArrElement } from "../core/ArrElement";
 import { follows } from "../user/follow/follow.drizzle.schema";
 import type { AppCache } from "../core/AppCache";
 import { timelineId } from "./timelineId";
-import { User } from "../user/user";
+import type { User } from "../user/user";
 import { vercelKvCache } from "../infrastructure/vercelKv";
 
 export const loadAllTweetsFromDrizzleDb = (db: DrizzleDb) => async () => {

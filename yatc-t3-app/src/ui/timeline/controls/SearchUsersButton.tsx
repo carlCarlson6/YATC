@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Dialog, DialogContent, DialogTrigger, Grid, Separator, TextField } from "@radix-ui/themes";
+import { Avatar, Box, Button, Dialog, DialogContent, Grid, Separator, TextField } from "@radix-ui/themes";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { api } from "yact/ui/api";
 import { useState } from "react";
@@ -25,7 +25,7 @@ export const SearchUsersButton = () => {
         <Separator size={'4'}/>
         <Grid pt={'2'} columns={'5'} width={'auto'}>{
           (data ?? []).map(x => 
-            <a href={`/user/${x.name}`}>
+            <a key={x.id} href={`/user/${x.name}`}>
               <Avatar src={x.avatar} fallback={x.name}/>
             </a>
           )
