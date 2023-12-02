@@ -25,10 +25,6 @@
 
     /* Path Aliases */
     "baseUrl": ".",
-    "paths": {
-      "src/*": ["./src/*"],
-      "test/*": ["./test/*"],
-    }
   },
   "include": [
     ".eslintrc.cjs",

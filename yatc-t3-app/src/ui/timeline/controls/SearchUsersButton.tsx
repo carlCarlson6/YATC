@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Dialog, DialogContent, Grid, Separator, TextField } from "@radix-ui/themes";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { api } from "yact/ui/api";
+import { api } from "src/ui/api";
 import { useState } from "react";
 
 export const SearchUsersButton = () => {

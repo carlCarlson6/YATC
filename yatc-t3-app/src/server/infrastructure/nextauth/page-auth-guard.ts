@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
-import type { User } from "yact/server/user/user";
+import type { User } from "src/server/user/user";
 
 type AuthGuardResult = {
   result: "unauthenticated",

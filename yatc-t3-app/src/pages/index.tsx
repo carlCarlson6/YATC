@@ -2,7 +2,7 @@ import { Container, Flex } from "@radix-ui/themes";
 import type { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import React from "react";
-import { LandingHeading, EnterButton, DevelopedBy, TechStack } from "yact/ui/landing";
+import { LandingHeading, EnterButton, DevelopedBy, TechStack } from "src/ui/landing";
 
 const Landing = () => (
 	<Container

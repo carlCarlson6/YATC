@@ -1,6 +1,6 @@
 import { type TweetEntity, tweetsTable } from "../send-tweet/tweet.drizzle.schema";
 import z from 'zod';
-import type { AppCache } from "yact/server/core/AppCache";
+import type { AppCache } from "src/server/core/AppCache";
 import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
 import { eq } from "drizzle-orm";
 import type { NextApiRequest } from "next";

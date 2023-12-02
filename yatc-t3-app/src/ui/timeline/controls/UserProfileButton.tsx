@@ -1,7 +1,7 @@
 import { Button, Flex } from "@radix-ui/themes";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { useRouter } from 'next/navigation';
-import type { User } from "yact/server/user/user";
+import type { User } from "src/server/user/user";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 

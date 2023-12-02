@@ -1,4 +1,4 @@
-import type { Timeline, Tweet } from 'yact/server/timeline/build-timeline';
+import type { Timeline, Tweet } from 'src/server/timeline/build-timeline';
 import { create, useStore } from 'zustand';
 import React, { createContext, useContext, useRef } from 'react'
 

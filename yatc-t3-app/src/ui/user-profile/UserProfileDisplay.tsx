@@ -1,5 +1,5 @@
 import { Avatar, Box, Flex, Text, Separator } from "@radix-ui/themes";
-import { TweetsDisplay } from "yact/ui/TweetsDisplay";
+import { TweetsDisplay } from "src/ui/TweetsDisplay";
 import type { UserProfileProps } from "../../pages/user/[userName]";
 
 export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>

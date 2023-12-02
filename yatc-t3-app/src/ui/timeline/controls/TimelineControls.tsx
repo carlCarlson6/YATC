@@ -1,5 +1,5 @@
 import { Box, Flex } from "@radix-ui/themes";
-import type { User } from "yact/server/user/user";
+import type { User } from "src/server/user/user";
 import { AddTweetButton } from "./AddTweetButton";
 import { RealoadButton } from "./RealoadButton";
 import { UserProfileButton } from "./UserProfileButton";

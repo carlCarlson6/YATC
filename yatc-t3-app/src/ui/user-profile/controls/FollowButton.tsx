@@ -1,7 +1,7 @@
 import { Button } from "@radix-ui/themes";
 import React, { useState } from "react";
-import { ButtonLoaderIcon } from "yact/ui/ButtonLoaderIcon";
-import { api } from "yact/ui/api";
+import { ButtonLoaderIcon } from "src/ui/ButtonLoaderIcon";
+import { api } from "src/ui/api";
 import { useRouter } from 'next/navigation';
 import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
 

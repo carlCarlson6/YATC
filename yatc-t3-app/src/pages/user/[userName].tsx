@@ -1,12 +1,12 @@
 import { Box } from "@radix-ui/themes";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { authPageGuard } from "yact/server/infrastructure/nextauth/page-auth-guard";
-import { sanitizeQueryParams } from "yact/server/infrastructure/sanitize-query-params";
-import type { Timeline } from "yact/server/timeline/build-timeline";
-import { loadUserProfileData } from "yact/server/user/loadUserProfileData";
-import type { User } from "yact/server/user/user";
-import { UserProfileDisplay } from "yact/ui/user-profile/UserProfileDisplay";
-import { UserProfileControls } from "yact/ui/user-profile/controls/UserProfileControls";
+import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
+import { sanitizeQueryParams } from "src/server/infrastructure/sanitize-query-params";
+import type { Timeline } from "src/server/timeline/build-timeline";
+import { loadUserProfileData } from "src/server/user/loadUserProfileData";
+import type { User } from "src/server/user/user";
+import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
+import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";
 
 const UserProfile = ({user, tweets}: UserProfileProps) => (
   <Box>

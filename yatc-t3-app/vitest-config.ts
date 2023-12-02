@@ -9,9 +9,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    alias: {
-      'yatc/': new URL('./src/', import.meta.url).pathname, 
-    },
     testTimeout: 3,
   },
 });

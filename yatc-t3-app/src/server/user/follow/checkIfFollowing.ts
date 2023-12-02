@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
-import { type DrizzleDb, drizzleDb } from "yact/server/infrastructure/drizzle";
+import { type DrizzleDb, drizzleDb } from "src/server/infrastructure/drizzle";
 import { followsTable } from "./follow.drizzle.schema";
-import { tweetsTable } from "yact/server/send-tweet/tweet.drizzle.schema";
+import { tweetsTable } from "src/server/send-tweet/tweet.drizzle.schema";
 
 export const checkIfFollowingWithDrizzle = (db: DrizzleDb) => async (
   userId: string, 

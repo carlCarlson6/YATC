@@ -1,12 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import {
-  index,
-  integer,
-  primaryKey,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { index, integer, primaryKey, text, timestamp, varchar, } from "drizzle-orm/pg-core";
 import { tweetsTable } from "src/server/send-tweet/tweet.drizzle.schema";
 import { drizzleTable } from "./drizzleTable";
 import type { AdapterAccount } from "node_modules/next-auth/adapters";

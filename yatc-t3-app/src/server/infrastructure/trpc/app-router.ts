@@ -1,8 +1,8 @@
-import { createTRPCRouter } from "yact/server/infrastructure/trpc";
-import { sendTweetProcedure } from "yact/server/send-tweet/send-tweet-procedure";
-import { findUsersProcedure } from "yact/server/user/findUsersProcedure";
-import { followUserProcedure } from "yact/server/user/follow/followUser";
-import { unFollowUserProcedure } from "yact/server/user/follow/unFollowUser";
+import { createTRPCRouter } from "src/server/infrastructure/trpc";
+import { sendTweetProcedure } from "src/server/send-tweet/send-tweet-procedure";
+import { findUsersProcedure } from "src/server/user/findUsersProcedure";
+import { followUserProcedure } from "src/server/user/follow/followUser";
+import { unFollowUserProcedure } from "src/server/user/follow/unFollowUser";
 
 export const appRouter = createTRPCRouter({
   sendTweet:  sendTweetProcedure,

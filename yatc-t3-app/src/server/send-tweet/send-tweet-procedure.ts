@@ -1,7 +1,7 @@
-import { protectedProcedure } from "yact/server/infrastructure/trpc";
 import z from "zod";
 import { saveNewTweet, sendNewTweetPublishedWithQStash, storeTweetWithDrizzle } from "./saveNewTweet";
 import { qStashPublisher } from "../infrastructure/qstash";
+import { protectedProcedure } from "../infrastructure/trpc";
 
 export const sendTweetProcedure = protectedProcedure
   .input(z.object({

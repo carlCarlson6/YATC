@@ -1,5 +1,4 @@
 import { drizzle } from 'drizzle-orm/postgres-js'
-import { sql } from '@vercel/postgres';
 import * as baseSchema from "src/server/infrastructure/drizzle/base.drizzle.schema";
 import * as tweetSchema from "src/server/send-tweet/tweet.drizzle.schema";
 import * as followsSchema from "src/server/user/follow/follow.drizzle.schema"

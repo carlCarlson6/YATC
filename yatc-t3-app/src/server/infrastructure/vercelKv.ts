@@ -1,5 +1,5 @@
 import { kv } from "@vercel/kv";
-import type { AppCache } from "yact/server/core/AppCache";
+import type { AppCache } from "src/server/core/AppCache";
 
 export const vercelKvCache: AppCache = {
   read: async <T>(id: string) => {

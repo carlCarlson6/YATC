@@ -2,15 +2,15 @@ import { CodeIcon, DiscordLogoIcon, GitHubLogoIcon, LinkedInLogoIcon } from "@ra
 import { Box, Button, Flex, Grid, Heading, HoverCard, IconButton, Link, Text } from "@radix-ui/themes";
 import { signIn } from "next-auth/react";
 import Image, { type StaticImageData }  from "next/image";
-import TypescriptImg from "yact/ui/imgs/typescript.png";
-import NextJsImg from "yact/ui/imgs/nextjs.png";
-import VercelImg from "yact/ui/imgs/vercel.png";
-import PlanetScaleImg from "yact/ui/imgs/planetscale.png"
-import T3Img from "yact/ui/imgs/t3-dark.svg"
-import DrizzleOrmImg from "yact/ui/imgs/drizzleorm.png"
-import TrpcImage from "yact/ui/imgs/tprc.png"
-import NextAuthImage from "yact/ui/imgs/nextauth.png"
-import ZodImg from "yact/ui/imgs/zod.svg"
+import TypescriptImg from "src/ui/imgs/typescript.png";
+import NextJsImg from "src/ui/imgs/nextjs.png";
+import VercelImg from "src/ui/imgs/vercel.png";
+import PlanetScaleImg from "src/ui/imgs/planetscale.png"
+import T3Img from "src/ui/imgs/t3-dark.svg"
+import DrizzleOrmImg from "src/ui/imgs/drizzleorm.png"
+import TrpcImage from "src/ui/imgs/tprc.png"
+import NextAuthImage from "src/ui/imgs/nextauth.png"
+import ZodImg from "src/ui/imgs/zod.svg"
 import React from "react";
 
 export const LandingHeading = () => (<>

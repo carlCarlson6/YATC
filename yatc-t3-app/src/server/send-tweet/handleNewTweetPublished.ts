@@ -6,7 +6,7 @@ import { sendUpdateUserTimelineWithQStash, type SendUpdateUserTimeline } from ".
 import type { NextApiRequest } from "next";
 import { newTweetPublishedSchema } from "../core/domain";
 import { getServerUrl } from "../infrastructure/getServerUrl";
-import { qStashPublisher } from "yact/server/infrastructure/qstash";
+import { qStashPublisher } from "src/server/infrastructure/qstash";
 import { findTweetOnDrizzleDb, updateUserTimeline } from "../timeline/handleUpdateUserTimeline";
 import { vercelKvCache } from "../infrastructure/vercelKv";
 import { buildTimelineFromDb } from "../timeline/build-timeline";

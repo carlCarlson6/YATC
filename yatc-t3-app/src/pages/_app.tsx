@@ -1,10 +1,10 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-import { api } from "yact/ui/api";
+import { api } from "src/ui/api";
 import '@radix-ui/themes/styles.css';
 import { Box, Theme } from "@radix-ui/themes";
-import "yact/ui/styles.css"
+import "src/ui/styles.css"
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

@@ -2,10 +2,10 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Box } from "@radix-ui/themes";
 import { TimeLineControls } from "../ui/timeline/controls/TimelineControls";
 import { TimelineDisplay } from "../ui/timeline/TimelineDisplay";
-import { type Timeline, executeGetTimeline } from "yact/server/timeline/build-timeline";
-import { TimelineProvider } from "yact/ui/timeline/store";
-import { authPageGuard } from "yact/server/infrastructure/nextauth/page-auth-guard";
-import type { User } from "yact/server/user/user";
+import { type Timeline, executeGetTimeline } from "src/server/timeline/build-timeline";
+import { TimelineProvider } from "src/ui/timeline/store";
+import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
+import type { User } from "src/server/user/user";
 
 export default function Timeline({serverTimeline, user}: TimelineProps) {
   return (

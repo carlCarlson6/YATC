@@ -1,5 +1,5 @@
-import { type DrizzleDb } from "yact/server/infrastructure/drizzle";
-import { protectedProcedure } from "yact/server/infrastructure/trpc";
+import { type DrizzleDb } from "src/server/infrastructure/drizzle";
+import { protectedProcedure } from "src/server/infrastructure/trpc";
 import z from "zod";
 import { followsTable } from "./follow.drizzle.schema";
 import { type CheckIfFollowing, checkIfFollowingWithDrizzle } from "./checkIfFollowing";
