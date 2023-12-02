@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { varchar } from "drizzle-orm/pg-core";
-import { usersTable } from "yact/server/infrastructure/drizzle/base.drizzle.schema";
-import { drizzleTable } from "yact/server/infrastructure/drizzle/drizzleTable";
+import { usersTable } from "src/server/infrastructure/drizzle/base.drizzle.schema";
+import { drizzleTable } from "src/server/infrastructure/drizzle/drizzleTable";
 
 export const followsTable = drizzleTable("follows", {
   id:                 varchar("id", {length: 255}).primaryKey().notNull(),

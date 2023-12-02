@@ -7,7 +7,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { tweetsTable } from "yact/server/send-tweet/tweet.drizzle.schema";
+import { tweetsTable } from "src/server/send-tweet/tweet.drizzle.schema";
 import { drizzleTable } from "./drizzleTable";
 import type { AdapterAccount } from "node_modules/next-auth/adapters";
 

@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
-import { type DrizzleDb, drizzleDb } from "yact/server/infrastructure/drizzle"
+import { type DrizzleDb, drizzleDb } from "src/server/infrastructure/drizzle"
 import { followsTable } from "./follow.drizzle.schema";
 
-const countFollowersOnDrizzle = (db: DrizzleDb) => async (userId: string) => (await db
+export const countFollowersOnDrizzle = (db: DrizzleDb) => async (userId: string) => (await db
     .select()
     .from(followsTable)
     .where(eq(followsTable.isFollowingUserId, userId))
