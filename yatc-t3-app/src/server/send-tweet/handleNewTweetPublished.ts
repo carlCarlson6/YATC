@@ -1,10 +1,10 @@
 import { eq } from "drizzle-orm";
 import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
-import { users } from "../infrastructure/drizzle/base.drizzle.schema";
-import { follows } from "../user/follow/follow.drizzle.schema";
+import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
+import { followsTable } from "../user/follow/follow.drizzle.schema";
 import { sendUpdateUserTimelineWithQStash, type SendUpdateUserTimeline } from "../timeline/sendUpdateUserTimeline";
 import type { NextApiRequest } from "next";
-import { newTweetPublishedSchema } from "../domain";
+import { newTweetPublishedSchema } from "../core/domain";
 import { getServerUrl } from "../infrastructure/getServerUrl";
 import { qStashPublisher } from "yact/server/infrastructure/qstash";
 import { findTweetOnDrizzleDb, updateUserTimeline } from "../timeline/handleUpdateUserTimeline";
@@ -28,11 +28,11 @@ const handleNewTweetPublished = ({loadFollower, publish, updateTimeline}: {
 const loadFollowersFromDrizzleDb = (db: DrizzleDb) => async (userId: string) => {
   const result = await db
     .select({
-      follower: users.id
+      follower: usersTable.id
     })
-    .from(follows)
-    .where(eq(follows.userWhoIsFollowed, userId))
-    .rightJoin(users, eq(follows.userWhoIsFollowed, users.id))
+    .from(followsTable)
+    .where(eq(followsTable.isFollowingUserId, userId))
+    .rightJoin(usersTable, eq(followsTable.isFollowingUserId, usersTable.id))
     .execute();
   return result.map(({follower}) => follower);
 }

@@ -5,9 +5,8 @@ import { env } from "yact/env.mjs";
 export default {
   out: "./drizzle-migration",
   schema: "./src/**/*.drizzle.schema.ts",
-  driver: "mysql2",
+  driver: "pg",
   dbCredentials: {
     connectionString: env.DATABASE_URL,
   },
-  tablesFilter: [`${env.APP_ENV}yatct3app*`],
 } satisfies Config;

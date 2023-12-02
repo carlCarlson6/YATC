@@ -1,16 +1,16 @@
 import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
-import { users } from "../infrastructure/drizzle/base.drizzle.schema";
 import { eq } from "drizzle-orm";
+import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 
 const getUserProfileWithDrizzle = (db: DrizzleDb) => async (userName: string) => {
   const result = await db
     .select({
-      id: users.id,
-      name: users.name,
-      avatar: users.image
+      id: usersTable.id,
+      name: usersTable.name,
+      avatar: usersTable.image
     })
-    .from(users)
-    .where(eq(users.name, userName))
+    .from(usersTable)
+    .where(eq(usersTable.name, userName))
     .execute();
 
   const maybeUser = result.at(0);

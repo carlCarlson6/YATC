@@ -1,8 +1,9 @@
 import { type DrizzleDb } from "yact/server/infrastructure/drizzle";
 import { protectedProcedure } from "yact/server/infrastructure/trpc";
 import z from "zod";
-import { follows } from "./follow.drizzle.schema";
+import { followsTable } from "./follow.drizzle.schema";
 import { type CheckIfFollowing, checkIfFollowingWithDrizzle } from "./checkIfFollowing";
+import { randomUUID } from "crypto";
 
 export const followUserProcedure = protectedProcedure
   .input(z.object({
@@ -28,9 +29,10 @@ const followUser = ({ checkIfFollowing, storeFollower }: {
   await storeFollower(userWhoFollos, userToFollow);
 };
 
-const storeFollowerOnDrizzle = (db: DrizzleDb) => async (userWhoFollos: string, userToFollow: string) => {
-  await db.insert(follows).values({
-    userWhoIsFollowed: userToFollow,
-    userWhoIsFollowing: userWhoFollos,
+const storeFollowerOnDrizzle = (db: DrizzleDb) => async (userId: string, userToFollowId: string) => {
+  await db.insert(followsTable).values({
+    id: randomUUID(),
+    userId: userId,
+    isFollowingUserId: userToFollowId,
   }).execute();
 }

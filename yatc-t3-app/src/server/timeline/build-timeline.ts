@@ -1,9 +1,9 @@
 import { desc, eq, inArray } from "drizzle-orm";
 import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
-import { users } from "../infrastructure/drizzle/base.drizzle.schema";
-import { type TweetEntity, tweets } from "../send-tweet/tweet.drizzle.schema";
+import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
+import { type TweetEntity, tweetsTable } from "../send-tweet/tweet.drizzle.schema";
 import type { ArrElement } from "../core/ArrElement";
-import { follows } from "../user/follow/follow.drizzle.schema";
+import { followsTable } from "../user/follow/follow.drizzle.schema";
 import type { AppCache } from "../core/AppCache";
 import { timelineId } from "./timelineId";
 import type { User } from "../user/user";
@@ -12,18 +12,18 @@ import { vercelKvCache } from "../infrastructure/vercelKv";
 export const loadAllTweetsFromDrizzleDb = (db: DrizzleDb) => async () => {
   const result = await db
     .select({
-      id: tweets.id,
-      text: tweets.text,
-      publishedAt: tweets.publishedAt,
+      id: tweetsTable.id,
+      text: tweetsTable.text,
+      publishedAt: tweetsTable.publishedAt,
       user: {
-        id: users.id,
-        name: users.name,
-        avatar: users.image,
+        id: usersTable.id,
+        name: usersTable.name,
+        avatar: usersTable.image,
       }
     })
-    .from(tweets)
-    .innerJoin(users, eq(tweets.publishedBy, users.id))
-    .orderBy(desc(tweets.publishedAt))
+    .from(tweetsTable)
+    .innerJoin(usersTable, eq(tweetsTable.publishedBy, usersTable.id))
+    .orderBy(desc(tweetsTable.publishedAt))
     .execute();
   return result.map(x => ({
     ...x,
@@ -40,18 +40,20 @@ export type Timeline = Awaited<ReturnType<ReturnType<typeof loadAllTweetsFromDri
 export type Tweet = ArrElement<Timeline>;
 
 export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string) => {
-  const result = await db
-    .select({ tweet: tweets })
-    .from(follows)
-    .where(eq(follows.userWhoIsFollowing, userId))
-    .innerJoin(tweets, eq(follows.userWhoIsFollowed, tweets.publishedBy))
+  const resultFollowsTweets = await db
+    .select({ tweet: tweetsTable })
+    .from(followsTable)
+    .where(eq(followsTable.userId, userId))
+    .innerJoin(tweetsTable, eq(followsTable.userId, tweetsTable.publishedBy))
+    .orderBy(desc(tweetsTable.publishedAt))
     .execute();
-  const followsTweets = result.map(x => x.tweet);
+  const followsTweets = resultFollowsTweets.map(x => x.tweet);
 
   const userTweets = await db
     .select()
-    .from(tweets)
-    .where(eq(tweets.publishedBy, userId))
+    .from(tweetsTable)
+    .where(eq(tweetsTable.publishedBy, userId))
+    .orderBy(desc(tweetsTable.publishedAt))
     .execute();
 
   return [...followsTweets, ...userTweets].sort(x => x.publishedAt).reverse();
@@ -61,10 +63,10 @@ const addUserData = (db: DrizzleDb) => async (tweetsEntities: TweetEntity[]): Pr
   if (tweetsEntities.length === 0) return [];
 
   const usersData = await db.select({
-  id: users.id,
-  name: users.name,
-  avatar: users.image
-  }).from(users).where(inArray(users.id, tweetsEntities.map(t => t.publishedBy))).execute();
+  id: usersTable.id,
+  name: usersTable.name,
+  avatar: usersTable.image
+  }).from(usersTable).where(inArray(usersTable.id, tweetsEntities.map(t => t.publishedBy))).execute();
   return tweetsEntities.map(tweet => {
   const maybeUser = usersData.filter(x => x.id === tweet.publishedBy).map(x => ({
     id: x.id,

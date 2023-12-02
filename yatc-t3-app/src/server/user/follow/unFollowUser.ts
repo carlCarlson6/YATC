@@ -2,7 +2,7 @@ import { protectedProcedure } from "yact/server/infrastructure/trpc";
 import z from "zod";
 import { type CheckIfFollowing, checkIfFollowingWithDrizzle } from "./checkIfFollowing";
 import type { DrizzleDb } from "yact/server/infrastructure/drizzle";
-import { follows } from "./follow.drizzle.schema";
+import { followsTable } from "./follow.drizzle.schema";
 import { eq } from "drizzle-orm";
 
 export const unFollowUserProcedure = protectedProcedure
@@ -29,11 +29,11 @@ const unFollowUser = ({ checkIfFollowing, removeFollower }: {
   await removeFollower(userWhoFollows, userToUnfollow);
 }
 
-const removeFollowerOnDrizzle = (db: DrizzleDb) => async (userWhoFollos: string, userToUnfollow: string) => {
+const removeFollowerOnDrizzle = (db: DrizzleDb) => async (userId: string, userToUnfollowId: string) => {
   await db
-    .delete(follows)
+    .delete(followsTable)
     .where(
-      eq(follows.userWhoIsFollowing, userWhoFollos) && 
-      eq(follows.userWhoIsFollowed, userToUnfollow))
+      eq(followsTable.userId, userId) && 
+      eq(followsTable.isFollowingUserId, userToUnfollowId))
     .execute();
 }

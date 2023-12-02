@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/dist/nextjs";
-import { domainEventsTypesSchema, type DomainMessagesTypes } from "yact/server/domain";
+import { domainEventsTypesSchema, type DomainMessagesTypes } from "yact/server/core/domain";
 import { match } from 'ts-pattern';
 import { handleUpdateUserTimeline as executeUpdateUserTimeline } from "yact/server/timeline/handleUpdateUserTimeline";
 import { executeHandler as executeTweetPublished } from "yact/server/send-tweet/handleNewTweetPublished";

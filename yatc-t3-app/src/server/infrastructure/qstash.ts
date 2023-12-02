@@ -1,5 +1,5 @@
 import { env } from "yact/env.mjs"
-import type { DomainCommandsTypes, DomainEventsTypes } from "../domain";
+import type { DomainCommandsTypes, DomainEventsTypes } from "../core/domain";
 
 export const qStashPublisher = (destination: string, message: {payload: string, type: DomainEventsTypes | DomainCommandsTypes}) => {
   console.log("sending to url", `${env.QSTASH_URL}/${destination}`)

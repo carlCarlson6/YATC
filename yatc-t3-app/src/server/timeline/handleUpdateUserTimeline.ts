@@ -1,4 +1,4 @@
-import { type TweetEntity, tweets } from "../send-tweet/tweet.drizzle.schema";
+import { type TweetEntity, tweetsTable } from "../send-tweet/tweet.drizzle.schema";
 import z from 'zod';
 import type { AppCache } from "yact/server/core/AppCache";
 import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
@@ -40,7 +40,7 @@ export const updateUserTimeline = ({cache, findTweet, buildTimeline}: {
 }
 
 export const findTweetOnDrizzleDb = (db: DrizzleDb) => async (tweetId: string) => {
-  const result = await db.select().from(tweets).where(eq(tweets.id, tweetId));
+  const result = await db.select().from(tweetsTable).where(eq(tweetsTable.id, tweetId));
   return result.at(0);
 }
 

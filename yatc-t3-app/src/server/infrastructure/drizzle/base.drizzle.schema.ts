@@ -1,33 +1,30 @@
 import { relations, sql } from "drizzle-orm";
 import {
   index,
-  int,
+  integer,
   primaryKey,
   text,
   timestamp,
   varchar,
-} from "drizzle-orm/mysql-core";
-import { tweets } from "yact/server/send-tweet/tweet.drizzle.schema";
-import { drizzleMySqlTable } from "./drizzleMySqlTable";
+} from "drizzle-orm/pg-core";
+import { tweetsTable } from "yact/server/send-tweet/tweet.drizzle.schema";
+import { drizzleTable } from "./drizzleTable";
 import type { AdapterAccount } from "node_modules/next-auth/adapters";
 
-export const users = drizzleMySqlTable("user", {
+export const usersTable = drizzleTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
-  emailVerified: timestamp("emailVerified", {
-    mode: "date",
-    fsp: 3,
-  }).default(sql`CURRENT_TIMESTAMP(3)`),
+  emailVerified: timestamp("emailVerified", { mode: "date", }).default(sql`CURRENT_TIMESTAMP(3)`),
   image: varchar("image", { length: 255 }),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
-  accounts: many(accounts),
-  tweets: many(tweets)
+export const usersTableRelations = relations(usersTable, ({ many }) => ({
+  accounts: many(accountsTable),
+  tweets: many(tweetsTable)
 }));
 
-export const accounts = drizzleMySqlTable(
+export const accountsTable = drizzleTable(
   "account",
   {
     userId: varchar("userId", { length: 255 }).notNull(),
@@ -38,7 +35,7 @@ export const accounts = drizzleMySqlTable(
     providerAccountId: varchar("providerAccountId", { length: 255 }).notNull(),
     refresh_token: text("refresh_token"),
     access_token: text("access_token"),
-    expires_at: int("expires_at"),
+    expires_at: integer("expires_at"),
     token_type: varchar("token_type", { length: 255 }),
     scope: varchar("scope", { length: 255 }),
     id_token: text("id_token"),
@@ -50,11 +47,11 @@ export const accounts = drizzleMySqlTable(
   })
 );
 
-export const accountsRelations = relations(accounts, ({ one }) => ({
-  user: one(users, { fields: [accounts.userId], references: [users.id] }),
+export const accountsTableRelations = relations(accountsTable, ({ one }) => ({
+  user: one(usersTable, { fields: [accountsTable.userId], references: [usersTable.id] }),
 }));
 
-export const sessions = drizzleMySqlTable(
+export const sessionsTable = drizzleTable(
   "session",
   {
     sessionToken: varchar("sessionToken", { length: 255 })
@@ -68,11 +65,11 @@ export const sessions = drizzleMySqlTable(
   })
 );
 
-export const sessionsRelations = relations(sessions, ({ one }) => ({
-  user: one(users, { fields: [sessions.userId], references: [users.id] }),
+export const sessionsTableRelations = relations(sessionsTable, ({ one }) => ({
+  user: one(usersTable, { fields: [sessionsTable.userId], references: [usersTable.id] }),
 }));
 
-export const verificationTokens = drizzleMySqlTable(
+export const verificationTokensTable = drizzleTable(
   "verificationToken",
   {
     identifier: varchar("identifier", { length: 255 }).notNull(),

@@ -1,14 +1,18 @@
 import { eq } from "drizzle-orm";
 import { type DrizzleDb, drizzleDb } from "yact/server/infrastructure/drizzle";
-import { follows } from "./follow.drizzle.schema";
+import { followsTable } from "./follow.drizzle.schema";
+import { tweetsTable } from "yact/server/send-tweet/tweet.drizzle.schema";
 
 export const checkIfFollowingWithDrizzle = (db: DrizzleDb) => async (
-  userWhoIsFollowing: string, 
-  userWhoIsFollowed: string
+  userId: string, 
+  userIsFollowingId: string
 ) => {
-  const result = await db.query.follows.findFirst({
-    where: eq(follows.userWhoIsFollowing, userWhoIsFollowing) && eq(follows.userWhoIsFollowed, userWhoIsFollowed)
-  }).execute();
+  const results = await db
+    .select({})
+    .from(tweetsTable)
+    .where(eq(followsTable.id, userId) && eq(followsTable.isFollowingUserId, userIsFollowingId))
+    .execute();
+  const result = results.at(0);
   return !result ? false : true;
 };
 

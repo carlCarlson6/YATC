@@ -8,7 +8,7 @@ import DiscordProvider from "next-auth/providers/discord";
 
 import { env } from "yact/env.mjs";
 import { drizzleDb } from "yact/server/infrastructure/drizzle";
-import { drizzleMySqlTable } from "../drizzle/drizzleMySqlTable";
+import { drizzleTable } from "../drizzle/drizzleTable";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 declare module "next-auth" {
@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
-  adapter: DrizzleAdapter(drizzleDb, drizzleMySqlTable),
+  adapter: DrizzleAdapter(drizzleDb, drizzleTable),
   providers: [
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
