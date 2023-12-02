@@ -70,7 +70,7 @@ export const sessionsTableRelations = relations(sessionsTable, ({ one }) => ({
 }));
 
 export const verificationTokensTable = drizzleTable(
-  "verificationToken",
+  "verificationtoken",
   {
     identifier: varchar("identifier", { length: 255 }).notNull(),
     token: varchar("token", { length: 255 }).notNull(),
