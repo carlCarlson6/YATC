@@ -1,6 +1,6 @@
 import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
-import { tweetsTable } from "../send-tweet/tweet.drizzle.schema";
+import { tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
 import { desc, eq } from "drizzle-orm";
 import type { Timeline } from "../timeline/build-timeline";
 

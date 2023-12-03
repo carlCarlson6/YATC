@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "tweet" (
 	"id" varchar(255) PRIMARY KEY NOT NULL,
 	"text" varchar(280) NOT NULL,
 	"publishedBy" varchar(255) NOT NULL,
-	"publishedAt" integer NOT NULL
+	"publishedAt" numeric NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "follows" (

@@ -2,7 +2,7 @@ import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
 import { eq } from "drizzle-orm";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 
-const getUserProfileWithDrizzle = (db: DrizzleDb) => async (userName: string) => {
+export const getUserProfileWithDrizzle = (db: DrizzleDb) => async (userName: string) => {
   const result = await db
     .select({
       id: usersTable.id,
@@ -22,5 +22,3 @@ const getUserProfileWithDrizzle = (db: DrizzleDb) => async (userName: string) =>
       avatar: maybeUser.avatar ?? "",
     };
 }
-
-export const findUserProfile = (userName: string) => getUserProfileWithDrizzle(drizzleDb)(userName);

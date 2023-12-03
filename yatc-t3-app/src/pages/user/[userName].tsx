@@ -1,5 +1,6 @@
 import { Box } from "@radix-ui/themes";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { drizzleDb } from "src/server/infrastructure/drizzle";
 import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
 import { sanitizeQueryParams } from "src/server/infrastructure/sanitize-query-params";
 import type { Timeline } from "src/server/timeline/build-timeline";
@@ -37,6 +38,6 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const authResult = await authPageGuard(context);
   if (authResult.result == "unauthenticated") return authResult.redirectReturn;
-  const data = await loadUserProfileData(authResult.user, sanitizeQueryParams(context.query.userName));
+  const data = await loadUserProfileData(drizzleDb)(authResult.user, sanitizeQueryParams(context.query.userName));
   return !data ? { notFound: true } : { props: { ...data } }
 }

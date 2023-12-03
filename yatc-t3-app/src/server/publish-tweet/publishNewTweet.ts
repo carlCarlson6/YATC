@@ -3,7 +3,7 @@ import type { QStashPublisher } from "../infrastructure/qstash";
 import type { User } from "../user/user";
 import { tweetsTable, type TweetEntity } from "./tweet.drizzle.schema";
 
-export const saveNewTweet = ({storeTweet, sendNewTweetPublished}: {
+export const publishNewTweet = ({storeTweet, sendNewTweetPublished}: {
   storeTweet: (tweet: TweetEntity) => Promise<void>,
   sendNewTweetPublished: (tweet: TweetEntity) => Promise<void>,
 }) => async (

@@ -1,7 +1,7 @@
 import { drizzle } from 'drizzle-orm/postgres-js'
 import * as baseSchema from "src/server/infrastructure/drizzle/base.drizzle.schema";
-import * as tweetSchema from "src/server/send-tweet/tweet.drizzle.schema";
-import * as followsSchema from "src/server/user/follow/follow.drizzle.schema"
+import * as tweetSchema from "src/server/publish-tweet/tweet.drizzle.schema";
+import * as followsSchema from "src/server/user/follows/follow.drizzle.schema"
 import postgres from 'postgres'
 
 export const drizzleSchema = {

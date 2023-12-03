@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "f82de841-a1dc-4d7e-85ff-c2ea191f1405",
+  "id": "69f9dfe7-4ac5-4d15-a613-7ac81939e167",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -233,7 +233,7 @@
         },
         "publishedAt": {
           "name": "publishedAt",
-          "type": "integer",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": true
         }

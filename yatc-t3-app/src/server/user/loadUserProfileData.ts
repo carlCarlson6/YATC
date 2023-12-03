@@ -1,21 +1,21 @@
 import { getUserTweets } from "src/server/user/get-user-tweets";
 import type { User } from "src/server/user/user";
-import { findUserProfile } from "src/server/user/get-user-profile";
-import { checkIfFollowing } from "src/server/user/follow/checkIfFollowing";
-import { countFollowers, countFollowing } from "src/server/user/follow/counting";
+import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "./follows/counting";
+import type { DrizzleDb } from "../infrastructure/drizzle";
+import { checkIfFollowingWithDrizzle } from "./follows/checkIfFollowing";
+import { getUserProfileWithDrizzle } from "./getUserProfile";
 
-export const loadUserProfileData = async (userWhoExecutesRequest: User, userNameOfProfileToLoad: string) => {
-  const maybeUser = await findUserProfile(userNameOfProfileToLoad);
-  return !maybeUser
-    ? null
-    : {
-      user: {
-        ...maybeUser,
-        isOwnProfile: maybeUser.id === userWhoExecutesRequest.id,
-        followed: await checkIfFollowing(userWhoExecutesRequest.id, maybeUser.id),
-        followersCount: await countFollowers(maybeUser.id),
-        followingCount: await countFollowing(maybeUser.id),
-      },
-      tweets: await getUserTweets(maybeUser.id),
-    };
+export const loadUserProfileData = (db: DrizzleDb) => async (userWhoExecutesRequest: User, userNameOfProfileToLoad: string) => {
+  const maybeUser = await getUserProfileWithDrizzle(db)(userNameOfProfileToLoad);
+  if (!maybeUser) return null;
+  return {
+    user: {
+      ...maybeUser,
+      isOwnProfile: maybeUser.id === userWhoExecutesRequest.id,
+      followed: await checkIfFollowingWithDrizzle(db)(userWhoExecutesRequest.id, maybeUser.id),
+      followersCount: await countFollowersOnDrizzle(db)(maybeUser.id),
+      followingCount: await countFollowingOnDrizzle(db)(maybeUser.id),
+    },
+    tweets: await getUserTweets(maybeUser.id),
+  };
 };

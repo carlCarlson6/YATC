@@ -6,7 +6,7 @@ export const useAddTweet = () => {
   const addTweet = useTimeline(x => x.addTweet);
   const [open, setOpen] = useState(false);
   const [newTweetText, setNewTweetText] = useState("");
-  const { mutate, isLoading } = api.sendTweet.useMutation({
+  const { mutate, isLoading } = api.publishTweet.useMutation({
     onSuccess: (result) => {
       addTweet(result);
       setNewTweetText("");

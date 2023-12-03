@@ -1,14 +1,14 @@
 import { createTRPCRouter } from "src/server/infrastructure/trpc";
-import { sendTweetProcedure } from "src/server/send-tweet/send-tweet-procedure";
+import { publishTweetProcedure } from "src/server/publish-tweet/sendTweetProcedure";
 import { findUsersProcedure } from "src/server/user/findUsersProcedure";
-import { followUserProcedure } from "src/server/user/follow/followUser";
-import { unFollowUserProcedure } from "src/server/user/follow/unFollowUser";
+import { followUserProcedure } from "src/server/user/follows/follow/followUserProcedure";
+import { unFollowUserProcedure } from "src/server/user/follows/unfollow/unFollowUser";
 
 export const appRouter = createTRPCRouter({
-  sendTweet:  sendTweetProcedure,
-  follow:     followUserProcedure,
-  unfollow:   unFollowUserProcedure,
-  findUsers:  findUsersProcedure,
+  publishTweet: publishTweetProcedure,
+  follow:       followUserProcedure,
+  unfollow:     unFollowUserProcedure,
+  findUsers:    findUsersProcedure,
 });
 
 export type AppRouter = typeof appRouter;

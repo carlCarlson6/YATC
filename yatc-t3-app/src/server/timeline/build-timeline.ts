@@ -1,9 +1,9 @@
 import { desc, eq, inArray } from "drizzle-orm";
 import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
-import { type TweetEntity, tweetsTable } from "../send-tweet/tweet.drizzle.schema";
+import { type TweetEntity, tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
 import type { ArrElement } from "../core/ArrElement";
-import { followsTable } from "../user/follow/follow.drizzle.schema";
+import { followsTable } from "../user/follows/follow.drizzle.schema";
 import type { AppCache } from "../core/AppCache";
 import { timelineId } from "./timelineId";
 import type { User } from "../user/user";

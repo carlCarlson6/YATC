@@ -12,5 +12,5 @@ export const newTweetPublishedSchema = z.object({
 export const domainCommandsTypes = z.enum(["update-user-timeline"]);
 export type DomainCommandsTypes = z.infer<typeof domainCommandsTypes>;
 
-export const domainMessagesTypes = z.union([domainEventsTypesSchema, domainCommandsTypes]);
-export type DomainMessagesTypes = z.infer<typeof domainMessagesTypes>;
+export const domainMessagesTypesSchema = z.union([domainEventsTypesSchema, domainCommandsTypes]);
+export type DomainMessagesTypes = z.infer<typeof domainMessagesTypesSchema>;
