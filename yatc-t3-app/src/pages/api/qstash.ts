@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/dist/nextjs";
-import { newTweetPublishedSchema, type DomainMessagesTypes, domainMessagesTypesSchema } from "src/server/core/domain";
+import { newTweetPublishedSchema, domainMessagesTypesSchema } from "src/server/core/domain";
 import { match } from 'ts-pattern';
 import { findTweetOnDrizzleDb, updateUserTimeline, updateUserTimelineCommanSchema } from "src/server/timeline/handleUpdateUserTimeline";
 import { drizzleDb } from "src/server/infrastructure/drizzle";
@@ -9,7 +9,7 @@ import { qStashPublisher } from "src/server/infrastructure/qstash";
 import { getServerUrl } from "src/server/infrastructure/getServerUrl";
 import { vercelKvCache } from "src/server/infrastructure/vercelKv";
 import { handleNewTweetPublished, loadFollowersFromDrizzleDb } from "src/server/publish-tweet/handleNewTweetPublished";
-import { buildTimelineFromDb } from "src/server/timeline/build-timeline";
+import { buildTimelineFromDb } from "src/server/timeline/buildTimeline";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log("hit message qstash message handler", 'recived evnet', req.headers.messagetype)

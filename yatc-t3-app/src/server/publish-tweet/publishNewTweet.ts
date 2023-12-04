@@ -14,7 +14,7 @@ export const publishNewTweet = ({storeTweet, sendNewTweetPublished}: {
     id: crypto.randomUUID(),
     text: tweetText,
     publishedBy: userPublisher.id,
-    publishedAt: Date.now()/1000,
+    publishedAt: `${Date.now()/1000}`,
   };
 
   await storeTweet(tweet);
@@ -30,11 +30,10 @@ export const storeTweetWithDrizzle = (db: DrizzleDb) => async (tweet: TweetEntit
   await db.insert(tweetsTable).values(tweet).execute();
 }
 
-export const sendNewTweetPublishedWithQStash = (qstash: QStashPublisher, appUrl: string) => async (tweet: TweetEntity) => {
-  console.log("publishing event", "tweet-published", "to", `${appUrl}/api/qstash`);
-  const result = await qstash(`${appUrl}/api/qstash`, {
+export const sendNewTweetPublishedWithQStash = (qstash: QStashPublisher, appUrl: string) => (tweet: TweetEntity) => qstash(
+  `${appUrl}/api/qstash`, 
+  {
     type: "tweet-published",
     payload: JSON.stringify({ tweetId: tweet.id, publishedBy: tweet.publishedBy })
-  });
-  console.log("result of send message", result);
-}
+  }
+);

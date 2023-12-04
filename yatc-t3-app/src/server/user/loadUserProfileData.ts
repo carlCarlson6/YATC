@@ -1,9 +1,9 @@
-import { getUserTweets } from "src/server/user/get-user-tweets";
 import type { User } from "src/server/user/user";
 import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "./follows/counting";
 import type { DrizzleDb } from "../infrastructure/drizzle";
 import { checkIfFollowingWithDrizzle } from "./follows/checkIfFollowing";
 import { getUserProfileWithDrizzle } from "./getUserProfile";
+import { getUserTweetsWithDrizzle } from "./getUserTweets";
 
 export const loadUserProfileData = (db: DrizzleDb) => async (userWhoExecutesRequest: User, userNameOfProfileToLoad: string) => {
   const maybeUser = await getUserProfileWithDrizzle(db)(userNameOfProfileToLoad);
@@ -16,6 +16,6 @@ export const loadUserProfileData = (db: DrizzleDb) => async (userWhoExecutesRequ
       followersCount: await countFollowersOnDrizzle(db)(maybeUser.id),
       followingCount: await countFollowingOnDrizzle(db)(maybeUser.id),
     },
-    tweets: await getUserTweets(maybeUser.id),
+    tweets: await getUserTweetsWithDrizzle(db)(maybeUser.id),
   };
 };

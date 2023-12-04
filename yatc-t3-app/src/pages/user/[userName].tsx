@@ -1,29 +1,31 @@
 import { Box } from "@radix-ui/themes";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
+import type { Timeline } from "src/server/core/Tweet";
 import { drizzleDb } from "src/server/infrastructure/drizzle";
 import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
 import { sanitizeQueryParams } from "src/server/infrastructure/sanitize-query-params";
-import type { Timeline } from "src/server/timeline/build-timeline";
 import { loadUserProfileData } from "src/server/user/loadUserProfileData";
 import type { User } from "src/server/user/user";
 import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";
 
-const UserProfile = ({user, tweets}: UserProfileProps) => (
-  <Box>
-    <UserProfileControls 
-      isOwnProfile={user.isOwnProfile} 
-      followed={user.followed}
-      userId={user.id}
-    />
-    <UserProfileDisplay 
-      user={user} 
-      tweets={tweets} 
-    />
-  </Box>
-);
-
-export default UserProfile;
+export default function UserProfile({user, tweets}: UserProfileProps) {
+  return(<>
+    <Head><title>YATC | {user.name}</title></Head>
+    <Box>
+      <UserProfileControls 
+        isOwnProfile={user.isOwnProfile} 
+        followed={user.followed}
+        userId={user.id}
+      />
+      <UserProfileDisplay 
+        user={user} 
+        tweets={tweets} 
+      />
+    </Box>
+  </>);
+}
 
 export type UserProfileProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 

@@ -3,7 +3,7 @@ import { type DrizzleDb } from "../infrastructure/drizzle";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 import { followsTable } from "../user/follows/follow.drizzle.schema";
 import { type SendUpdateUserTimeline } from "../timeline/sendUpdateUserTimeline";
-import { updateUserTimeline } from "../timeline/handleUpdateUserTimeline";
+import type { updateUserTimeline } from "../timeline/handleUpdateUserTimeline";
 
 export const handleNewTweetPublished = ({loadFollower, publish, updateTimeline}: {
   loadFollower: (userId: string) => Promise<string[]>, 

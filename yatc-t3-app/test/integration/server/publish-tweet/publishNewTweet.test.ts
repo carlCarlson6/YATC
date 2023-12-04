@@ -1,7 +1,7 @@
+import { expect,vi, test } from 'vitest';
 import { publishNewTweet, storeTweetWithDrizzle } from 'src/server/publish-tweet/publishNewTweet';
 import { TweetEntity } from 'src/server/publish-tweet/tweet.drizzle.schema';
 import { setupDockerTestDb } from 'test/helpers/setupTestingDb';
-import { expect,vi, test } from 'vitest';
 
 test("GivenTweet_WhenPublishTweet_ThenANewTweetIsReturned", async () => {
   const {db} = await setupDockerTestDb();

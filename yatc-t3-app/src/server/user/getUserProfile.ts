@@ -1,4 +1,4 @@
-import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
+import { type DrizzleDb } from "../infrastructure/drizzle";
 import { eq } from "drizzle-orm";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 

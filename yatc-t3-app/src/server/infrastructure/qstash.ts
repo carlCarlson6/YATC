@@ -1,9 +1,9 @@
 import { env } from "src/env.mjs"
 import type { DomainCommandsTypes, DomainEventsTypes } from "../core/domain";
 
-export const qStashPublisher = (destination: string, message: {payload: string, type: DomainEventsTypes | DomainCommandsTypes}) => {
-  console.log("sending to url", `${env.QSTASH_URL}/${destination}`)
-  return fetch(
+export const qStashPublisher = async (destination: string, message: {payload: string, type: DomainEventsTypes | DomainCommandsTypes}) => {
+  console.log("publishing event", message.type, "to", destination);
+  const result = await fetch(
     `${env.QSTASH_URL}/${destination}`,
     {
       method: "POST",
@@ -14,6 +14,7 @@ export const qStashPublisher = (destination: string, message: {payload: string, 
         "Upstash-Forward-MessageType": message.type
       }
     });
+  console.log("publish action result", result.status);
 };
 
 export type QStashPublisher = typeof qStashPublisher;

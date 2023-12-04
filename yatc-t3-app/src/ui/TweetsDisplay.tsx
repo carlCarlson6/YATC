@@ -1,5 +1,5 @@
 import { Avatar, Box, Card, Flex, Text, Link } from "@radix-ui/themes";
-import type { Tweet } from "src/server/timeline/build-timeline";
+import type { Tweet } from "src/server/core/Tweet";
 
 export const TweetsDisplay: React.FC<{ tweets: Tweet[]; }> = ({ tweets }) => (
   <Box>

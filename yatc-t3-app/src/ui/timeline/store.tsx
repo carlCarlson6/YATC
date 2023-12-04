@@ -1,6 +1,6 @@
-import type { Timeline, Tweet } from 'src/server/timeline/build-timeline';
 import { create, useStore } from 'zustand';
 import React, { createContext, useContext, useRef } from 'react'
+import type { Timeline, Tweet } from 'src/server/core/Tweet';
 
 interface TimelineState {
   timeline: Timeline,

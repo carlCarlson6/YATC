@@ -1,10 +1,10 @@
-import { type DrizzleDb, drizzleDb } from "../infrastructure/drizzle";
+import type { Timeline } from "../core/Tweet";
+import { type DrizzleDb } from "../infrastructure/drizzle";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 import { tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
 import { desc, eq } from "drizzle-orm";
-import type { Timeline } from "../timeline/build-timeline";
 
-const getUserTweetsWithDrizzle = (db: DrizzleDb) => async (userId: string): Promise<Timeline> => {
+export const getUserTweetsWithDrizzle = (db: DrizzleDb) => async (userId: string): Promise<Timeline> => {
   const result = await db
     .select({
       id: tweetsTable.id,
@@ -29,5 +29,3 @@ const getUserTweetsWithDrizzle = (db: DrizzleDb) => async (userId: string): Prom
     }
   }))
 }
-
-export const getUserTweets = getUserTweetsWithDrizzle(drizzleDb);
