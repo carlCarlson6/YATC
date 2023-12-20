@@ -11,7 +11,8 @@ test("GivenTweet_WhenPublishTweet_ThenANewTweetIsReturned", async () => {
     sendNewTweetPublished: vi.fn((_: TweetEntity) => Promise.resolve())
   })({ id: "some-user-id", name: "some-user", avatar: "some-image.png" }, "some-text");
 
-  expect(newTweet).toMatchSnapshot({id: expect.any(String)})
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  expect(newTweet).toMatchSnapshot({id: expect.any(String), publishedAt: expect.any(String)}) // TODO - use date mocks for the published at
 });
 
 test("GivenTweet_WhenPublishTweet_ThenANewTweetIsStored", async () => {
@@ -23,7 +24,8 @@ test("GivenTweet_WhenPublishTweet_ThenANewTweetIsStored", async () => {
   })({ id: "some-user-id", name: "some-user", avatar: "some-image.png" }, "some-text");
   
   const storedTweet = await db.query.tweetsTable.findFirst().execute();
-  expect(storedTweet).toMatchSnapshot({id: expect.any(String)})
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  expect(storedTweet).toMatchSnapshot({id: expect.any(String), publishedAt: expect.any(String)}) // TODO - use date mocks for the published at
 });
 
 test("GivenTweet_WhenPublishTweet_ThenSendNewTweetPublishedIsCalled", async () => {

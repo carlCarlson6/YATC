@@ -7,9 +7,7 @@ import { LandingHeading, EnterButton, DevelopedBy, TechStack } from "src/ui/land
 
 export default function Landing() {
 	return (<>
-		<Head>
-    	<title>YATC</title>
-		</Head>
+		<Head><title>YATC</title></Head>
 		<Container
 			pt={'5'}
 		>

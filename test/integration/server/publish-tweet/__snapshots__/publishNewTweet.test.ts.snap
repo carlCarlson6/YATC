@@ -3,7 +3,7 @@
 exports[`GivenTweet_WhenPublishTweet_ThenANewTweetIsReturned 1`] = `
 {
   "id": Any<String>,
-  "publishedAt": 1701561649.243,
+  "publishedAt": Any<String>,
   "publishedBy": "some-user-id",
   "text": "some-text",
   "user": {
@@ -17,7 +17,7 @@ exports[`GivenTweet_WhenPublishTweet_ThenANewTweetIsReturned 1`] = `
 exports[`GivenTweet_WhenPublishTweet_ThenANewTweetIsStored 1`] = `
 {
   "id": Any<String>,
-  "publishedAt": "1701561650.365",
+  "publishedAt": Any<String>,
   "publishedBy": "some-user-id",
   "text": "some-text",
 }

@@ -23,7 +23,7 @@ export default function Timeline({serverTimeline, user}: TimelineProps) {
         <TimelineDisplay />
       </Box>
     </TimelineProvider>
-    </>);
+  </>);
 }
 
 export const getServerSideProps: GetServerSideProps<{
