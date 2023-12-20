@@ -20,6 +20,9 @@ export const LandingHeading = () => (<>
 	<Heading>
 		Yet another Twitter clone
 	</Heading>
+	<Heading size={'3'}>
+		(but with emojis)
+	</Heading>
 </>);
 
 export const EnterButton = () => (
