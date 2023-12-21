@@ -8,7 +8,6 @@ import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guar
 import type { User } from "src/server/user/user";
 import Head from "next/head";
 import { getTimeline } from "src/server/timeline/getTimeline";
-import { vercelKvCache } from "src/server/infrastructure/vercelKv";
 import { drizzleDb } from "src/server/infrastructure/drizzle";
 import type { Timeline } from "src/server/core/Tweet";
 
@@ -38,7 +37,6 @@ export const getServerSideProps: GetServerSideProps<{
     props: {
       user: authResult.user,
       serverTimeline: await getTimeline({
-        cache: vercelKvCache,
         buildTimeline: buildTimelineFromDb(drizzleDb),
         addUserData: addUserData(drizzleDb),
       })(authResult.user.id),

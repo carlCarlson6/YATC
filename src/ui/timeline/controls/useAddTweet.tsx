@@ -3,12 +3,12 @@ import { api } from "../../api";
 import { useTimeline } from "../store";
 
 export const useAddTweet = () => {
-  const addTweet = useTimeline(x => x.addTweet);
+  const _ = useTimeline(x => x.addTweet);
   const [open, setOpen] = useState(false);
   const [newTweetText, setNewTweetText] = useState("");
   const { mutate, isLoading } = api.publishTweet.useMutation({
-    onSuccess: (result) => {
-      addTweet(result);
+    onSuccess: () => {
+      //addTweet(result); // TODO
       setNewTweetText("");
       setOpen(false);
     }

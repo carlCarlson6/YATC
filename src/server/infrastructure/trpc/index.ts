@@ -5,17 +5,14 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 import { getServerAuthSession } from "src/server/infrastructure/nextauth";
 import { drizzleDb } from "../drizzle";
-import { getServerUrl } from "../getServerUrl";
 
 interface CreateContextOptions {
   session: Session | null;
-  serverUrl: string;
 }
 
 const createInnerTRPCContext = (opts: CreateContextOptions) => ({
   session: opts.session,
   db: drizzleDb,
-  serverUrl: opts.serverUrl
 });
 
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
@@ -23,7 +20,6 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const session = await getServerAuthSession({ req, res });
   return createInnerTRPCContext({
     session,
-    serverUrl: getServerUrl(req),
   });
 };
 
