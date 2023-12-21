@@ -5,30 +5,14 @@ import { useAddTweet } from "./useAddTweet";
 import EmojiPicker, { SuggestionMode, Theme } from 'emoji-picker-react';
 import React from "react";
 
-export const AddTweetButton = () => {
+export const AddTweet = () => {
   const { emoji, form } = useAddTweet();
   return (
     <Dialog.Root open={form.isOpen} onOpenChange={form.setIsOpen}>
-      <Dialog.Trigger>
-      <Button
-        variant={'outline'}
-        style={{ cursor: 'pointer' }}
-      >
-        <Flex
-          align={'center'}
-          justify={'center'}
-          direction={'row'}
-          gap={'3'}
-        >
-          <PlusCircledIcon />
-        </Flex>
-      </Button>
-      </Dialog.Trigger>
+      <ShowAddEmojiButton />
       <Dialog.Content>
         <Flex direction={'column'} gap={'3'}>
-
           <PickEmoji emoji={emoji} setEmoji={form.setEmoji}/>
-          
           <DialogButtons 
             isSending={form.isSending}
             canSend={form.canSend}
@@ -41,6 +25,24 @@ export const AddTweetButton = () => {
   );
 };
 
+const ShowAddEmojiButton = () => (
+  <Dialog.Trigger>
+    <Button
+      variant={'outline'}
+      style={{ cursor: 'pointer' }}
+    >
+      <Flex
+        align={'center'}
+        justify={'center'}
+        direction={'row'}
+        gap={'3'}
+      >
+        <PlusCircledIcon />
+      </Flex>
+    </Button>
+  </Dialog.Trigger>
+);
+
 const PickEmoji: React.FC<{
   emoji: string, 
   setEmoji: (emoji: string) => void
@@ -52,8 +54,11 @@ const PickEmoji: React.FC<{
     <EmojiPicker
       suggestedEmojisMode={SuggestionMode.FREQUENT}
       theme={Theme.DARK}
-      onEmojiClick={x => setEmoji(x.emoji)} />
-    <Text size={'9'}>{emoji}</Text>
+      onEmojiClick={x => setEmoji(x.emoji)} 
+    />
+    <Flex direction={'column'} align={'center'} justify={'center'}>
+      <Text size={'9'}>{emoji}</Text>
+    </Flex>
   </Flex>
 );
 
@@ -65,7 +70,7 @@ const DialogButtons: React.FC<{
 }> = ({
   isSending, canSend, send, onClose
 }) => (
-  <Flex justify={'end'} gap={'3'}>{
+  <Flex justify={'end'}>{
     isSending ?
       <Box pt={'1'}>
         <SyncLoader
@@ -84,11 +89,6 @@ const DialogButtons: React.FC<{
         >
           <UploadIcon />
         </IconButton>
-        <Dialog.Close onClick={onClose}>
-          <IconButton color="red" variant='outline' style={{ cursor: 'pointer' }}>
-            <TrashIcon />
-          </IconButton>
-        </Dialog.Close>
       </>
   }</Flex>
 );
