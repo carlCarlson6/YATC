@@ -9,14 +9,14 @@ import type { User } from "src/server/user/user";
 import Head from "next/head";
 import { getTimeline } from "src/server/timeline/getTimeline";
 import { drizzleDb } from "src/server/infrastructure/drizzle";
-import type { Timeline } from "src/server/core/Tweet";
+import type { Timeline } from "src/server/core/EmojiTweet";
 
-export default function Timeline({serverTimeline, user}: TimelineProps) {
+export default function Timeline({timeline, user}: TimelineProps) {
   return (<>
     <Head>
       <title>YATC | TIMELINE</title>
     </Head>
-    <TimelineProvider timeline={serverTimeline}>
+    <TimelineProvider timeline={timeline}>
       <Box>
         <TimeLineControls user={user}/>
         <TimelineDisplay />
@@ -26,7 +26,7 @@ export default function Timeline({serverTimeline, user}: TimelineProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  serverTimeline: Timeline,
+  timeline: Timeline,
   user: User
 }> = async (context) => {
   const authResult = await authPageGuard(context);
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       user: authResult.user,
-      serverTimeline: await getTimeline({
+      timeline: await getTimeline({
         buildTimeline: buildTimelineFromDb(drizzleDb),
         addUserData: addUserData(drizzleDb),
       })(authResult.user.id),

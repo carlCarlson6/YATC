@@ -15,3 +15,4 @@ export const tweetsTable = drizzleTable("tweet", {
 export const tweetsTableRelations = relations(tweetsTable, ({one}) => ({
   user: one(usersTable, { fields: [tweetsTable.publishedBy], references: [usersTable.id] })
 }));
+

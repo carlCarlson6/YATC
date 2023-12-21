@@ -1,7 +1,7 @@
 import { Box } from "@radix-ui/themes";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
-import type { Timeline } from "src/server/core/Tweet";
+import type { Timeline } from "src/server/core/EmojiTweet";
 import { drizzleDb } from "src/server/infrastructure/drizzle";
 import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
 import { sanitizeQueryParams } from "src/server/infrastructure/sanitize-query-params";

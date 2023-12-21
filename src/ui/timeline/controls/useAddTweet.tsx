@@ -5,30 +5,23 @@ import { useTimeline } from "../store";
 export const useAddTweet = () => {
   const _ = useTimeline(x => x.addTweet);
   const [open, setOpen] = useState(false);
-  const [newTweetText, setNewTweetText] = useState("");
+  const [emoji, setEmoji] = useState("");
   const { mutate, isLoading } = api.publishTweet.useMutation({
     onSuccess: () => {
       //addTweet(result); // TODO
-      setNewTweetText("");
+      setEmoji("");
       setOpen(false);
     }
   });
-
-  const textColor: "indigo" | "red" = newTweetText.length < 280 ? "indigo" : "red";
   return {
-    newTweet: {
-      text: newTweetText,
-      progress: newTweetText.length / 280,
-      color: textColor,
-      length: newTweetText.length,
-    },
+    emoji,
     form: {
       isOpen: open,
       setIsOpen: setOpen,
-      onClose: () => setNewTweetText(""),
-      setText: setNewTweetText,
-      send: () => mutate({ text: newTweetText }),
-      canSend: newTweetText.length <= 0 || newTweetText.length > 280,
+      onClose: () => setEmoji(""),
+      setEmoji,
+      send: () => mutate({ text: emoji }),
+      canSend: emoji.length > 0,
       isSending: isLoading
     }
   };

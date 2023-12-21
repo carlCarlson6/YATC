@@ -1,4 +1,4 @@
-import type { Timeline } from "../core/Tweet";
+import type { Timeline } from "../core/EmojiTweet";
 import { type DrizzleDb } from "../infrastructure/drizzle";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 import { tweetsTable } from "../publish-tweet/tweet.drizzle.schema";

@@ -1,7 +1,7 @@
 import { Avatar, Box, Card, Flex, Text, Link } from "@radix-ui/themes";
-import type { Tweet } from "src/server/core/Tweet";
+import type { EmojiTweet } from "src/server/core/EmojiTweet";
 
-export const TweetsDisplay: React.FC<{ tweets: Tweet[]; }> = ({ tweets }) => (
+export const TweetsDisplay: React.FC<{ tweets: EmojiTweet[]; }> = ({ tweets }) => (
   <Box>
     <Flex
       gap={'3'}

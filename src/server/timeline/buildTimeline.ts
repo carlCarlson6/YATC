@@ -3,7 +3,7 @@ import { type DrizzleDb } from "../infrastructure/drizzle";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 import { type TweetEntity, tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
 import { followsTable } from "../user/follows/follow.drizzle.schema";
-import type { Timeline } from "../core/Tweet";
+import type { Timeline } from "../core/EmojiTweet";
 
 export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string) => {
   const resultFollowsTweets = await db
@@ -25,11 +25,13 @@ export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string) => 
   return [...followsTweets, ...userTweets].sort((x, y) => Number.parseFloat(x.publishedAt)-Number.parseFloat(y.publishedAt)).reverse();
 }
 
-export const addUserData = (db: DrizzleDb) => async (tweetsEntities: TweetEntity[]): Promise<Timeline> => {
-  if (tweetsEntities.length === 0) return [];
+export const addUserData = (_: DrizzleDb) => (_: TweetEntity[]): Promise<Timeline> => {
+  return Promise.resolve([]);
+  // TODO
+  /*if (tweetsEntities.length === 0) return [];
 
   const usersData = await db.select({
-  id: usersTable.id,
+    id: usersTable.id,
   name: usersTable.name,
   avatar: usersTable.image
   }).from(usersTable).where(inArray(usersTable.id, tweetsEntities.map(t => t.publishedBy))).execute();
@@ -43,5 +45,5 @@ export const addUserData = (db: DrizzleDb) => async (tweetsEntities: TweetEntity
     ...tweet,
     user: maybeUser ?? { id: "", name: "", avatar: "" }
   };
-  });
+  });*/
 }

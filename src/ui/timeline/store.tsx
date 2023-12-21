@@ -1,10 +1,10 @@
 import { create, useStore } from 'zustand';
 import React, { createContext, useContext, useRef } from 'react'
-import type { Timeline, Tweet } from 'src/server/core/Tweet';
+import type { Timeline, EmojiTweet } from 'src/server/core/EmojiTweet';
 
 interface TimelineState {
   timeline: Timeline,
-  addTweet: (tweet: Tweet) => void
+  addTweet: (tweet: EmojiTweet) => void
 }
 
 type TimelineStore = ReturnType<typeof createTimelineStore>

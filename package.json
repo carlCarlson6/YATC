@@ -30,6 +30,7 @@
     "@vercel/postgres": "^0.5.1",
     "drizzle-orm": "^0.28.6",
     "drizzle-zod": "^0.5.1",
+    "emoji-picker-react": "^4.5.16",
     "module-alias": "^2.2.3",
     "next": "^14.0.0",
     "next-absolute-url": "^1.2.2",

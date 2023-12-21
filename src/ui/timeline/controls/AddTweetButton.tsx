@@ -2,9 +2,11 @@ import { Box, Button, Dialog, Flex, TextArea, Text, IconButton } from "@radix-ui
 import { PlusCircledIcon, TrashIcon, UploadIcon } from "@radix-ui/react-icons";
 import { SyncLoader } from "react-spinners";
 import { useAddTweet } from "./useAddTweet";
+import EmojiPicker, { SuggestionMode, Theme } from 'emoji-picker-react';
+import React from "react";
 
 export const AddTweetButton = () => {
-  const { newTweet, form } = useAddTweet();
+  const { emoji, form } = useAddTweet();
   return (
     <Dialog.Root open={form.isOpen} onOpenChange={form.setIsOpen}>
       <Dialog.Trigger>
@@ -24,50 +26,69 @@ export const AddTweetButton = () => {
       </Dialog.Trigger>
       <Dialog.Content>
         <Flex direction={'column'} gap={'3'}>
-          <TextArea
-            size={'3'}
-            placeholder="What are you thinking about ... ?"
-            value={newTweet.text}
-            onChange={e => form.setText(e.target.value)} />
-          <Flex align={'center'} justify={'between'}>
-            <Flex gap={'3'} align={'center'}>
-              <progress value={newTweet.progress} />
-              <Text
-                color={newTweet.color}
-              >
-                {newTweet.length}/280
-              </Text>
-            </Flex>
-            <Flex gap={'3'}>
-              {form.isSending ?
-                <Box pt={'1'}>
-                  <SyncLoader
-                    size={7}
-                    color="#9EB1FF"
-                    speedMultiplier={0.5}
-                  />
-                </Box> :
-                <>
-                  <IconButton
-                    color="plum"
-                    variant="outline"
-                    style={{ cursor: 'pointer' }}
-                    disabled={form.canSend}
-                    onClick={form.send}
-                  >
-                    <UploadIcon />
-                  </IconButton>
-                  <Dialog.Close onClick={form.onClose}>
-                    <IconButton color="red" variant='outline' style={{ cursor: 'pointer' }}>
-                      <TrashIcon />
-                    </IconButton>
-                  </Dialog.Close>
-                </>
-              }
-            </Flex>
-          </Flex>
+
+          <PickEmoji emoji={emoji} setEmoji={form.setEmoji}/>
+          
+          <DialogButtons 
+            isSending={form.isSending}
+            canSend={form.canSend}
+            send={form.send}
+            onClose={form.onClose}
+          />
         </Flex>
       </Dialog.Content>
     </Dialog.Root>
   );
 };
+
+const PickEmoji: React.FC<{
+  emoji: string, 
+  setEmoji: (emoji: string) => void
+}> = ({
+  emoji, 
+  setEmoji
+}) => (
+  <Flex direction={'row'} gap={'9'}>
+    <EmojiPicker
+      suggestedEmojisMode={SuggestionMode.FREQUENT}
+      theme={Theme.DARK}
+      onEmojiClick={x => setEmoji(x.emoji)} />
+    <Text size={'9'}>{emoji}</Text>
+  </Flex>
+);
+
+const DialogButtons: React.FC<{
+  isSending: boolean,
+  canSend: boolean,
+  send: () => void,
+  onClose: () => void
+}> = ({
+  isSending, canSend, send, onClose
+}) => (
+  <Flex justify={'end'} gap={'3'}>{
+    isSending ?
+      <Box pt={'1'}>
+        <SyncLoader
+          size={7}
+          color="#9EB1FF"
+          speedMultiplier={0.5}
+        />
+      </Box> :
+      <>
+        <IconButton
+          color="plum"
+          variant="outline"
+          style={{ cursor: 'pointer' }}
+          disabled={!canSend}
+          onClick={send}
+        >
+          <UploadIcon />
+        </IconButton>
+        <Dialog.Close onClick={onClose}>
+          <IconButton color="red" variant='outline' style={{ cursor: 'pointer' }}>
+            <TrashIcon />
+          </IconButton>
+        </Dialog.Close>
+      </>
+  }</Flex>
+);
