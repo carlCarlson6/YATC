@@ -1,8 +1,8 @@
 import { Avatar, Box, Flex, Text, Separator } from "@radix-ui/themes";
-import { TweetsDisplay } from "src/ui/TweetsDisplay";
+import EmojeetDisplay from "src/ui/EmojeetDisplay";
 import type { UserProfileProps } from "../../pages/user/[userName]";
 
-export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>
+export const UserProfileDisplay = ({ user, emojeets }: UserProfileProps) => (<>
   <Box style={{ width: '85%', float: 'right' }}>
     <Flex  direction={'column'} gap={'5'}>
       <Box pb={'2'} grow={'1'}>
@@ -23,7 +23,7 @@ export const UserProfileDisplay = ({ user, tweets }: UserProfileProps) => (<>
       </Box>
       <Separator size={'4'} />
       <Box>
-        <TweetsDisplay tweets={tweets} />
+        <EmojeetDisplay emojeets={emojeets} />
       </Box>
     </Flex>
   </Box>

@@ -1,16 +1,15 @@
 import { Box } from "@radix-ui/themes";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
-import type { Timeline } from "src/server/core/Tweet";
-import { drizzleDb } from "src/server/infrastructure/drizzle";
+import type { Timeline } from "src/server/timeline/EmojiTweet";
 import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
 import { sanitizeQueryParams } from "src/server/infrastructure/sanitize-query-params";
-import { loadUserProfileData } from "src/server/user/loadUserProfileData";
+import loadUserProfileData from "src/server/user/loadUserProfileData";
 import type { User } from "src/server/user/user";
 import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";
 
-export default function UserProfile({user, tweets}: UserProfileProps) {
+export default function UserProfile({user, emojeets}: UserProfileProps) {
   return(<>
     <Head><title>YATC | {user.name}</title></Head>
     <Box>
@@ -21,7 +20,7 @@ export default function UserProfile({user, tweets}: UserProfileProps) {
       />
       <UserProfileDisplay 
         user={user} 
-        tweets={tweets} 
+        emojeets={emojeets} 
       />
     </Box>
   </>);
@@ -30,7 +29,7 @@ export default function UserProfile({user, tweets}: UserProfileProps) {
 export type UserProfileProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export const getServerSideProps: GetServerSideProps<{
-  tweets: Timeline,
+  emojeets: Timeline,
   user: User & { 
     isOwnProfile: boolean, 
     followed: boolean, 
@@ -39,7 +38,10 @@ export const getServerSideProps: GetServerSideProps<{
   },
 }> = async (context) => {
   const authResult = await authPageGuard(context);
-  if (authResult.result == "unauthenticated") return authResult.redirectReturn;
-  const data = await loadUserProfileData(drizzleDb)(authResult.user, sanitizeQueryParams(context.query.userName));
+  if (authResult.result == "unauthenticated") {
+    return authResult.redirectReturn;
+  }
+
+  const data = await loadUserProfileData(authResult.user, sanitizeQueryParams(context.query.userName));
   return !data ? { notFound: true } : { props: { ...data } }
 }

@@ -1,6 +1,6 @@
 import { Button } from "@radix-ui/themes";
 import React, { useState } from "react";
-import { ButtonLoaderIcon } from "src/ui/ButtonLoaderIcon";
+import ButtonLoaderIcon from "src/ui/ButtonLoaderIcon";
 import { api } from "src/ui/api";
 import { useRouter } from 'next/navigation';
 import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
@@ -38,7 +38,7 @@ export const FollowButton: React.FC<{ followed: boolean; userId: string }> = ({ 
 };
 
 const FollowButtonIcon: React.FC<{followed: boolean}> = ({followed}) => (<> 
-{ followed ?
-  <IoPersonRemoveOutline /> :
-  <IoPersonAddOutline />
+{ followed 
+  ? <IoPersonRemoveOutline /> 
+  : <IoPersonAddOutline />
 }</>);

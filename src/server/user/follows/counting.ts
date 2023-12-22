@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { type DrizzleDb } from "src/server/infrastructure/drizzle"
-import { followsTable } from "./follow.drizzle.schema";
+import { followsTable } from "./follows.drizzle.schema";
 
 export const countFollowersOnDrizzle = (db: DrizzleDb) => async (userId: string) => (await db
     .select()
