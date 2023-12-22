@@ -1,11 +1,13 @@
-import { desc, eq, inArray } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { type DrizzleDb } from "../infrastructure/drizzle";
-import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
-import { type TweetEntity, tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
-import { followsTable } from "../user/follows/follow.drizzle.schema";
-import type { Timeline } from "../core/EmojiTweet";
+//import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
+import { followsTable } from "../user/follows/follows.drizzle.schema";
+import type { Emojeet, Timeline } from "./EmojiTweet";
+import { EmojiEntity } from "../publish-emojeet/emojis.drizzle.schema";
 
 export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string) => {
+  return Promise.resolve<EmojiEntity[]>([]); // TODO
+  /*
   const resultFollowsTweets = await db
     .select({ tweet: tweetsTable })
     .from(followsTable)
@@ -23,9 +25,10 @@ export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string) => 
     .execute();
 
   return [...followsTweets, ...userTweets].sort((x, y) => Number.parseFloat(x.publishedAt)-Number.parseFloat(y.publishedAt)).reverse();
+  */
 }
 
-export const addUserData = (_: DrizzleDb) => (_: TweetEntity[]): Promise<Timeline> => {
+export const addUserData = (_: DrizzleDb) => (_: EmojiEntity[]): Promise<Timeline> => {
   return Promise.resolve([]);
   // TODO
   /*if (tweetsEntities.length === 0) return [];

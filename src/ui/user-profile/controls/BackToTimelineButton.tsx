@@ -2,7 +2,7 @@ import { Button } from "@radix-ui/themes";
 import { DoubleArrowLeftIcon } from "@radix-ui/react-icons";
 import { useRouter } from 'next/navigation';
 import React, { useState } from "react";
-import { ButtonLoaderIcon } from "src/ui/ButtonLoaderIcon";
+import ButtonLoaderIcon from "src/ui/ButtonLoaderIcon";
 
 
 export const BackToTimelineButton = () => {
@@ -17,9 +17,10 @@ export const BackToTimelineButton = () => {
         router.push("/timeline");
       }}
     >
-      {!isNavigating ?
-        <DoubleArrowLeftIcon /> :
-        <ButtonLoaderIcon />}
+      {!isNavigating 
+        ? <DoubleArrowLeftIcon /> 
+        : <ButtonLoaderIcon />
+      }
     </Button>
   </>);
 };

@@ -2,7 +2,7 @@ import { protectedProcedure } from "src/server/infrastructure/trpc";
 import z from "zod";
 import { type CheckIfFollowing, checkIfFollowingWithDrizzle } from "../checkIfFollowing";
 import type { DrizzleDb } from "src/server/infrastructure/drizzle";
-import { followsTable } from "../follow.drizzle.schema";
+import { followsTable } from "../follows.drizzle.schema";
 import { eq } from "drizzle-orm";
 
 export const unFollowUserProcedure = protectedProcedure

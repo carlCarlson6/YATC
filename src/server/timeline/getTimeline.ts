@@ -1,10 +1,17 @@
-import { type TweetEntity } from "../publish-tweet/tweet.drizzle.schema";
-import type { EmojiTweet } from "../core/EmojiTweet";
+import type { Emojeet } from "./EmojiTweet";
+import { addUserData, buildTimelineFromDb } from "./buildTimeline";
+import { drizzleDb } from "../infrastructure/drizzle";
+import { EmojiEntity } from "../publish-emojeet/emojis.drizzle.schema";
 
-export const getTimeline = ({ buildTimeline, addUserData }: {
-  buildTimeline: (userId: string) => Promise<TweetEntity[]>;
-  addUserData: (tweets: TweetEntity[]) => Promise<EmojiTweet[]>;
+const getTimeline = ({ fetchEmojeets, addUserData }: {
+  fetchEmojeets: (userId: string) => Promise<EmojiEntity[]>;
+  addUserData: (tweets: EmojiEntity[]) => Promise<Emojeet[]>;
 }) => async (userId: string) => {
-  const builtTimeline = await buildTimeline(userId);
+  const builtTimeline = await fetchEmojeets(userId);
   return await addUserData(builtTimeline);
 };
+
+export default getTimeline({
+  fetchEmojeets: buildTimelineFromDb(drizzleDb),
+  addUserData: addUserData(drizzleDb)
+})

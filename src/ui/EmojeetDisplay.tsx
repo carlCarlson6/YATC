@@ -1,13 +1,13 @@
 import { Avatar, Box, Card, Flex, Text, Link } from "@radix-ui/themes";
-import type { EmojiTweet } from "src/server/core/EmojiTweet";
+import type { Emojeet } from "src/server/timeline/EmojiTweet";
 
-export const TweetsDisplay: React.FC<{ tweets: EmojiTweet[]; }> = ({ tweets }) => (
+const EmojeetDisplay: React.FC<{ emojeets: Emojeet[]; }> = ({ emojeets }) => (
   <Box>
     <Flex
       gap={'3'}
       direction={'column'}
     > 
-    {tweets.map(x =>
+    {emojeets.map(x =>
       <Card 
         key={x.id}
         size={'1'} 
@@ -39,7 +39,7 @@ export const TweetsDisplay: React.FC<{ tweets: EmojiTweet[]; }> = ({ tweets }) =
               </Text>
             </Link>
             <Text as="div" size="3" color="indigo">
-              {x.text}
+              {x.emoji}
             </Text>
           </Box>
         </Flex>
@@ -48,3 +48,5 @@ export const TweetsDisplay: React.FC<{ tweets: EmojiTweet[]; }> = ({ tweets }) =
     </Flex>
   </Box>
 );
+
+export default EmojeetDisplay;

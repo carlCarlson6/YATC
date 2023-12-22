@@ -1,5 +1,5 @@
 import { type DrizzleDb } from "src/server/infrastructure/drizzle";
-import { followsTable } from "../follow.drizzle.schema";
+import { followsTable } from "../follows.drizzle.schema";
 import { type CheckIfFollowing } from "../checkIfFollowing";
 import { randomUUID } from "crypto";
 

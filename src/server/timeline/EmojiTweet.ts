@@ -1,4 +1,4 @@
-import { User } from "../user/user";
+import type { User } from "../user/user";
 
 export type Emojeet = {
   id: string;
@@ -8,7 +8,7 @@ export type Emojeet = {
   reactions: {
     emoji: string,
     user: User,
-  };
+  }[];
 };
 
 export type Timeline = Emojeet[];

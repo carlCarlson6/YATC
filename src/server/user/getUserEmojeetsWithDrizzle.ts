@@ -1,11 +1,12 @@
-import type { Timeline } from "../core/EmojiTweet";
+import type { Timeline } from "../timeline/EmojiTweet";
 import { type DrizzleDb } from "../infrastructure/drizzle";
-import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
-import { tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
-import { desc, eq } from "drizzle-orm";
+//import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
+//import { tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
+//import { desc, eq } from "drizzle-orm";
 
-export const getUserTweetsWithDrizzle = (db: DrizzleDb) => async (userId: string): Promise<Timeline> => {
-  const result = await db
+export const getUserEmojeetsWithDrizzle = (_: DrizzleDb) => async (_: string): Promise<Timeline> => {
+  return Promise.resolve([]); // TODO
+  /*const result = await db
     .select({
       id: tweetsTable.id,
       text: tweetsTable.text,
@@ -27,5 +28,5 @@ export const getUserTweetsWithDrizzle = (db: DrizzleDb) => async (userId: string
       name: x.user.name ?? "",
       avatar: x.user.avatar ?? ""
     }
-  }))
+  }))*/
 }
