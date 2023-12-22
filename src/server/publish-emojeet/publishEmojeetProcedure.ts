@@ -1,10 +1,9 @@
 import z from "zod";
 import { protectedProcedure } from "../infrastructure/trpc";
-import { DrizzleDb } from "../infrastructure/drizzle";
-import { User } from "../user/user";
-import { Emojeet } from "../timeline/EmojiTweet";
+import type { DrizzleDb } from "../infrastructure/drizzle";
+import type { User } from "../user/user";
+import type { Emojeet } from "../timeline/EmojiTweet";
 import { randomUUID } from "crypto";
-import { use } from "react";
 import { emojisTable } from "./emojis.drizzle.schema";
 
 export const publishEmojeetProcedure = protectedProcedure

@@ -1,32 +1,32 @@
 import type { Timeline } from "../timeline/EmojiTweet";
 import { type DrizzleDb } from "../infrastructure/drizzle";
-//import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
-//import { tweetsTable } from "../publish-tweet/tweet.drizzle.schema";
-//import { desc, eq } from "drizzle-orm";
+import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
+import { desc, eq } from "drizzle-orm";
+import { emojisTable } from "../publish-emojeet/emojis.drizzle.schema";
 
-export const getUserEmojeetsWithDrizzle = (_: DrizzleDb) => async (_: string): Promise<Timeline> => {
-  return Promise.resolve([]); // TODO
-  /*const result = await db
+export const getUserEmojeetsWithDrizzle = (db: DrizzleDb) => async (userId: string): Promise<Timeline> => {
+  const result = await db
     .select({
-      id: tweetsTable.id,
-      text: tweetsTable.text,
-      publishedAt: tweetsTable.publishedAt,
+      id: emojisTable.id,
+      emoji: emojisTable.emoji,
+      publishedAt: emojisTable.publishedAt,
       user: {
         id: usersTable.id,
         name: usersTable.name,
         avatar: usersTable.image,
       }
     })
-    .from(tweetsTable)
-    .innerJoin(usersTable, eq(tweetsTable.publishedBy, usersTable.id))
-    .where(eq(tweetsTable.publishedBy, userId))
-    .orderBy(desc(tweetsTable.publishedAt)).execute();
+    .from(emojisTable)
+    .innerJoin(usersTable, eq(emojisTable.publishedBy, usersTable.id))
+    .where(eq(emojisTable.publishedBy, userId))
+    .orderBy(desc(emojisTable.publishedAt)).execute();
   return result.map(x => ({
     ...x,
     user: {
       ...x.user,
       name: x.user.name ?? "",
       avatar: x.user.avatar ?? ""
-    }
-  }))*/
+    },
+    reactions: [] // TODO pending to load reactions
+  }))
 }

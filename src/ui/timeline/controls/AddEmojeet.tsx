@@ -6,7 +6,7 @@ import EmojiPicker, { SuggestionMode, Theme } from 'emoji-picker-react';
 import React from "react";
 
 export default function AddEmojeet() {
-  const { emoji, isOpen, setIsOpen, setEmoji, isSending, canSend, send, onClose } = useAddEmojeet();
+  const { emoji, isOpen, setIsOpen, setEmoji, isSending, canSend, send } = useAddEmojeet();
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <OpenDialogButton />
@@ -17,7 +17,7 @@ export default function AddEmojeet() {
             isSending={isSending}
             canSend={canSend}
             send={send}
-            onClose={onClose} />
+          />
         </Flex>
       </Dialog.Content>
     </Dialog.Root>
@@ -65,9 +65,8 @@ const DialogButtons: React.FC<{
   isSending: boolean,
   canSend: boolean,
   send: () => void,
-  onClose: () => void
 }> = ({
-  isSending, canSend, send, onClose
+  isSending, canSend, send
 }) => (
   <Flex justify={'end'}>{
     isSending ?

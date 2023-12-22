@@ -8,7 +8,7 @@ export const useAddEmojeet = () => {
   const [emoji, setEmoji] = useState("");
   const { mutate, isLoading } = api.publishEmojeet.useMutation({
     onSuccess: (result) => {
-      addEmojeet(result); // TODO
+      addEmojeet(result);
       setEmoji("");
       setOpen(false);
     }
@@ -17,7 +17,6 @@ export const useAddEmojeet = () => {
     emoji,
     isOpen: open,
     setIsOpen: setOpen,
-    onClose: () => setEmoji(""),
     setEmoji,
     send: () => mutate({ emoji }),
     canSend: emoji.length > 0,

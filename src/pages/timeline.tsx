@@ -32,10 +32,11 @@ export const getServerSideProps: GetServerSideProps<{
     return authResult.redirectReturn;
   }
   
+  const timeline = await getTimeline(authResult.user.id);
   return {
     props: {
       user: authResult.user,
-      timeline: await getTimeline(authResult.user.id),
+      timeline,
     }
   }
 }

@@ -1,7 +1,7 @@
 import type { Emojeet } from "./EmojiTweet";
 import { addUserData, buildTimelineFromDb } from "./buildTimeline";
 import { drizzleDb } from "../infrastructure/drizzle";
-import { EmojiEntity } from "../publish-emojeet/emojis.drizzle.schema";
+import type { EmojiEntity } from "../publish-emojeet/emojis.drizzle.schema";
 
 const getTimeline = ({ fetchEmojeets, addUserData }: {
   fetchEmojeets: (userId: string) => Promise<EmojiEntity[]>;
