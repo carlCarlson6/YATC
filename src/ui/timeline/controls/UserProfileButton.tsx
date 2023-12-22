@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, Flex } from "@radix-ui/themes";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { useRouter } from 'next/navigation';

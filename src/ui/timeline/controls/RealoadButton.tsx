@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, Flex } from "@radix-ui/themes";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from 'next/navigation';
@@ -12,7 +14,7 @@ export const RealoadButton = () => {
       variant={'outline'} 
       style={{ cursor: 'pointer' }} 
       onClick={_ => {
-        setIsReloading(true);
+        //setIsReloading(true);
         router.refresh();
       }}
     >

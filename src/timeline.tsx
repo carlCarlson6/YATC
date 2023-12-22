@@ -1,7 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Box } from "@radix-ui/themes";
-import { TimeLineControls } from "../ui/timeline/controls/TimelineControls";
-import { TimelineDisplay } from "../ui/timeline/TimelineDisplay";
+import { TimeLineControls } from "./ui/timeline/controls/TimelineControls";
+import { TimelineDisplay } from "./ui/timeline/TimelineDisplay";
 import { TimelineProvider } from "src/ui/timeline/store";
 import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
 import type { User } from "src/server/user/userProfile.drizzle.schema";
