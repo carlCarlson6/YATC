@@ -1,5 +1,5 @@
 import { type DrizzleDb } from "../infrastructure/drizzle";
-import { eq, or } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 import { userProfileTable } from "./userProfile.drizzle.schema";
 
