@@ -1,6 +1,5 @@
-import { CodeIcon, DiscordLogoIcon, GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
-import { Box, Button, Flex, Grid, Heading, HoverCard, IconButton, Link, Text } from "@radix-ui/themes";
-import { signIn } from "next-auth/react";
+import { CodeIcon, GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { Box, Flex, Grid, Heading, IconButton, Text } from "@radix-ui/themes";
 import Image, { type StaticImageData }  from "next/image";
 import TypescriptImg from "src/ui/imgs/typescript.png";
 import NextJsImg from "src/ui/imgs/nextjs.png";
@@ -23,26 +22,7 @@ export const LandingHeading = () => (<>
 	<Heading size={'3'}>
 		(but with emojis)
 	</Heading>
-</>);
-
-export const EnterButton = () => (
-	<Box pt={'8'}>
-		<Button
-			variant={'soft'}
-			onClick={() => signIn()}
-			style={{ cursor: 'pointer' }}
-		>
-			<Flex
-				align={'center'}
-				justify={'center'}
-				direction={'row'}
-				gap={'3'}
-			>
-				<p>Enter</p> <DiscordLogoIcon />
-			</Flex>
-		</Button>
-	</Box>
-);
+</>);1
 
 export const DevelopedBy = () => (
 	<Box pt={'8'}>
@@ -69,28 +49,25 @@ export const DevelopedBy = () => (
 
 export const TechStack = () => (
 	<Box pt={'3'}>
-		<HoverCard.Root>
-			<HoverCard.Trigger>
-				<Link>About the Stack</Link>
-			</HoverCard.Trigger>
-			<HoverCard.Content style={{backgroundColor: "#FFFFFF22"}}>
-				<Grid columns={'3'} gap={'3'}>
-					<StackImage img={TypescriptImg} alt="ts" link="https://www.typescriptlang.org/" />
-					<StackImage img={NextJsImg} alt="nextjs" link="https://nextjs.org/" />
-					<StackImage img={VercelImg} alt="vercel" link="https://vercel.com/"/>
-					<StackImage img={PlanetScaleImg} alt="planetscale" link="https://planetscale.com/" />
-					<StackImage img={T3Img as StaticImageData} alt="t3" link="https://create.t3.gg/" />
-					<StackImage img={DrizzleOrmImg} alt="drizzleorm" link="https://orm.drizzle.team/" />
-					<StackImage img={NextAuthImage} alt="nextauth" link="https://next-auth.js.org/" />
-					<StackImage img={TrpcImage} alt="trpc" link="https://trpc.io/" />
-					<StackImage img={ZodImg as StaticImageData} alt="zod" link="https://zod.dev/" />
-				</Grid>
-			</HoverCard.Content>
-		</HoverCard.Root>
+		<Text>About the Stack</Text>
+		<Box style={{backgroundColor: "#FFFFFF22", borderRadius: '5px'}} m={'3'} p={'2'}>
+			<Grid columns={'3'} gap={'3'}>
+				<StackImage img={TypescriptImg} alt="ts" link="https://www.typescriptlang.org/" />
+				<StackImage img={NextJsImg} alt="nextjs" link="https://nextjs.org/" />
+				<StackImage img={VercelImg} alt="vercel" link="https://vercel.com/"/>
+				<StackImage img={PlanetScaleImg} alt="planetscale" link="https://planetscale.com/" />
+				<StackImage img={T3Img as StaticImageData} alt="t3" link="https://create.t3.gg/" />
+				<StackImage img={DrizzleOrmImg} alt="drizzleorm" link="https://orm.drizzle.team/" />
+				<StackImage img={NextAuthImage} alt="nextauth" link="https://next-auth.js.org/" />
+				<StackImage img={TrpcImage} alt="trpc" link="https://trpc.io/" />
+				<StackImage img={ZodImg as StaticImageData} alt="zod" link="https://zod.dev/" />
+			</Grid>
+		</Box>
 	</Box>
 );
 
-const StackImage: React.FC<{img: StaticImageData, alt: string, link: string}> = ({img, alt, link}) => (
+
+export const StackImage: React.FC<{img: StaticImageData, alt: string, link: string}> = ({img, alt, link}) => (
 	<a href={link} target="_blank">
 		<Flex p={'1'} className="StackImage" justify={'center'} align={'center'} style={{borderRadius: '5px', cursor: "pointer"}}>
 			<Image src={img} alt={alt} width={'20'} />

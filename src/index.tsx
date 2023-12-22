@@ -3,9 +3,9 @@ import type { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
-import { LandingHeading, EnterButton, DevelopedBy, TechStack } from "src/ui/landing";
+import { LandingHeading, DevelopedBy, TechStack } from "src/ui/landing";
 
-export default function Landing() {
+/*export default function Landing() {
 	return (<>
 		<Head><title>YATC</title></Head>
 		<Container
@@ -24,7 +24,7 @@ export default function Landing() {
 			</Flex>
 		</Container>
 	</>);
-}
+}*/
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context)

@@ -21,7 +21,6 @@ export const getUserProfileWithDrizzle = (db: DrizzleDb) => async (userName: str
     .execute();
 
   const maybeUser = result.at(0);
-  console.log("user",maybeUser);
   return !maybeUser
     ? undefined
     : {
