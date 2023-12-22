@@ -4,9 +4,7 @@ import * as emojisSchema from "src/server/publish-emojeet/emojis.drizzle.schema"
 //import { sql } from '@vercel/postgres'; TODO delete
 //import { drizzle } from 'drizzle-orm/vercel-postgres'; TODO delete
 import { drizzle } from 'drizzle-orm/postgres-js';
-
 import postgres from 'postgres';
-import { env } from "src/env.mjs";
 
 
 export const drizzleSchema = {

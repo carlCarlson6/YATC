@@ -7,7 +7,7 @@ export type EmojiEntity = typeof emojisTable.$inferSelect;
 
 export const emojisTable = drizzleTable("emoji_tweets", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
-  emoji: varchar("emoji", { length: 255 }),
+  emoji: varchar("emoji", { length: 255 }).notNull(),
   publishedBy: varchar("publishedBy", { length: 255 }).notNull(),
   publishedAt: decimal("publishedAt").notNull(),
 });
