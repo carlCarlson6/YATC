@@ -1,5 +1,5 @@
 import { Box, Flex } from "@radix-ui/themes";
-import type { User } from "src/server/user/user";
+import type { User } from "src/server/user/userProfile.drizzle.schema";
 import AddEmojeet from "./AddEmojeet";
 import { RealoadButton } from "./RealoadButton";
 import { UserProfileButton } from "./UserProfileButton";

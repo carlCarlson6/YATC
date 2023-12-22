@@ -1,7 +1,7 @@
 import z from "zod";
 import { protectedProcedure } from "../infrastructure/trpc";
 import type { DrizzleDb } from "../infrastructure/drizzle";
-import type { User } from "../user/user";
+import type { User } from "../user/userProfile.drizzle.schema";
 import type { Emojeet } from "../timeline/EmojiTweet";
 import { randomUUID } from "crypto";
 import { emojisTable } from "./emojis.drizzle.schema";

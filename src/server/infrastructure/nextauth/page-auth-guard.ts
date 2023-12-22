@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
-import type { User } from "src/server/user/user";
+import type { User } from "src/server/user/userProfile.drizzle.schema";
 
 type AuthGuardResult = {
   result: "unauthenticated",
