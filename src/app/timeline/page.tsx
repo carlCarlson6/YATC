@@ -11,7 +11,7 @@ import { TimelineProvider } from "src/ui/timeline/store";
 
 export default async function TimelinePage() {
   const session = await getServerSession(authOptions);
-  if (!session){
+  if (!session) {
     redirect('/');
   }
 

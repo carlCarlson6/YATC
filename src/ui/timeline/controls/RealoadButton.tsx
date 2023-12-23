@@ -8,7 +8,7 @@ import { ClipLoader } from "react-spinners";
 
 export const RealoadButton = () => {
   const router = useRouter();
-  const [isReloading, setIsReloading] = useState(false);
+  const [isReloading, _] = useState(false);
   return (
     <Button 
       variant={'outline'} 
