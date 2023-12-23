@@ -1,10 +1,10 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Box } from "@radix-ui/themes";
-import { TimeLineControls } from "../ui/timeline/controls/TimelineControls";
-import { TimelineDisplay } from "../ui/timeline/TimelineDisplay";
+import { TimeLineControls } from "./ui/timeline/controls/TimelineControls";
+import { TimelineDisplay } from "./ui/timeline/TimelineDisplay";
 import { TimelineProvider } from "src/ui/timeline/store";
 import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
-import type { User } from "src/server/user/user";
+import type { User } from "src/server/user/userProfile.drizzle.schema";
 import Head from "next/head";
 import type { Timeline } from "src/server/timeline/EmojiTweet";
 import getTimeline from "src/server/timeline/getTimeline";

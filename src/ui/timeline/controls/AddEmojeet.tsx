@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Button, Dialog, Flex, Text, IconButton } from "@radix-ui/themes";
 import { PlusCircledIcon, UploadIcon } from "@radix-ui/react-icons";
 import { SyncLoader } from "react-spinners";

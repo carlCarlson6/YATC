@@ -1,3 +1,5 @@
+"use client"
+
 import { Box } from "@radix-ui/themes";
 import { useTimeline } from "./store";
 import EmojeetDisplay from "../EmojeetDisplay";

@@ -5,7 +5,7 @@ import type { Timeline } from "src/server/timeline/EmojiTweet";
 import { authPageGuard } from "src/server/infrastructure/nextauth/page-auth-guard";
 import { sanitizeQueryParams } from "src/server/infrastructure/sanitize-query-params";
 import loadUserProfileData from "src/server/user/loadUserProfileData";
-import type { User } from "src/server/user/user";
+import type { User } from "src/server/user/userProfile.drizzle.schema";
 import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";
 

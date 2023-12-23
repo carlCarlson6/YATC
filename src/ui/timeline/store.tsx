@@ -1,3 +1,5 @@
+"use client"
+
 import { create, useStore } from 'zustand';
 import React, { createContext, useContext, useRef } from 'react'
 import type { Timeline, Emojeet } from 'src/server/timeline/EmojiTweet';
