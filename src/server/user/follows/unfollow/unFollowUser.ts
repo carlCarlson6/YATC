@@ -1,35 +1,37 @@
-import { protectedProcedure } from "src/server/infrastructure/trpc";
+"use server"
+
 import z from "zod";
 import { type CheckIfFollowing, checkIfFollowingWithDrizzle } from "../checkIfFollowing";
-import type { DrizzleDb } from "src/server/infrastructure/drizzle";
+import { drizzleDb, type DrizzleDb } from "src/server/infrastructure/drizzle";
 import { followsTable } from "../follows.drizzle.schema";
 import { eq } from "drizzle-orm";
+import { validateAuth } from "src/server/validateAuth";
 
-export const unFollowUserProcedure = protectedProcedure
-  .input(z.object({
-    userToUnfollow: z.string().min(1),
-  }))
-  .mutation(({ctx: {db, session: {user}}, input}) => unFollowUser({
-    checkIfFollowing: checkIfFollowingWithDrizzle(db),
-    removeFollower: removeFollowerOnDrizzle(db),
-  })(user.id, input.userToUnfollow));
+const unFollowUserInputSchema = z.object({
+  userToUnfollow: z.string().min(1),
+});
 
 const unFollowUser = ({ checkIfFollowing, removeFollower }: {
   checkIfFollowing: CheckIfFollowing,
   removeFollower: (userWhoFollos: string, userToUnfollow: string) => Promise<void>,
-}) => async (
-  userWhoFollows: string,
+}) => async (input: {
   userToUnfollow: string,
-) => {
-  const isAlreadyFollowing = await checkIfFollowing(userWhoFollows, userToUnfollow);
+}) => {
+  const user = await validateAuth();
+  const {userToUnfollow} = await unFollowUserInputSchema.parseAsync(input);
+
+  const isAlreadyFollowing = await checkIfFollowing(user.id, userToUnfollow);
   if (!isAlreadyFollowing) {
     console.info("not following - aborting operation");
     return;
   }
-  await removeFollower(userWhoFollows, userToUnfollow);
+  await removeFollower(user.id, userToUnfollow);
 }
 
-const removeFollowerOnDrizzle = (db: DrizzleDb) => async (userId: string, userToUnfollowId: string) => {
+const removeFollowerOnDrizzle = (db: DrizzleDb) => async (
+  userId: string, 
+  userToUnfollowId: string
+) => {
   await db
     .delete(followsTable)
     .where(
@@ -37,3 +39,8 @@ const removeFollowerOnDrizzle = (db: DrizzleDb) => async (userId: string, userTo
       eq(followsTable.isFollowingUserId, userToUnfollowId))
     .execute();
 }
+
+export default unFollowUser({
+  checkIfFollowing: checkIfFollowingWithDrizzle(drizzleDb),
+  removeFollower: removeFollowerOnDrizzle(drizzleDb),
+});

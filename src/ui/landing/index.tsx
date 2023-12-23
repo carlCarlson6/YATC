@@ -1,15 +1,15 @@
 import { CodeIcon, GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import { Box, Flex, Grid, Heading, IconButton, Text } from "@radix-ui/themes";
 import Image, { type StaticImageData }  from "next/image";
-import TypescriptImg from "src/ui/imgs/typescript.png";
-import NextJsImg from "src/ui/imgs/nextjs.png";
-import VercelImg from "src/ui/imgs/vercel.png";
-import PlanetScaleImg from "src/ui/imgs/planetscale.png"
-import T3Img from "src/ui/imgs/t3-dark.svg"
-import DrizzleOrmImg from "src/ui/imgs/drizzleorm.png"
-import TrpcImage from "src/ui/imgs/tprc.png"
-import NextAuthImage from "src/ui/imgs/nextauth.png"
-import ZodImg from "src/ui/imgs/zod.svg"
+import TypescriptImg from "src/ui/landing/imgs/typescript.png";
+import NextJsImg from "src/ui/landing/imgs/nextjs.png";
+import VercelImg from "src/ui/landing/imgs/vercel.png";
+import PlanetScaleImg from "src/ui/landing/imgs/planetscale.png"
+import T3Img from "src/ui/landing/imgs/t3-dark.svg"
+import DrizzleOrmImg from "src/ui/landing/imgs/drizzleorm.png"
+import TrpcImage from "src/ui/landing/imgs/tprc.png"
+import NextAuthImage from "src/ui/landing/imgs/nextauth.png"
+import ZodImg from "src/ui/landing/imgs/zod.svg"
 import React from "react";
 
 export const LandingHeading = () => (<>
