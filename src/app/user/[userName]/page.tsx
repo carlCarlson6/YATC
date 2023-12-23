@@ -1,7 +1,7 @@
 import { Box } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "src/server/infrastructure/nextauth";
+import { authOptions } from "src/server/auth/infrastructure/nextauth";
 import loadUserProfileData from "src/server/user/loadUserProfileData";
 import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";

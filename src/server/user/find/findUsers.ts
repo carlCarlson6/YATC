@@ -3,14 +3,15 @@
 import { like } from "drizzle-orm";
 import { type DrizzleDb, drizzleDb } from "src/server/infrastructure/drizzle";
 import { usersTable } from "src/server/infrastructure/drizzle/base.drizzle.schema";
-import { validateAuth } from "src/server/validateAuth";
+import { nextAuthValidator } from "src/server/auth/nextAuthValidator";
+import type { AuthValidator } from "src/server/auth/AuthValidator";
 import { z } from "zod";
 
 const finUsersInputSchma =  z.object({userName: z.string()});
 
 // TODO add auth middleware
-const findUsersOnDb = (db: DrizzleDb) => async (input: z.infer<typeof finUsersInputSchma>) => {
-  await validateAuth();
+const findUsersOnDb = (db: DrizzleDb, auth: AuthValidator) => async (input: z.infer<typeof finUsersInputSchma>) => {
+  await auth();
   const {userName} = await finUsersInputSchma.parseAsync(input);
 
   const result = await db
@@ -30,4 +31,4 @@ const findUsersOnDb = (db: DrizzleDb) => async (input: z.infer<typeof finUsersIn
   }));
 }
 
-export const findUsers = findUsersOnDb(drizzleDb);
+export const findUsers = findUsersOnDb(drizzleDb, nextAuthValidator);

@@ -2,9 +2,9 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "./infrastructure/nextauth";
+import type { AuthValidator } from "./AuthValidator";
 
-
-export const validateAuth = async () => {
+export const nextAuthValidator: AuthValidator = async () => {
   const session = await getServerSession(authOptions);
   if (!session) {
     throw new Error("not authenticated");

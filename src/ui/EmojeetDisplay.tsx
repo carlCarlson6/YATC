@@ -12,12 +12,14 @@ const EmojeetDisplay = ({ emojeets }: { emojeets: Emojeet[]; }) => (
         key={x.id}
         size={'1'} 
         className="tweet"
+        style={{ maxWidth: 170 }}
       >
-        <Flex gap="4">
+        <Flex gap="4" pb={'2'}>
           <EmojeetDisplayUser user={x.user}/>
           <Separator orientation={'vertical'} size={'3'} />
           <EmojeetDisplayEmoji emoji={x.emoji}/>
         </Flex>
+        <Separator size={'4'}/>
       </Card>
     )}</Flex>
   </Box>

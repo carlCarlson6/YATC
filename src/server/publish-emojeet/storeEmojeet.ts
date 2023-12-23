@@ -5,15 +5,16 @@ import type { Emojeet } from "../timeline/EmojiTweet";
 import { randomUUID } from "crypto";
 import { emojisTable } from "./emojis.drizzle.schema";
 import { z } from "zod";
-import { validateAuth } from "../validateAuth";
+import { nextAuthValidator } from "../auth/nextAuthValidator";
+import type { AuthValidator } from "../auth/AuthValidator";
 
 const storeEmojeetInputSchema = z.object({
   emoji: z.string().min(1),
 });
 
 // TODO add auth middleware
-const storeEmojeet = (db: DrizzleDb) => async (input: z.infer<typeof storeEmojeetInputSchema>) => {
-  const publisher = await validateAuth();
+const storeEmojeet = (db: DrizzleDb, auth: AuthValidator) => async (input: z.infer<typeof storeEmojeetInputSchema>) => {
+  const publisher = await auth();
   const {emoji} = await storeEmojeetInputSchema.parseAsync(input);
 
   const insertInput = {
@@ -33,4 +34,4 @@ const storeEmojeet = (db: DrizzleDb) => async (input: z.infer<typeof storeEmojee
   } satisfies Emojeet;
 };
 
-export const publishEmojeet = storeEmojeet(drizzleDb);
+export const publishEmojeet = storeEmojeet(drizzleDb, nextAuthValidator);

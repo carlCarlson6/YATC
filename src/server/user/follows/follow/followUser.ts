@@ -1,23 +1,24 @@
 "use server"
 
-import { drizzleDb, type DrizzleDb } from "src/server/infrastructure/drizzle";
+import { type DrizzleDb } from "src/server/infrastructure/drizzle";
 import { followsTable } from "../follows.drizzle.schema";
-import { checkIfFollowingWithDrizzle, type CheckIfFollowing } from "../checkIfFollowing";
+import { type CheckIfFollowing } from "../checkIfFollowing";
 import { randomUUID } from "crypto";
-import { validateAuth } from "src/server/validateAuth";
+import type { AuthValidator } from "src/server/auth/AuthValidator";
 import { z } from "zod";
 
 const followUserInputSchema = z.object({
   userToFollow: z.string().min(1),
 });
 
-const followUser = ({ checkIfFollowing, storeFollower }: {
+export const followUser = ({ checkIfFollowing, storeFollower, auth }: {
   checkIfFollowing: CheckIfFollowing,
   storeFollower: (userWhoFollos: string, userToFollow: string) => Promise<void>,
+  auth: AuthValidator,
 }) => async (input: {
   userToFollow: string,
 }) => {
-  const user = await validateAuth();
+  const user = await auth();
   const {userToFollow} = await followUserInputSchema.parseAsync(input);
 
   const isAlreadyFollowing = await checkIfFollowing(user.id, userToFollow);
@@ -29,7 +30,7 @@ const followUser = ({ checkIfFollowing, storeFollower }: {
   await storeFollower(user.id, userToFollow);
 };
 
-const storeFollowerOnDrizzle = (db: DrizzleDb) => async (
+export const storeFollowerOnDrizzle = (db: DrizzleDb) => async (
   userId: string, 
   userToFollowId: string
 ) => {
@@ -39,8 +40,3 @@ const storeFollowerOnDrizzle = (db: DrizzleDb) => async (
     isFollowingUserId: userToFollowId,
   }).execute();
 }
-
-export default followUser({
-  checkIfFollowing: checkIfFollowingWithDrizzle(drizzleDb),
-  storeFollower: storeFollowerOnDrizzle(drizzleDb),
-});

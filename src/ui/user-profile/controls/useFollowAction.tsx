@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import followUser from "src/server/user/follows/follow/followUser";
-import unFollowUser from "src/server/user/follows/unfollow/unFollowUser";
+import { followrUserAction } from "src/server/user/follows/follow/api";
+import { unFollowUserAction } from "src/server/user/follows/unfollow/api";
 
 export const useFollowAction = (isAlreadyFollowing: boolean) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -15,14 +15,14 @@ export const useFollowAction = (isAlreadyFollowing: boolean) => {
 
   const mutateFollow = async (userId: string) => {
     setIsLoadingFollow(true);
-    await followUser({userToFollow: userId});
+    await followrUserAction({userToFollow: userId});
     setIsLoadingFollow(false);
     onMutationSuccess();
   };
 
   const mutateUnFollow = async (userId: string) => {
     setIsLoadingUnfollow(true);
-    await unFollowUser({userToUnfollow: userId});
+    await unFollowUserAction({userToUnfollow: userId});
     setIsLoadingUnfollow(false);
     onMutationSuccess();
   };
