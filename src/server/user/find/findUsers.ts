@@ -1,7 +1,7 @@
 "use server"
 
 import { like } from "drizzle-orm";
-import { DrizzleDb, drizzleDb } from "src/server/infrastructure/drizzle";
+import { type DrizzleDb, drizzleDb } from "src/server/infrastructure/drizzle";
 import { usersTable } from "src/server/infrastructure/drizzle/base.drizzle.schema";
 import { validateAuth } from "src/server/validateAuth";
 import { z } from "zod";
@@ -9,7 +9,7 @@ import { z } from "zod";
 const finUsersInputSchma =  z.object({userName: z.string()});
 
 // TODO add auth middleware
-const findUsers = (db: DrizzleDb) => async (input: z.infer<typeof finUsersInputSchma>) => {
+const findUsersOnDb = (db: DrizzleDb) => async (input: z.infer<typeof finUsersInputSchma>) => {
   await validateAuth();
   const {userName} = await finUsersInputSchma.parseAsync(input);
 
@@ -30,4 +30,4 @@ const findUsers = (db: DrizzleDb) => async (input: z.infer<typeof finUsersInputS
   }));
 }
 
-export default findUsers(drizzleDb);
+export const findUsers = findUsersOnDb(drizzleDb);

@@ -3,7 +3,7 @@ import type { User } from "src/server/user/userProfile.drizzle.schema";
 import { RealoadButton } from "./RealoadButton";
 import { UserProfileButton } from "./UserProfileButton";
 import AddEmojeet from "./AddEmojeet";
-import { SearchUsersButton } from "./SearchUsersButton";
+import { SearchUsers } from "./SearchUsers";
 
 
 export const TimeLineControls: React.FC<{user: User}> = ({user}) => {
@@ -13,7 +13,7 @@ export const TimeLineControls: React.FC<{user: User}> = ({user}) => {
         <AddEmojeet/>
         <RealoadButton />
         <UserProfileButton user={user}/>
-        <SearchUsersButton />
+        <SearchUsers />
       </Flex>
     </Box>
   );

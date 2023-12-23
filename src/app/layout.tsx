@@ -1,5 +1,6 @@
 import { Box, Theme } from "@radix-ui/themes"
 import '@radix-ui/themes/styles.css';
+import "src/ui/styles.css"
 
 export const metadata = {
   title: 'YATC',
