@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Button, Flex, Separator } from "@radix-ui/themes";
 import React from "react";
 import { FollowButton } from "./FollowButton";
