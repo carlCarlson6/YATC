@@ -2,7 +2,7 @@ import { desc, eq, inArray } from "drizzle-orm";
 import { type DrizzleDb } from "../infrastructure/drizzle";
 import { followsTable } from "../user/follows/follows.drizzle.schema";
 import type { Timeline } from "./EmojiTweet";
-import { type EmojiEntity, emojisTable } from "../publish-emojeet/emojis.drizzle.schema";
+import { type EmojiEntity, emojisTable } from "../emojeets/publish/emojis.drizzle.schema";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
 
 export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Promise<EmojiEntity[]> => {

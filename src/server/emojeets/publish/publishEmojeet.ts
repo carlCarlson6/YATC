@@ -1,11 +1,11 @@
 "use server"
 
-import { type DrizzleDb } from "../infrastructure/drizzle";
-import type { Emojeet } from "../timeline/EmojiTweet";
+import { type DrizzleDb } from "../../infrastructure/drizzle";
+import type { Emojeet } from "../../timeline/EmojiTweet";
 import { randomUUID } from "crypto";
 import { emojisTable } from "./emojis.drizzle.schema";
 import { z } from "zod";
-import type { AuthValidator } from "../auth/AuthValidator";
+import type { AuthValidator } from "../../auth/AuthValidator";
 
 const publishEmojeetInputSchema = z.object({
   emoji: z.string().min(1),
