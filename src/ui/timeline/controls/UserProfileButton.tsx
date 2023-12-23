@@ -3,7 +3,7 @@
 import { Button, Flex } from "@radix-ui/themes";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { useRouter } from 'next/navigation';
-import type { User } from "src/server/user/userProfile.drizzle.schema";
+import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 

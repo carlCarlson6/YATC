@@ -1,4 +1,4 @@
 "use server";
-import type { User } from "../user/userProfile.drizzle.schema";
+import type { User } from "../user/profile/userProfile.drizzle.schema";
 
 export type AuthValidator = () => Promise<User>;

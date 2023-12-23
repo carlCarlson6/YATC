@@ -1,7 +1,7 @@
-import type { User } from "src/server/user/userProfile.drizzle.schema";
-import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "./follows/counting";
-import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
-import { checkIfFollowingWithDrizzle } from "./follows/checkIfFollowing";
+import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
+import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "../follows/counting";
+import { drizzleDb, type DrizzleDb } from "../../infrastructure/drizzle";
+import { checkIfFollowingWithDrizzle } from "../follows/checkIfFollowing";
 import { getUserProfileWithDrizzle } from "./getUserProfileWithDrizzle";
 import { getUserEmojeetsWithDrizzle } from "./getUserEmojeetsWithDrizzle";
 

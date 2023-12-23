@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTimeline } from "../store";
-import { publishEmojeet } from "src/server/publish-emojeet/storeEmojeet";
+import { publishEmojeetAction } from "src/server/publish-emojeet/api";
 
 export const useAddEmojeet = () => {
   const addEmojeet = useTimeline(x => x.addEmojeet);
@@ -16,7 +16,7 @@ export const useAddEmojeet = () => {
     setEmoji,
     send: async () => {
       setIsSending(true);
-      const result = await publishEmojeet({emoji});
+      const result = await publishEmojeetAction({emoji});
       addEmojeet(result);
       setEmoji("");
       setOpen(false);
