@@ -2,7 +2,7 @@
 
 import { Avatar, Box, Button, Dialog, DialogContent, Grid, Separator, TextField } from "@radix-ui/themes";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import type { User } from "src/server/user/userProfile.drizzle.schema";
 import {findUsers} from "src/server/user/find/findUsers";
 import { SyncLoader } from "react-spinners";
