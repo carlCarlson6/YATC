@@ -8,10 +8,10 @@ import { TimelineDisplay } from "src/ui/timeline/TimelineDisplay";
 import { TimeLineControls } from "src/ui/timeline/controls/TimelineControls";
 import { TimelineProvider } from "src/ui/timeline/store";
 
-/* TODO
-  Warning: You're using `next/head` inside the `app` directory, please migrate to the Metadata API.
-  See https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-3-migrating-nexthead for more details.
-*/
+export const metadata = {
+  title: 'YATC | timeline',
+  description: 'yet another tuiter clone (but with emojis)',
+}
 
 export default async function TimelinePage() {
   const session = await getServerSession(authOptions);
@@ -23,9 +23,6 @@ export default async function TimelinePage() {
   const timeline = await getTimeline(user.id);
 
   return (<>
-    <Head>
-      <title>YATC | TIMELINE</title>
-    </Head>
     <TimelineProvider timeline={timeline}>
       <Box>
         <TimeLineControls user={user}/>
