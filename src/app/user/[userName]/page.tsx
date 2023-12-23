@@ -7,6 +7,8 @@ import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";
 import { notFound } from 'next/navigation'
 
+export type UserProfileProps = Awaited<ReturnType<typeof loadUserPageData>>;
+
 const loadUserPageData = async (userName: string) => {
   const session = await getServerSession(authOptions);
   if (!session) {
