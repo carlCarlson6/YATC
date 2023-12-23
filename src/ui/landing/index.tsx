@@ -50,7 +50,7 @@ export const DevelopedBy = () => (
 export const TechStack = () => (
 	<Box pt={'3'}>
 		<Text>About the Stack</Text>
-		<Box style={{backgroundColor: "#FFFFFF22", borderRadius: '5px'}} m={'3'} >
+		<Box style={{backgroundColor: "#1e1f1e", borderRadius: '5px'}} m={'3'} >
 			<Grid columns={'3'} gap={'3'}>
 				<StackImage img={TypescriptImg} alt="ts" link="https://www.typescriptlang.org/" />
 				<StackImage img={NextJsImg} alt="nextjs" link="https://nextjs.org/" />
