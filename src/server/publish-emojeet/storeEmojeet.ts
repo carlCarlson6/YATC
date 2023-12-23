@@ -5,8 +5,7 @@ import type { Emojeet } from "../timeline/EmojiTweet";
 import { randomUUID } from "crypto";
 import { emojisTable } from "./emojis.drizzle.schema";
 import { z } from "zod";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../infrastructure/nextauth";
+import { validateAuth } from "../validateAuth";
 
 const storeEmojeetInputSchema = z.object({
   emoji: z.string().min(1),
@@ -33,18 +32,5 @@ const storeEmojeet = (db: DrizzleDb) => async (input: z.infer<typeof storeEmojee
     reactions: []
   } satisfies Emojeet;
 };
-
-const validateAuth = async () => {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    throw new Error("not authenticated");
-  }
-
-  return {
-    id: session.user.id,
-    name: session.user.name,
-    avatar: session.user.image
-  }
-}
 
 export const publishEmojeet = storeEmojeet(drizzleDb);
