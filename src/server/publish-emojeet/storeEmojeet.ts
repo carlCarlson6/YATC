@@ -1,7 +1,6 @@
 "use server"
 
 import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
-import type { User } from "../user/userProfile.drizzle.schema";
 import type { Emojeet } from "../timeline/EmojiTweet";
 import { randomUUID } from "crypto";
 import { emojisTable } from "./emojis.drizzle.schema";
@@ -14,7 +13,7 @@ const storeEmojeetInputSchema = z.object({
 });
 
 // TODO add auth middleware
-export const storeEmojeet = (db: DrizzleDb) => async (input: z.infer<typeof storeEmojeetInputSchema>) => {
+const storeEmojeet = (db: DrizzleDb) => async (input: z.infer<typeof storeEmojeetInputSchema>) => {
   const publisher = await validateAuth();
   const {emoji} = await storeEmojeetInputSchema.parseAsync(input);
 
