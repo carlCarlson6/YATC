@@ -4,8 +4,8 @@ import { Avatar, Box, Button, Dialog, DialogContent, Grid, Separator, TextField 
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { type ChangeEvent, useState } from "react";
 import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
-import {findUsers} from "src/server/user/find/findUsers";
 import { SyncLoader } from "react-spinners";
+import { findUsers } from "src/server/user/find/api";
 
 export const SearchUsers = () => {
   const [foundUsers, setFoundUsers] = useState<User[]>([]);
@@ -36,32 +36,34 @@ const SearchUsersButton = () => (<>
   </Dialog.Trigger>
 </>);
 
-const SearchUsersInput = ({
+const SearchUsersInput = (stateUpdaters: {
+  setFoundUsers: (users: User[]) => void,
+  setIsSearching: (searching: boolean) => void;
+}) => (<>
+  <Box pb={'2'}>
+    <TextField.Root>
+      <TextField.Slot>
+        <MagnifyingGlassIcon height="16" width="16" />
+      </TextField.Slot>
+      <TextField.Input
+        placeholder="search your friends (use the discord nickname)"
+        onChange={useHandleSearchInput(stateUpdaters)} />
+    </TextField.Root>
+  </Box>
+</>);
+
+const useHandleSearchInput = ({
   setFoundUsers,
   setIsSearching
 }: {
   setFoundUsers: (users: User[]) => void,
   setIsSearching: (searching: boolean) => void;
-}) => {
-  const handleSearchInput = async (e: ChangeEvent<HTMLInputElement>) => {
-    setIsSearching(true);
-    const users = await findUsers({ userName: e.target.value });
-    setFoundUsers(users);
-    setIsSearching(false);
-  };
-  return (<>
-    <Box pb={'2'}>
-      <TextField.Root>
-        <TextField.Slot>
-          <MagnifyingGlassIcon height="16" width="16" />
-        </TextField.Slot>
-        <TextField.Input
-          placeholder="search your friends (use the discord nickname)"
-          onChange={handleSearchInput} />
-      </TextField.Root>
-    </Box>
-  </>);
-  };
+}) => async (e: ChangeEvent<HTMLInputElement>) => {
+  setIsSearching(true);
+  const users = await findUsers({ userName: e.target.value });
+  setFoundUsers(users);
+  setIsSearching(false);
+}
 
 const FoundUsersList = ({
   users,
