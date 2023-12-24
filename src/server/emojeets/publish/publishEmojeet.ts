@@ -8,7 +8,7 @@ import { z } from "zod";
 import type { AuthValidator } from "../../auth/AuthValidator";
 
 const publishEmojeetInputSchema = z.object({
-  emoji: z.string().min(1),
+  emoji: z.string().emoji().min(1),
 });
 
 // TODO add auth middleware
@@ -16,18 +16,18 @@ export const publishEmojeet = (db: DrizzleDb, auth: AuthValidator) => async (inp
   const publisher = await auth();
   const {emoji} = await publishEmojeetInputSchema.parseAsync(input);
 
-  const insertInput = {
+  const insert = {
     id: randomUUID(),
     emoji,
     publishedBy: publisher.id,
     publishedAt: `${Date.now()}`
   };
-  await db.insert(emojisTable).values(insertInput).execute();
+  await db.insert(emojisTable).values(insert).execute();
 
   return {
-    id: insertInput.id,
+    id: insert.id,
     emoji,
-    publishedAt: insertInput.publishedAt,
+    publishedAt: insert.publishedAt,
     user: publisher,
     reactions: []
   } satisfies Emojeet;
