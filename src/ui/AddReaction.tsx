@@ -5,11 +5,13 @@ import { useState } from "react";
 import { MdOutlineQuickreply } from "react-icons/md";
 import { PickEmojiDialogConent } from "./PickEmojiDialogConent";
 import { publishReactionAction } from "src/server/emojeets/react/api";
+import { useRouter } from "next/navigation";
 
 export const useAddReaction = (emojeetId: string) => {
   const [emoji, setEmoji] = useState("");
   const [open, setOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const router = useRouter();
   return {
     emoji,
     isOpen: open,
@@ -21,6 +23,7 @@ export const useAddReaction = (emojeetId: string) => {
       setEmoji("");
       setOpen(false);
       setIsSending(false);
+      router.refresh();
     },
     canSend: emoji.length > 0,
     isSending
@@ -46,7 +49,7 @@ export const AddReaction = ({emojeetId}: {emojeetId: string}) => {
 
 const OpenAddReactionDialog = () => (<>
   <Dialog.Trigger>
-    <Box pt={'2'}>
+    <Box pt={'2'} pr={'2'}>
       <IconButton variant={'outline'} style={{cursor: 'pointer'}}>
         <MdOutlineQuickreply />
       </IconButton>

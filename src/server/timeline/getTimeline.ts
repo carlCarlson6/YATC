@@ -1,9 +1,9 @@
 import type { Emojeet } from "./EmojiTweet";
-import type { EmojiEntity } from "../emojeets/publish/emojis.drizzle.schema";
+import { EmojiEntityWithReactions } from "./buildTimeline";
 
 export const getTimeline = ({ fetchEmojeets, addUserData }: {
-  fetchEmojeets: (userId: string) => Promise<EmojiEntity[]>;
-  addUserData: (tweets: EmojiEntity[]) => Promise<Emojeet[]>;
+  fetchEmojeets: (userId: string) => Promise<EmojiEntityWithReactions[]>;
+  addUserData: (tweets: EmojiEntityWithReactions[]) => Promise<Emojeet[]>;
 }) => async (userId: string) => {
   const builtTimeline = await fetchEmojeets(userId);
   return await addUserData(builtTimeline);

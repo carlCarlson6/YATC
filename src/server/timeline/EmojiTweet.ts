@@ -7,7 +7,6 @@ export type Emojeet = {
   user: User;
   reactions: {
     emoji: string,
-    user: User,
   }[];
 };
 
