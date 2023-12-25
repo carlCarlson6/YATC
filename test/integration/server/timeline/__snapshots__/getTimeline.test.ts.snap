@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GivenUserWithEmojeetWithReactions_WhenGetTimeline_ThenTimelineWithReactionsIsReturned 1`] = `
+[
+  {
+    "emoji": "🐹",
+    "id": "277cc7a2-2b75-4303-9179-1538360f8239",
+    "publishedAt": "0",
+    "publishedBy": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+    "reactions": [
+      {
+        "emoji": "🧀",
+      },
+      {
+        "emoji": "🍕",
+      },
+    ],
+    "user": {
+      "avatar": "some-user-image",
+      "id": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+      "name": "some-user-name",
+    },
+  },
+]
+`;
+
+exports[`GivenUserWithSomeEmojeets_WhenGetTimeline_ThenTimelineIsReturned 1`] = `
+[
+  {
+    "emoji": "🐱",
+    "id": "bf2c6da7-aa5c-43fd-9a3b-9fd0f2650ec4",
+    "publishedAt": "1",
+    "publishedBy": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+    "reactions": [],
+    "user": {
+      "avatar": "some-user-image",
+      "id": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+      "name": "some-user-name",
+    },
+  },
+  {
+    "emoji": "🐹",
+    "id": "277cc7a2-2b75-4303-9179-1538360f8239",
+    "publishedAt": "0",
+    "publishedBy": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+    "reactions": [],
+    "user": {
+      "avatar": "some-user-image",
+      "id": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+      "name": "some-user-name",
+    },
+  },
+]
+`;
