@@ -5,9 +5,12 @@ import { useState } from "react";
 import { MdOutlineQuickreply } from "react-icons/md";
 import { PickEmojiDialogConent } from "./PickEmojiDialogConent";
 import { publishReactionAction } from "src/server/emojeets/react/api";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-export const useAddReaction = (emojeetId: string) => {
+export const useAddReaction = (
+  emojeetId: string, 
+  updateReactions: (emoji: string) => void
+) => {
   const [emoji, setEmoji] = useState("");
   const [open, setOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -20,19 +23,21 @@ export const useAddReaction = (emojeetId: string) => {
     send: async () => {
       setIsSending(true);
       await publishReactionAction({reaction: emoji, emojeetId: emojeetId});
+      updateReactions(emoji)
       setEmoji("");
       setOpen(false);
       setIsSending(false);
-      router.refresh();
     },
     canSend: emoji.length > 0,
     isSending
   };
 }
 
-export const AddReaction = ({emojeetId}: {emojeetId: string}) => {
-  const { emoji, isOpen, setIsOpen, setEmoji, isSending, canSend, send } = useAddReaction(emojeetId);
-
+export const AddReaction = ({emojeetId, updateReactions}: {
+  emojeetId: string,
+  updateReactions: (emoji: string) => void
+}) => {
+  const { emoji, isOpen, setIsOpen, setEmoji, isSending, canSend, send } = useAddReaction(emojeetId, updateReactions);
   return (<>
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <OpenAddReactionDialog />

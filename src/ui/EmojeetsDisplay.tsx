@@ -1,7 +1,8 @@
 import { Avatar, Box, Card, Flex, Text, Link, Separator } from "@radix-ui/themes";
 import type { Emojeet } from "src/server/timeline/EmojiTweet";
 import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
-import { AddReaction } from "./AddReaction";
+import { useId } from "react";
+import { Reactions } from "./Reactions";
 
 export const EmojeetsDisplay = ({ emojeets }: { emojeets: Emojeet[] }) => (
   <Box>
@@ -9,7 +10,9 @@ export const EmojeetsDisplay = ({ emojeets }: { emojeets: Emojeet[] }) => (
       gap={'3'}
       direction={'column'}
     > {emojeets.map(x =>
-      <EmojeetDisplay emojeet={x}/>
+      <Box key={x.id}>
+        <EmojeetDisplay emojeet={x}/>
+      </Box>
     )}</Flex>
   </Box>
 );
@@ -20,7 +23,7 @@ export const EmojeetDisplay = ({ emojeet }: { emojeet: Emojeet }) => {
       key={emojeet.id}
       size={'1'} 
       className="tweet"
-      style={{ maxWidth: 270 }}
+      style={{ maxWidth: 290 }}
     >
       <Flex gap="4" pb={'2'}>
         <EmojeetDisplayUser user={emojeet.user}/>
@@ -28,12 +31,7 @@ export const EmojeetDisplay = ({ emojeet }: { emojeet: Emojeet }) => {
         <EmojeetDisplayEmoji emoji={emojeet.emoji}/>
       </Flex>
       <Separator size={'4'}/>
-      <Flex direction={'row'} align={'center'} justify={'start'} gap={'2'}>
-        <AddReaction emojeetId={emojeet.id}/>
-        { emojeet.reactions.map(r => (<>
-          <Text size={'6'}>{r.emoji}</Text>
-        </>))}
-      </Flex>
+      <Reactions emojeetId={emojeet.id} emojeetReactions={emojeet.reactions} />
     </Card>
   </>);
 }
