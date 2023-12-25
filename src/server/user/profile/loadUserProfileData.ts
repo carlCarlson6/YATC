@@ -1,11 +1,11 @@
-import type { User } from "src/server/user/userProfile.drizzle.schema";
-import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "./follows/counting";
-import { drizzleDb, type DrizzleDb } from "../infrastructure/drizzle";
-import { checkIfFollowingWithDrizzle } from "./follows/checkIfFollowing";
+import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
+import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "../follows/counting";
+import { type DrizzleDb } from "../../infrastructure/drizzle";
+import { checkIfFollowingWithDrizzle } from "../follows/checkIfFollowing";
 import { getUserProfileWithDrizzle } from "./getUserProfileWithDrizzle";
 import { getUserEmojeetsWithDrizzle } from "./getUserEmojeetsWithDrizzle";
 
-const loadUserProfileData = (db: DrizzleDb) => async (userWhoExecutesRequest: User, userNameOfProfileToLoad: string) => {
+export const loadUserProfileData = (db: DrizzleDb) => async (userWhoExecutesRequest: User, userNameOfProfileToLoad: string) => {
   const maybeUser = await getUserProfileWithDrizzle(db)(userNameOfProfileToLoad);
   if (!maybeUser) return null;
   const isOwnProfile = maybeUser.id === userWhoExecutesRequest.id;
@@ -20,5 +20,3 @@ const loadUserProfileData = (db: DrizzleDb) => async (userWhoExecutesRequest: Us
     emojeets: await getUserEmojeetsWithDrizzle(db)(maybeUser.id),
   };
 };
-
-export default loadUserProfileData(drizzleDb);

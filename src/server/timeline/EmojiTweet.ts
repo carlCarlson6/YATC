@@ -1,4 +1,4 @@
-import type { User } from "../user/userProfile.drizzle.schema";
+import type { User } from "../user/profile/userProfile.drizzle.schema";
 
 export type Emojeet = {
   id: string;
@@ -7,7 +7,6 @@ export type Emojeet = {
   user: User;
   reactions: {
     emoji: string,
-    user: User,
   }[];
 };
 

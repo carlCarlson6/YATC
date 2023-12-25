@@ -1,5 +1,5 @@
 import { varchar } from "drizzle-orm/pg-core"
-import { drizzleTable } from "../infrastructure/drizzle/drizzleTable"
+import { drizzleTable } from "../../infrastructure/drizzle/drizzleTable"
 
 export type User = {
   id: string,

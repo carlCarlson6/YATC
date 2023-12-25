@@ -2,7 +2,7 @@ import { type DefaultSession, type NextAuthOptions, } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import { env } from "src/env.mjs";
 import { drizzleDb } from "src/server/infrastructure/drizzle";
-import { drizzleTable } from "./drizzle/drizzleTable";
+import { drizzleTable } from "../../infrastructure/drizzle/drizzleTable";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 declare module "next-auth" {

@@ -1,7 +1,7 @@
 import { Container, Flex } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "src/server/infrastructure/nextauth";
+import { authOptions } from "src/server/auth/infrastructure/nextauth";
 import { DevelopedBy, LandingHeading, TechStack } from "src/ui/landing";
 import { SignInButton } from "src/ui/landing/SignInButton";
 

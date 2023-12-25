@@ -2,10 +2,13 @@ import { desc, eq, inArray } from "drizzle-orm";
 import { type DrizzleDb } from "../infrastructure/drizzle";
 import { followsTable } from "../user/follows/follows.drizzle.schema";
 import type { Timeline } from "./EmojiTweet";
-import { type EmojiEntity, emojisTable } from "../publish-emojeet/emojis.drizzle.schema";
+import { type EmojiEntity, emojisTable } from "../emojeets/publish/emojis.drizzle.schema";
 import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
+import { emojisReactionsTable } from "../emojeets/react/emojisReactions.drizzle.schema";
 
-export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Promise<EmojiEntity[]> => {
+export type EmojiEntityWithReactions = EmojiEntity & {reactions: {emoji: string}[]}
+
+export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Promise<EmojiEntityWithReactions[]> => {
   const queryFollowsEmojisResult = await db
     .select({ emoji: emojisTable })
     .from(followsTable)
@@ -13,7 +16,7 @@ export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Pr
     .innerJoin(emojisTable, eq(followsTable.userId, emojisTable.publishedBy))
     .orderBy(desc(emojisTable.publishedAt))
     .execute();
-  const followEmojis = queryFollowsEmojisResult.map(x => x.emoji);
+  const followEmojis = queryFollowsEmojisResult.map(x => ({...x.emoji, reactions: []}));
 
   const userEmojis = await db
     .select()
@@ -21,11 +24,23 @@ export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Pr
     .where(eq(emojisTable.publishedBy, userId))
     .orderBy(desc(emojisTable.publishedAt))
     .execute();
+  const userEmojisWithReactionsPromises = userEmojis.map(async x => {
+    const reactions = await db
+      .select({ emoji: emojisReactionsTable.reaction })
+      .from(emojisReactionsTable)
+      .where(eq(emojisReactionsTable.reactsTo, x.id))
+      .execute();
+    return {
+      ...x,
+      reactions
+    }
+  });
+  const userEmojisWithReactions = await Promise.all(userEmojisWithReactionsPromises);
 
-  return [...userEmojis, ...followEmojis].sort((a,b) => Number.parseFloat(a.publishedAt) - Number.parseFloat(b.publishedAt)).reverse();
+  return [...userEmojisWithReactions, ...followEmojis].sort((a,b) => Number.parseFloat(a.publishedAt) - Number.parseFloat(b.publishedAt)).reverse();
 }
 
-export const addUserData = (db: DrizzleDb) => async (emojis: EmojiEntity[]): Promise<Timeline> => {
+export const addUserData = (db: DrizzleDb) => async (emojis: EmojiEntityWithReactions[]): Promise<Timeline> => {
   if (emojis.length === 0) return [];
   
   const usersData = await db.select({
@@ -42,7 +57,6 @@ export const addUserData = (db: DrizzleDb) => async (emojis: EmojiEntity[]): Pro
     })).at(0);
     return {
       ...emoji,
-      reactions: [],
       user: maybeUser ?? { id: "", name: "", avatar: "" }
     };
   });

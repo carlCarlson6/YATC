@@ -1,21 +1,21 @@
 import { Box } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "src/server/infrastructure/nextauth";
-import loadUserProfileData from "src/server/user/loadUserProfileData";
+import { authOptions } from "src/server/auth/infrastructure/nextauth";
 import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";
 import { notFound } from 'next/navigation'
+import { fetchUserProfile } from "src/server/user/profile/api";
 
-export type UserProfileProps = Awaited<ReturnType<typeof loadUserPageData>>;
+export type UserProfileProps = Awaited<ReturnType<typeof fetchUser>>;
 
-const loadUserPageData = async (userName: string) => {
+const fetchUser = async (userName: string) => {
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect('/');
   }
 
-  const data = await loadUserProfileData(
+  const data = await fetchUserProfile(
     {...session.user, avatar: session.user.image}, 
     userName
   );
@@ -28,7 +28,7 @@ const loadUserPageData = async (userName: string) => {
 }
 
 export default async function UserPage({ params }: { params: { userName: string } }) {
-  const data = await loadUserPageData(params.userName);
+  const data = await fetchUser(params.userName);
   return (<>
     <Box>
       <UserProfileControls 

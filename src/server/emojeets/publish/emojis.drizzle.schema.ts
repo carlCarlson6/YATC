@@ -1,7 +1,8 @@
 import { decimal, varchar } from "drizzle-orm/pg-core";
-import { drizzleTable } from "../infrastructure/drizzle/drizzleTable";
+import { drizzleTable } from "../../infrastructure/drizzle/drizzleTable";
 import { relations } from "drizzle-orm";
-import { usersTable } from "../infrastructure/drizzle/base.drizzle.schema";
+import { usersTable } from "../../infrastructure/drizzle/base.drizzle.schema";
+import { emojisReactionsTable } from "../react/emojisReactions.drizzle.schema";
 
 export type EmojiEntity = typeof emojisTable.$inferSelect;
 
@@ -12,9 +13,10 @@ export const emojisTable = drizzleTable("emoji_tweets", {
   publishedAt: decimal("publishedAt").notNull(),
 });
 
-export const emojisTableRelations = relations(emojisTable, ({one}) => ({
+export const emojisTableRelations = relations(emojisTable, ({one, many}) => ({
   user: one(usersTable, { 
-    fields: [emojisTable.publishedBy], 
+    fields:     [emojisTable.publishedBy], 
     references: [usersTable.id] 
-  })
+  }),
+  reactions: many(emojisReactionsTable)
 }));

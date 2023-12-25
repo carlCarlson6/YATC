@@ -1,13 +1,12 @@
 "use client"
 
-import { Button, Flex } from "@radix-ui/themes";
-import { PersonIcon } from "@radix-ui/react-icons";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Button } from "@radix-ui/themes";
 import { useRouter } from 'next/navigation';
-import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
-export const UserProfileButton: React.FC<{ user: User; }> = ({ user }) => {
+export const Reload = () => {
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
   return (
@@ -16,18 +15,17 @@ export const UserProfileButton: React.FC<{ user: User; }> = ({ user }) => {
       style={{ cursor: 'pointer' }} 
       onClick={_ => {
         setIsNavigating(true);
-        router.push(`user/${user.name}`);
+        router.push('/timeline');
+        setIsNavigating(false);
       }}
     >
-      { !isNavigating ?
-        <PersonIcon /> :
-        <Flex align={'center'} justify={'center'}>
-          <ClipLoader
+      { !isNavigating
+        ? <ReloadIcon />
+        : <ClipLoader
             size={10}
             color="#9EB1FF"
             speedMultiplier={0.7}
           />
-        </Flex>
       }
     </Button>
   );

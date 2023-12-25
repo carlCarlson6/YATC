@@ -2,7 +2,8 @@ import { relations, sql } from "drizzle-orm";
 import { index, integer, primaryKey, text, timestamp, varchar, } from "drizzle-orm/pg-core";
 import { drizzleTable } from "./drizzleTable";
 import type { AdapterAccount } from "node_modules/next-auth/adapters";
-import { emojisTable } from "src/server/publish-emojeet/emojis.drizzle.schema";
+import { emojisTable } from "src/server/emojeets/publish/emojis.drizzle.schema";
+import { emojisReactionsTable } from "src/server/emojeets/react/emojisReactions.drizzle.schema";
 
 export const usersTable = drizzleTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
@@ -14,7 +15,8 @@ export const usersTable = drizzleTable("user", {
 
 export const usersTableRelations = relations(usersTable, ({ many }) => ({
   accounts: many(accountsTable),
-  emojis: many(emojisTable)
+  emojis: many(emojisTable),
+  reactons: many(emojisReactionsTable)
 }));
 
 export const accountsTable = drizzleTable(
