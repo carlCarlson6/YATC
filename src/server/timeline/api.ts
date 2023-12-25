@@ -1,5 +1,6 @@
 import { drizzleDb } from "../infrastructure/drizzle";
-import { addUserData, buildTimelineFromDb } from "./buildTimeline";
+import { buildTimelineFromDb } from "./buildTimeline";
+import { addUserData } from "./addUserData";
 import { getTimeline } from "./getTimeline";
 
 export const fetchTimeline = getTimeline({

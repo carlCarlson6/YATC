@@ -1,9 +1,83 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "eea91d6d-e4a6-450c-868a-adcc30c2f0b3",
+  "id": "50be4395-5a53-4236-9877-f5f13097c339",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "yatc_emoji_tweets": {
+      "name": "yatc_emoji_tweets",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "emoji": {
+          "name": "emoji",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedBy": {
+          "name": "publishedBy",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedAt": {
+          "name": "publishedAt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "yatc_emoji_reaction": {
+      "name": "yatc_emoji_reaction",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "reaction": {
+          "name": "reaction",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reactsTo": {
+          "name": "reactsTo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedBy": {
+          "name": "publishedBy",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedAt": {
+          "name": "publishedAt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "yatc_account": {
       "name": "yatc_account",
       "schema": "",
@@ -209,40 +283,6 @@
       },
       "uniqueConstraints": {}
     },
-    "yatc_emoji_tweets": {
-      "name": "yatc_emoji_tweets",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(255)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "emoji": {
-          "name": "emoji",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "publishedBy": {
-          "name": "publishedBy",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "publishedAt": {
-          "name": "publishedAt",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
     "yatc_follows": {
       "name": "yatc_follows",
       "schema": "",
@@ -261,6 +301,28 @@
         },
         "isFollowingUserId": {
           "name": "isFollowingUserId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "yatc_user_profile": {
+      "name": "yatc_user_profile",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true

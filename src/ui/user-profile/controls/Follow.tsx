@@ -4,7 +4,7 @@ import ButtonLoaderIcon from "src/ui/ButtonLoaderIcon";
 import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
 import { useFollowAction } from "./useFollowAction";
 
-export const FollowButton: React.FC<{ followed: boolean; userId: string }> = ({ followed, userId }) => {
+export const Follow: React.FC<{ followed: boolean; userId: string }> = ({ followed, userId }) => {
   const { isExecuting, execute } = useFollowAction(followed);
   return (
     <Button

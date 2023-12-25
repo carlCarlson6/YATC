@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1703254912066,
-      "tag": "0000_sharp_stellaris",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1703255352591,
-      "tag": "0001_faulty_phantom_reporter",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1703273068648,
-      "tag": "0002_crazy_saracen",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1703363196840,
-      "tag": "0003_jittery_black_panther",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1703363255105,
-      "tag": "0004_new_sandman",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1703363270471,
-      "tag": "0005_clumsy_ares",
+      "when": 1703533009471,
+      "tag": "0000_abandoned_scorpion",
       "breakpoints": true
     }
   ]

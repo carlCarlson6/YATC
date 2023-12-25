@@ -1,3 +1,4 @@
+import { EmojiEntity } from "../emojeets/publish/emojis.drizzle.schema";
 import type { User } from "../user/profile/userProfile.drizzle.schema";
 
 export type Emojeet = {
@@ -9,5 +10,7 @@ export type Emojeet = {
     emoji: string,
   }[];
 };
+
+export type EmojiEntityWithReactions = EmojiEntity & {reactions: {emoji: string}[]};
 
 export type Timeline = Emojeet[];
