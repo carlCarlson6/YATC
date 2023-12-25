@@ -5,7 +5,6 @@ import { useState } from "react";
 import { MdOutlineQuickreply } from "react-icons/md";
 import { PickEmojiDialogConent } from "./PickEmojiDialogConent";
 import { publishReactionAction } from "src/server/emojeets/react/api";
-import { useRouter } from 'next/navigation';
 
 export const useAddReaction = (
   emojeetId: string, 
@@ -14,7 +13,6 @@ export const useAddReaction = (
   const [emoji, setEmoji] = useState("");
   const [open, setOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const router = useRouter();
   return {
     emoji,
     isOpen: open,

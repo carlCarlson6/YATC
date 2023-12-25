@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Flex, Grid, Text } from "@radix-ui/themes";
+import { Flex, Grid, Text } from "@radix-ui/themes";
 import { AddReaction } from "./AddReaction";
 import { useId, useState } from "react";
 
@@ -17,9 +17,16 @@ export const Reactions = ({
       <AddReaction emojeetId={emojeetId} updateReactions={updateReactions}/>
       <Grid columns={'8'} gap={'2'} pt={'2'} pr={'2'}>
         {reactions.map(r => (
-          <Text size={'6'}>{r.emoji}</Text>
+          <EmojiReaction key={r.emoji} emoji={r.emoji} />
         ))}
       </Grid>
     </Flex>
   );
 };
+
+const EmojiReaction = ({emoji}: {emoji: string}) => {
+  const id = useId();
+  return (
+    <Text key={id} size={'6'}>{emoji}</Text>
+  );
+}

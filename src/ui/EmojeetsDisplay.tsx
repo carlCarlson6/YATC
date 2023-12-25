@@ -1,7 +1,6 @@
 import { Avatar, Box, Card, Flex, Text, Link, Separator } from "@radix-ui/themes";
 import type { Emojeet } from "src/server/timeline/EmojiTweet";
 import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
-import { useId } from "react";
 import { Reactions } from "./Reactions";
 
 export const EmojeetsDisplay = ({ emojeets }: { emojeets: Emojeet[] }) => (
