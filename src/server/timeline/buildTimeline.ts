@@ -6,20 +6,12 @@ import { emojisReactionsTable } from "../emojeets/react/emojisReactions.drizzle.
 import type { EmojiEntityWithReactions } from "./EmojiTweet";
 
 export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Promise<EmojiEntityWithReactions[]> => {
-  const followers = await db.select({
-      userWhoIsFollowedId: followsTable.isFollowingUserId
-    })
-    .from(followsTable)
-    .where(eq(followsTable.userId, userId))
-    .execute();
-  const followEmojis = (await Promise.all(followers.map(x => db.select().from(emojisTable).where(eq(emojisTable.publishedBy, x.userWhoIsFollowedId)).execute())))
-    .flatMap(x => x);
-  const followEmojisWithReactionsPromises = followEmojis.flatMap(async x => ({
-    ...x,
-    reactions: await loadEmojeetReactions(db)(x.id),
-  }));
-  const followEmojisWithReactions = await Promise.all(followEmojisWithReactionsPromises);
+  const followingEmojis = await loadFollowingUsersEmojis(db, userId);
+  const userEmojis = await loadUserEmojis(db, userId);
+  return [...userEmojis, ...followingEmojis].sort((a,b) => Number.parseFloat(a.publishedAt) - Number.parseFloat(b.publishedAt)).reverse();
+}
 
+const loadUserEmojis = async (db: DrizzleDb, userId: string) => {
   const userEmojis = await db
     .select()
     .from(emojisTable)
@@ -30,9 +22,22 @@ export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Pr
     ...x,
     reactions: await loadEmojeetReactions(db)(x.id),
   }));
-  const userEmojisWithReactions = await Promise.all(userEmojisWithReactionsPromises);
+  return await Promise.all(userEmojisWithReactionsPromises);
+}
 
-  return [...userEmojisWithReactions, ...followEmojisWithReactions].sort((a,b) => Number.parseFloat(a.publishedAt) - Number.parseFloat(b.publishedAt)).reverse();
+const loadFollowingUsersEmojis = async (db: DrizzleDb, userId: string) => {
+  const followers = await db
+    .select({userWhoIsFollowedId: followsTable.isFollowingUserId})
+    .from(followsTable)
+    .where(eq(followsTable.userId, userId))
+    .execute();
+  const followEmojis = (await Promise.all(followers.map(x => db.select().from(emojisTable).where(eq(emojisTable.publishedBy, x.userWhoIsFollowedId)).execute())))
+    .flatMap(x => x);
+  const followEmojisWithReactionsPromises = followEmojis.flatMap(async x => ({
+    ...x,
+    reactions: await loadEmojeetReactions(db)(x.id),
+  }));
+  return await Promise.all(followEmojisWithReactionsPromises);
 }
 
 const loadEmojeetReactions = (db: DrizzleDb) => async (emojeetId: string) => await db

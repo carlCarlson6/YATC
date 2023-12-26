@@ -1,6 +1,8 @@
 import type { Emojeet, EmojiEntityWithReactions } from "./EmojiTweet";
 
-export const getTimeline = ({ fetchEmojeets, addUserData }: {
+export const getTimeline = ({ 
+  fetchEmojeets, addUserData 
+}: {
   fetchEmojeets: (userId: string) => Promise<EmojiEntityWithReactions[]>;
   addUserData: (tweets: EmojiEntityWithReactions[]) => Promise<Emojeet[]>;
 }) => async (userId: string) => {
