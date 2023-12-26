@@ -1,3 +1,18 @@
+CREATE TABLE IF NOT EXISTS "yatc_emoji_tweets" (
+	"id" varchar(255) PRIMARY KEY NOT NULL,
+	"emoji" varchar(255) NOT NULL,
+	"publishedBy" varchar(255) NOT NULL,
+	"publishedAt" numeric NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "yatc_emoji_reaction" (
+	"id" varchar(255) PRIMARY KEY NOT NULL,
+	"reaction" varchar(255) NOT NULL,
+	"reactsTo" varchar(255) NOT NULL,
+	"publishedBy" varchar(255) NOT NULL,
+	"publishedAt" numeric NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "yatc_account" (
 	"userId" varchar(255) NOT NULL,
 	"type" varchar(255) NOT NULL,
@@ -34,17 +49,15 @@ CREATE TABLE IF NOT EXISTS "yatc_verificationtoken" (
 	CONSTRAINT yatc_verificationtoken_identifier_token PRIMARY KEY("identifier","token")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "yatc_emoji_tweets" (
-	"id" varchar(255) PRIMARY KEY NOT NULL,
-	"emoji" varchar(255),
-	"publishedBy" varchar(255) NOT NULL,
-	"publishedAt" numeric NOT NULL
-);
---> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "yatc_follows" (
 	"id" varchar(255) PRIMARY KEY NOT NULL,
 	"userId" varchar(255) NOT NULL,
 	"isFollowingUserId" varchar(255) NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "yatc_user_profile" (
+	"id" varchar(255) PRIMARY KEY NOT NULL,
+	"name" varchar(255) NOT NULL
 );
 --> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "userId_idx" ON "yatc_account" ("userId");--> statement-breakpoint

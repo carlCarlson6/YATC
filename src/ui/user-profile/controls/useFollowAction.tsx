@@ -11,6 +11,7 @@ export const useFollowAction = (isAlreadyFollowing: boolean) => {
   const onMutationSuccess = () => {
     setIsRefreshing(true);
     router.refresh();
+    setIsRefreshing(false);
   };
 
   const mutateFollow = async (userId: string) => {
@@ -27,8 +28,6 @@ export const useFollowAction = (isAlreadyFollowing: boolean) => {
     onMutationSuccess();
   };
 
-  //const { mutate: mutateFollow, isLoading: isLoadingFollow } = api.follow.useMutation({ onSuccess: onMutationSuccess });
-  //const { mutate: mutateUnFollow, isLoading: isLoadingUnfollow } = api.unfollow.useMutation({ onSuccess: onMutationSuccess });
   return {
     isExecuting: isLoadingFollow || isLoadingUnfollow || isRefreshing,
     execute: async (userId: string) => isAlreadyFollowing ? await mutateUnFollow(userId) : await mutateFollow(userId),
