@@ -6,15 +6,15 @@ import { emojisReactionsTable } from "../emojeets/react/emojisReactions.drizzle.
 import type { EmojiEntityWithReactions } from "./EmojiTweet";
 
 export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Promise<EmojiEntityWithReactions[]> => {
-  const queryFollowsEmojisResult = await db
-    .select({ emoji: emojisTable })
+  const followers = await db.select({
+      userWhoIsFollowedId: followsTable.isFollowingUserId
+    })
     .from(followsTable)
     .where(eq(followsTable.userId, userId))
-    .innerJoin(emojisTable, eq(followsTable.userId, emojisTable.publishedBy))
-    .orderBy(desc(emojisTable.publishedAt))
     .execute();
-  const followEmojis = queryFollowsEmojisResult.map(x => ({...x.emoji}));
-  const followEmojisWithReactionsPromises = followEmojis.map(async x => ({
+  const followEmojis = (await Promise.all(followers.map(x => db.select().from(emojisTable).where(eq(emojisTable.publishedBy, x.userWhoIsFollowedId)).execute())))
+    .flatMap(x => x);
+  const followEmojisWithReactionsPromises = followEmojis.flatMap(async x => ({
     ...x,
     reactions: await loadEmojeetReactions(db)(x.id),
   }));

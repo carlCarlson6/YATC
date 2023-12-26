@@ -1,5 +1,34 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`GivenUserFollowingAnotherUser_WhenGetTimeline_ThenTimelineIsReturned 1`] = `
+[
+  {
+    "emoji": "🐱",
+    "id": "432b5c9e-de62-4249-b0c0-d452ca3234d6",
+    "publishedAt": "0",
+    "publishedBy": "cd192ae5-39f0-419e-86a7-6c48cc40a7ac",
+    "reactions": [],
+    "user": {
+      "avatar": "another-user-image",
+      "id": "cd192ae5-39f0-419e-86a7-6c48cc40a7ac",
+      "name": "another-user-name",
+    },
+  },
+  {
+    "emoji": "🐹",
+    "id": "277cc7a2-2b75-4303-9179-1538360f8239",
+    "publishedAt": "0",
+    "publishedBy": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+    "reactions": [],
+    "user": {
+      "avatar": "some-user-image",
+      "id": "024a0448-10d8-4a9b-9b0d-0c55caccd4c4",
+      "name": "some-user-name",
+    },
+  },
+]
+`;
+
 exports[`GivenUserWithEmojeetWithReactions_WhenGetTimeline_ThenTimelineWithReactionsIsReturned 1`] = `
 [
   {
