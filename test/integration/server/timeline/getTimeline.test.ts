@@ -11,7 +11,7 @@ import { emojisReactionsTable } from 'src/server/emojeets/react/emojisReactions.
 import { followsTable } from 'src/server/user/follows/follows.drizzle.schema';
 
 const userId = "024a0448-10d8-4a9b-9b0d-0c55caccd4c4";
-const anotherUserID = "cd192ae5-39f0-419e-86a7-6c48cc40a7ac";
+const anotherUserId = "cd192ae5-39f0-419e-86a7-6c48cc40a7ac";
 
 const withUser = (db: DrizzleDb, user: User) => db.insert(usersTable).values({
   id: user.id,
@@ -79,13 +79,13 @@ test("GivenUserWithEmojeetWithReactions_WhenGetTimeline_ThenTimelineWithReaction
 
 test("GivenUserFollowingAnotherUser_WhenGetTimeline_ThenTimelineIsReturned", async () => {
   const {db} = await setupDockerTestDb();
-  await withUser(db, {id: userId, name: "some-user-name", avatar: "some-user-image"});
-  await withUser(db, {id: anotherUserID, name: "another-user-name", avatar: "another-user-image"});
 
+  await withUser(db, {id: userId, name: "some-user-name", avatar: "some-user-image"});
+  await withUser(db, {id: anotherUserId, name: "another-user-name", avatar: "another-user-image"});
   await db.insert(followsTable).values({
     id: "1",
     userId,
-    isFollowingUserId: anotherUserID
+    isFollowingUserId: anotherUserId
   }).execute();
 
   await db.insert(emojisTable).values([
@@ -99,9 +99,38 @@ test("GivenUserFollowingAnotherUser_WhenGetTimeline_ThenTimelineIsReturned", asy
       id:           "432b5c9e-de62-4249-b0c0-d452ca3234d6",
       emoji:        "🐱",
       publishedAt:  "0",
-      publishedBy:  anotherUserID
+      publishedBy:  anotherUserId
     }
   ]).execute();
+
+  const timeline = await getUserTimeline(db);
+  expect(timeline).toMatchSnapshot();
+});
+
+test("GivenUserFollowingAnotherUser_WithReactions_WhenGetTimeline_ThenTimelineIsReturned", async () => {
+  const {db} = await setupDockerTestDb();
+  
+  await withUser(db, {id: userId, name: "some-user-name", avatar: "some-user-image"});
+  await withUser(db, {id: anotherUserId, name: "another-user-name", avatar: "another-user-image"});
+  await db.insert(followsTable).values({
+    id: "1",
+    userId,
+    isFollowingUserId: anotherUserId
+  }).execute();
+
+  await db.insert(emojisTable).values({
+    id:           "277cc7a2-2b75-4303-9179-1538360f8239",
+    emoji:        "🐹",
+    publishedAt:  "0",
+    publishedBy:  anotherUserId
+  }).execute();
+  await db.insert(emojisReactionsTable).values({
+    id:           "6566e66d-ff4c-451b-a9f4-3ec1393b9aa3",
+    reaction:     "🪤",
+    reactsTo:     "277cc7a2-2b75-4303-9179-1538360f8239",
+    publishedAt:  "1",
+    publishedBy:  anotherUserId
+  }).execute();
 
   const timeline = await getUserTimeline(db);
   expect(timeline).toMatchSnapshot();
