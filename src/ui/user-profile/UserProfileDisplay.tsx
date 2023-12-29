@@ -1,6 +1,6 @@
 import type { UserProfileProps } from "src/app/user/[userName]/page";
 import { EmojeetsDisplay } from "../emojeet/EmojeetsDisplay";
-import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
+import { Avatar, Box, Code, Flex, Separator, Text } from "@radix-ui/themes";
 
 export const UserProfileDisplay = ({ user, emojeets }: UserProfileProps) => (<>
   <Box style={{ width: '85%', float: 'right' }}>
@@ -13,7 +13,7 @@ export const UserProfileDisplay = ({ user, emojeets }: UserProfileProps) => (<>
             fallback={user.name} 
           />
           <Flex direction={'column'} gap={'4'}>
-            <Text>{user.name}</Text>
+            <Text><Code>{user.name}</Code></Text>
             <Flex direction={'column'}>
               <Text>Followers: {user.followersCount}</Text>
               <Text>Following: {user.followingCount}</Text>
