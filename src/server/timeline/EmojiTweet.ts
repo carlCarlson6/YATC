@@ -1,4 +1,4 @@
-import { EmojiEntity } from "../emojeets/publish/emojis.drizzle.schema";
+import type { EmojiEntity } from "../emojeets/publish/emojis.drizzle.schema";
 import type { User } from "../user/profile/userProfile.drizzle.schema";
 
 export type Emojeet = {

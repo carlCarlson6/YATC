@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="appBackground" >
         <Theme appearance={'dark'}>
           <Box p={'5'}>
             {children}
