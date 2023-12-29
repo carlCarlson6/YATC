@@ -5,7 +5,7 @@ import { authOptions } from "src/server/auth/infrastructure/nextauth";
 import { UserProfileDisplay } from "src/ui/user-profile/UserProfileDisplay";
 import { UserProfileControls } from "src/ui/user-profile/controls/UserProfileControls";
 import { notFound } from 'next/navigation'
-import { fetchUserProfile } from "src/server/user/profile/api";
+import { fetchUserProfile } from "src/server/api";
 
 export type UserProfileProps = Awaited<ReturnType<typeof fetchUser>>;
 

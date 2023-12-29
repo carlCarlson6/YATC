@@ -3,7 +3,7 @@
 import { Box, Button, Flex, Separator } from "@radix-ui/themes";
 import React from "react";
 import { Follow } from "./Follow";
-import { BackToTimelineButton } from "./BackToTimelineButton";
+import { BackToTimeline } from "./BackToTimeline";
 import { MdOutlineEdit } from "react-icons/md";
 
 export const UserProfileControls: React.FC<{
@@ -19,7 +19,7 @@ export const UserProfileControls: React.FC<{
         <Follow followed={followed} userId={userId} />
       }
       <Separator size={'4'}/>
-      <BackToTimelineButton />
+      <BackToTimeline />
     </Flex>
   </Box>
 </>);

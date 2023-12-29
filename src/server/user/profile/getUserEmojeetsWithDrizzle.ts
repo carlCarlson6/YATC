@@ -19,7 +19,9 @@ export const getUserEmojeetsWithDrizzle = (db: DrizzleDb) => async (userId: stri
     .from(emojisTable)
     .innerJoin(usersTable, eq(emojisTable.publishedBy, usersTable.id))
     .where(eq(emojisTable.publishedBy, userId))
-    .orderBy(desc(emojisTable.publishedAt)).execute();
+    .orderBy(desc(emojisTable.publishedAt))
+    .execute();
+  
   return result.map(x => ({
     ...x,
     user: {

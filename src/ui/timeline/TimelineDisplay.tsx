@@ -2,7 +2,7 @@
 
 import { Box } from "@radix-ui/themes";
 import { useTimeline } from "./store";
-import { EmojeetsDisplay } from "../EmojeetsDisplay";
+import { EmojeetsDisplay } from "../emojeet/EmojeetsDisplay";
 
 export const TimelineDisplay: React.FC = () => {
   const timeline = useTimeline(x => x.timeline);
