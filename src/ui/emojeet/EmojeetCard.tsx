@@ -7,24 +7,28 @@ import { User } from "src/server/user/profile/userProfile.drizzle.schema";
 import { Reactions } from "./Reactions";
 import { AddReaction } from "./AddReaction";
 
-export const EmojeetCard = ({ emojeet }: { emojeet: Emojeet; }) => (<>
-  <Card
-    key={emojeet.id}
-    size={'1'}
-    variant={'surface'}
-  >
-    <Flex
-      gap={'3'}
-      align={'start'}
-      direction={'column'}
-      justify={'center'}
+export const EmojeetCard = ({ emojeet }: { emojeet: Emojeet; }) => {
+  const [reactions, setReactions] = useState(emojeet.reactions);
+  const updateReactions = (emoji: string) => setReactions([...reactions, {emoji}]);
+  return (<>
+    <Card
+      key={emojeet.id}
+      size={'1'}
+      variant={'surface'}
     >
-      <UserInfo user={emojeet.user} />
-      <EmojeetInfo data={{ ...emojeet }} />
-      <CardButtons data={{ ...emojeet }} />
-    </Flex>
-  </Card>
-</>);
+      <Flex
+        gap={'3'}
+        align={'start'}
+        direction={'column'}
+        justify={'center'}
+      >
+        <UserInfo user={emojeet.user} />
+        <EmojeetInfo emoji={emojeet.emoji} reactions={reactions} />
+        <CardButtons emojeetId={emojeet.id} updateReactions={updateReactions} />
+      </Flex>
+    </Card>
+  </>);
+};
 
 const UserInfo = ({user}: {user: User}) => (<>
   <Flex align={'center'} gap={'3'} pb={'3'}>
@@ -57,8 +61,10 @@ const UserInfo = ({user}: {user: User}) => (<>
   </Flex>
 </>);
 
-const EmojeetInfo: React.FC<{data: Omit<Emojeet, "user">}> = ({
-  data: {id, emoji, reactions, publishedAt}
+const EmojeetInfo: React.FC<
+  {emoji: string,} 
+  & Pick<Emojeet, "reactions">> = ({
+  emoji, reactions
 }) => (<>
   <Flex pl={'8'} pb={'1'} gap={'7'}>
     <Box>
@@ -67,19 +73,20 @@ const EmojeetInfo: React.FC<{data: Omit<Emojeet, "user">}> = ({
       </Text>
     </Box>
     <Box>
-      <Reactions emojeetId={id} emojeetReactions={reactions}/>
+      <Reactions emojis={reactions.map(x => x.emoji)}/>
     </Box>
   </Flex>
 </>);
 
-const CardButtons: React.FC<{data: Omit<Emojeet, "user">}> = ({
-  data: {id, emoji, reactions: emojeetReactions, publishedAt}
+const CardButtons: React.FC<{
+  emojeetId: string, 
+  updateReactions: (emoji: string) => void}
+> = ({
+  emojeetId, updateReactions,
 }) => {
-  const [reactions, setReactions] = useState<typeof emojeetReactions>(emojeetReactions);
-  const updateReactions = (emoji: string) => setReactions([...reactions, {emoji}]);
   return (<>
     <Flex pr={'9'}>
-      <AddReaction emojeetId={id} updateReactions={updateReactions} />
+      <AddReaction emojeetId={emojeetId} updateReactions={updateReactions} />
     </Flex>
   </>);
 };

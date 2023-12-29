@@ -1,6 +1,6 @@
 import { Box, Flex } from "@radix-ui/themes";
 import type { Emojeet } from "src/server/timeline/EmojiTweet";
-import { EmojeetCard } from "./EmojeetDisplayRefactor";
+import { EmojeetCard } from "./EmojeetCard";
 
 export const EmojeetsDisplay = ({ emojeets }: { emojeets: Emojeet[] }) => (
   <Box>

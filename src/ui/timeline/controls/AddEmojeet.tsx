@@ -4,7 +4,7 @@ import { Button, Dialog, Flex } from "@radix-ui/themes";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { useAddEmojeet } from "./useAddEmojeet";
 import React from "react";
-import { PickEmojiDialogConent } from "src/ui/PickEmojiDialogConent";
+import { PickEmojiDialogConent } from "src/ui/emojeet/PickEmojiDialogConent";
 
 export default function AddEmojeet() {
   const { emoji, isOpen, setIsOpen, setEmoji, isSending, canSend, send } = useAddEmojeet();

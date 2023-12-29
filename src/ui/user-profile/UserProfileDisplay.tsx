@@ -1,6 +1,6 @@
 import { Avatar, Box, Flex, Text, Separator } from "@radix-ui/themes";
 import type { UserProfileProps } from "src/app/user/[userName]/page";
-import { EmojeetsDisplay } from "../EmojeetsDisplay";
+import { EmojeetsDisplay } from "../emojeet/EmojeetsDisplay";
 
 export const UserProfileDisplay = ({ user, emojeets }: UserProfileProps) => (<>
   <Box style={{ width: '85%', float: 'right' }}>
