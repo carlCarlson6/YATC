@@ -1,6 +1,7 @@
 "use server"
 
 import { nextAuthValidator } from "./auth/nextAuthValidator";
+import { loadEmojeet } from "./emojeets/loadEmojeet";
 import { publishEmojeetAction } from "./emojeets/publish/publishEmojeet";
 import { publishReactionAction } from "./emojeets/react/publishReaction";
 import { drizzleDb } from "./infrastructure/drizzle";
@@ -17,3 +18,4 @@ export const findUsers        = findUsersOnDb(drizzleDb, nextAuthValidator);
 export const followUser       = followrUserAction(drizzleDb, nextAuthValidator);
 export const unfollowUser     = unFollowUserAction(drizzleDb, nextAuthValidator);
 export const fetchUserProfile = loadUserProfileData(drizzleDb);
+export const fetchEmojeet     = loadEmojeet(drizzleDb);

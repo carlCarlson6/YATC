@@ -4,8 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from "react";
 import ButtonLoaderIcon from "src/ui/ButtonLoaderIcon";
 
-
-export const BackToTimelineButton = () => {
+export const BackToTimeline = () => {
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
   return (<>
