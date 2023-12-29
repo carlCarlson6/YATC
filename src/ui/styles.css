@@ -2,10 +2,12 @@
   --default-font-family: 'Menlo', 'Consolas (Custom)', 'Bitstream Vera Sans Mono', monospace, 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
-.tweet {
-  max-width: 30rem;
-}
-
 .StackImage:hover {
   background-color: #FFFFFF55;
+}
+
+.appBackground {
+  background-color: #000000;
+  opacity: 0.8;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #000000 11px ), repeating-linear-gradient( #1a181855, #1a1818 );
 }
