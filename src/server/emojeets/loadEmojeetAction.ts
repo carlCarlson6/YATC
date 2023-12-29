@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { emojisReactionsTable } from "./react/emojisReactions.drizzle.schema";
 import type { Emojeet } from "../timeline/EmojiTweet";
 
-export const loadEmojeet = (db: DrizzleDb) => async (emojeetId: string) => {
+export const fetchEmojeetAction = (db: DrizzleDb) => async (emojeetId: string) => {
   const resultWithUser = await db
     .select({
       emoji: emojisTable,

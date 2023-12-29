@@ -5,20 +5,12 @@ import { buildTimelineFromDb } from 'src/server/timeline/buildTimeline';
 import { addUserData } from 'src/server/timeline/addUserData';
 import { emojisTable } from 'src/server/emojeets/publish/emojis.drizzle.schema';
 import { DrizzleDb } from 'src/server/infrastructure/drizzle';
-import { usersTable } from 'src/server/infrastructure/drizzle/base.drizzle.schema';
-import { User } from 'src/server/user/profile/userProfile.drizzle.schema';
 import { emojisReactionsTable } from 'src/server/emojeets/react/emojisReactions.drizzle.schema';
 import { followsTable } from 'src/server/user/follows/follows.drizzle.schema';
+import { withUser } from '../../../helpers/withUser';
 
 const userId = "024a0448-10d8-4a9b-9b0d-0c55caccd4c4";
 const anotherUserId = "cd192ae5-39f0-419e-86a7-6c48cc40a7ac";
-
-const withUser = (db: DrizzleDb, user: User) => db.insert(usersTable).values({
-  id: user.id,
-  name: user.name,
-  email: `${user.name}@mail.com`,
-  image: user.avatar
-}).execute();
 
 const getUserTimeline = async (db: DrizzleDb) => await getTimeline({
   fetchEmojeets: buildTimelineFromDb(db),

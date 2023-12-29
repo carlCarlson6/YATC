@@ -1,7 +1,7 @@
 import { Box } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { fetchTimeline } from "src/server/api";
+import { fetchTimeline } from "src/server/api/queries";
 import { authOptions } from "src/server/auth/infrastructure/nextauth";
 import { TimelineDisplay } from "src/ui/timeline/TimelineDisplay";
 import { TimeLineControls } from "src/ui/timeline/controls/TimelineControls";

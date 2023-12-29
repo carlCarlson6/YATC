@@ -1,6 +1,6 @@
 import { Card, Flex } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import { fetchEmojeet } from "src/server/api";
+import { fetchEmojeet } from "src/server/api/queries";
 import type { Emojeet } from "src/server/timeline/EmojiTweet";
 import { EmojeetInfo } from "src/ui/emojeet/EmojeetInfo";
 import { UserInfo } from "src/ui/emojeet/UserInfo";

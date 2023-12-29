@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { type ChangeEvent, useState } from "react";
 import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
 import { SyncLoader } from "react-spinners";
-import { findUsers } from "src/server/api";
+import { findUsers } from "src/server/api/queries";
 
 export const SearchUsers = () => {
   const [foundUsers, setFoundUsers] = useState<User[]>([]);

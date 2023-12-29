@@ -1,13 +1,13 @@
 "use client"
 
 import { Box, Button, Dialog, Flex, Separator, TextField, Text, Code, DialogClose } from "@radix-ui/themes";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { Follow } from "./Follow";
 import { BackToTimeline } from "./BackToTimeline";
 import { MdOutlineEdit } from "react-icons/md";
 import * as Label from '@radix-ui/react-label';
-import { User } from "src/server/user/profile/userProfile.drizzle.schema";
-import { UserProfileData } from "src/app/user/[userName]/page";
+import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
+import type { UserProfileData } from "src/app/user/[userName]/page";
 import { SendButton } from "src/ui/SendButton";
 
 export const UserProfileControls: React.FC<{data: UserProfileData}> = ({data}) => (
@@ -70,7 +70,7 @@ const useEditProfile = (user: User) => {
   const [open, setOpen] = useState(false);
 
   const send = () => {
-
+    throw new Error("not implemented");
   }
 
   return {

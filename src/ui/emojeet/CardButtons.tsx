@@ -6,9 +6,9 @@ import { Box, Dialog, IconButton, Text } from "@radix-ui/themes";
 import { useState } from "react";
 import { MdOutlineQuickreply } from "react-icons/md";
 import { PickEmojiDialogConent } from "./PickEmojiDialogConent";
-import { publishReaction } from "src/server/api";
 import { useCopyToClipboard } from 'usehooks-ts'
 import { Share1Icon } from "@radix-ui/react-icons";
+import { publishReaction } from "src/server/api/mutations";
 
 export const CardButtons: React.FC<{
   emojeetId: string;

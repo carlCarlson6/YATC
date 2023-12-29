@@ -3,15 +3,14 @@ import { checkIfFollowingWithDrizzle } from 'src/server/user/follows/checkIfFoll
 import { setupDockerTestDb } from 'test/helpers/setupTestingDb';
 import { followsTable } from 'src/server/user/follows/follows.drizzle.schema';
 import { followUser, storeFollowerOnDrizzle } from 'src/server/user/follows/follow/followUser';
-import { AuthValidator } from "src/server/auth/AuthValidator";
+import { mockAuthValidator } from '../../../../../helpers/mockAuthValidator';
 
 const userId = "some-user-id";
-
-const mockAuthValidator: AuthValidator = () => Promise.resolve({
+const user = {
   id: userId,
   name: "some-user-name",
   avatar: "some-avatar"
-});
+}
 
 test("GivenUser_WhenFollowAnotherUser_ThenFollowingCountIncreases", async () => {
   const userToFollow = "some-user-id-who-is-followed";
@@ -20,7 +19,7 @@ test("GivenUser_WhenFollowAnotherUser_ThenFollowingCountIncreases", async () => 
   await followUser({
     checkIfFollowing: checkIfFollowingWithDrizzle(db),
     storeFollower: storeFollowerOnDrizzle(db),
-    auth: mockAuthValidator
+    auth: mockAuthValidator(user)
   })({userToFollow});
 
   const count = (await db.query.followsTable.findMany().execute()).length;
@@ -34,7 +33,7 @@ test("GivenUser_WhenFollowAnotherUser_ThenAFollowIsStored", async () => {
   await followUser({
     checkIfFollowing: checkIfFollowingWithDrizzle(db),
     storeFollower: storeFollowerOnDrizzle(db),
-    auth: mockAuthValidator
+    auth: mockAuthValidator(user)
   })({userToFollow});
 
   const follow = await db.select({ userId: followsTable.userId, whoIsFollowed: followsTable.isFollowingUserId })

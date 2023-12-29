@@ -25,7 +25,7 @@ export async function setupDockerTestDb() {
 
   await migrate(db, { migrationsFolder: path.join(process.cwd(), 'drizzle-migration'), });
 
-  const confirmDatabaseReady = await db.execute(sql`SELECT 1`);
+  await db.execute(sql`SELECT 1`);
 
-  return { container, db, confirmDatabaseReady, client }
+  return {db};
 }

@@ -1,5 +1,4 @@
 "use server"
-
 import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
 import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "../../follows/counting";
 import { type DrizzleDb } from "../../../infrastructure/drizzle";
@@ -8,7 +7,7 @@ import { getUserProfileWithDrizzle } from "./getUserProfileWithDrizzle";
 import { loadUserEmojis } from "src/server/timeline/buildTimeline";
 import { addUserData } from "src/server/timeline/addUserData";
 
-export const loadUserProfileData = (db: DrizzleDb) => async (userWhoExecutesRequest: User, userNameOfProfileToLoad: string) => {
+export const fetchUserProfileAction = (db: DrizzleDb) => async (userWhoExecutesRequest: User, userNameOfProfileToLoad: string) => {
   const maybeUser = await getUserProfileWithDrizzle(db)(userNameOfProfileToLoad);
   if (!maybeUser) return null;
   const isOwnProfile = maybeUser.id === userWhoExecutesRequest.id;

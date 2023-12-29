@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTimeline } from "../store";
-import { publishEmojeet } from "src/server/api";
+import { publishEmojeet } from "src/server/api/mutations";
 
 export const useAddEmojeet = () => {
   const addEmojeet = useTimeline(x => x.addEmojeet);

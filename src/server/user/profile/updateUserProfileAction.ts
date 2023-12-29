@@ -1,9 +1,9 @@
-import { AuthValidator } from "src/server/auth/AuthValidator";
-import { DrizzleDb } from "src/server/infrastructure/drizzle";
+import type { AuthValidator } from "src/server/auth/AuthValidator";
+import type { DrizzleDb } from "src/server/infrastructure/drizzle";
 import { z } from "zod";
-import { checkUserNameOnDbIsUnique } from "./checkUserNameIsUniqueAction";
-import { User, userProfileTable } from "../userProfile.drizzle.schema";
+import { type User, userProfileTable } from "./userProfile.drizzle.schema";
 import { eq } from "drizzle-orm";
+import { checkUserNameIsAvailable } from "./checkUserNameIsAvailableAction";
 
 export const updateUserProfileInputSchema = z.object({
   userName: z.string().min(1),
@@ -17,12 +17,12 @@ export const editUserProfileAction = (
 ) => {
   const user = await auth();
   const {userName} = await updateUserProfileInputSchema.parseAsync(input);
-  const isUniqueUserName = await checkUserNameOnDbIsUnique(db)(userName);
+  const isUniqueUserName = await checkUserNameIsAvailable(db)(userName);
   if (isUniqueUserName) {
     throw new Error("400");
   }
 
-
+  await upsertUserProfile(db)(user.id, {name: userName});
 
   return {
     ...user,
@@ -34,3 +34,4 @@ const upsertUserProfile = (db: DrizzleDb) => async (userId: string, values: Part
   await db.update(userProfileTable).set(values).where(eq(userProfileTable.id, userId))
   .execute();
 }
+

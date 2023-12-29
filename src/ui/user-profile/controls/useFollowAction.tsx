@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import { followUser, unfollowUser } from "src/server/api";
+import { followUser, unfollowUser } from "src/server/api/mutations";
 
 export const useFollowAction = (isAlreadyFollowing: boolean) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
