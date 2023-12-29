@@ -3,7 +3,7 @@
 import { Avatar, Box, Card, Flex, Link, Text } from "@radix-ui/themes";
 import React, { useState } from "react";
 import type { Emojeet } from "src/server/timeline/EmojiTweet";
-import { User } from "src/server/user/profile/userProfile.drizzle.schema";
+import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
 import { Reactions } from "./Reactions";
 import { AddReaction } from "./AddReaction";
 

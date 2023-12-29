@@ -12,7 +12,7 @@ const publishEmojeetInputSchema = z.object({
 });
 
 // TODO add auth middleware
-export const publishEmojeet = (db: DrizzleDb, auth: AuthValidator) => async (input: z.infer<typeof publishEmojeetInputSchema>) => {
+export const publishEmojeetAction = (db: DrizzleDb, auth: AuthValidator) => async (input: z.infer<typeof publishEmojeetInputSchema>) => {
   const publisher = await auth();
   const {emoji} = await publishEmojeetInputSchema.parseAsync(input);
 

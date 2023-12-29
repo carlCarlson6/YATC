@@ -1,3 +1,5 @@
+"use server"
+
 import type { AuthValidator } from "src/server/auth/AuthValidator";
 import type { DrizzleDb } from "src/server/infrastructure/drizzle";
 import { z } from "zod";
@@ -11,7 +13,7 @@ const publishReactionInputSchema = z.object({
   emojeetId:  z.string().uuid().min(1)
 })
 
-export const publishReaction = (db: DrizzleDb, auth: AuthValidator) => async (input: z.infer<typeof publishReactionInputSchema>) => {
+export const publishReactionAction = (db: DrizzleDb, auth: AuthValidator) => async (input: z.infer<typeof publishReactionInputSchema>) => {
   const publisher = await auth();
   const {reaction, emojeetId} = await publishReactionInputSchema.parseAsync(input);
 

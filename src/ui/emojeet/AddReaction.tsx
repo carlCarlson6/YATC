@@ -4,7 +4,7 @@ import { Box, Dialog, IconButton } from "@radix-ui/themes";
 import { useState } from "react";
 import { MdOutlineQuickreply } from "react-icons/md";
 import { PickEmojiDialogConent } from "./PickEmojiDialogConent";
-import { publishReactionAction } from "src/server/emojeets/react/api";
+import { publishReaction } from "src/server/api";
 
 export const useAddReaction = (
   emojeetId: string, 
@@ -20,7 +20,7 @@ export const useAddReaction = (
     setEmoji,
     send: async () => {
       setIsSending(true);
-      await publishReactionAction({reaction: emoji, emojeetId: emojeetId});
+      await publishReaction({reaction: emoji, emojeetId: emojeetId});
       updateReactions(emoji)
       setEmoji("");
       setOpen(false);

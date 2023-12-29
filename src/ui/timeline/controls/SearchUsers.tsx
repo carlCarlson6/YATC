@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { type ChangeEvent, useState } from "react";
 import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
 import { SyncLoader } from "react-spinners";
-import { findUsers } from "src/server/user/find/api";
+import { findUsers } from "src/server/api";
 
 export const SearchUsers = () => {
   const [foundUsers, setFoundUsers] = useState<User[]>([]);
@@ -60,7 +60,7 @@ const useHandleSearchInput = ({
   setIsSearching: (searching: boolean) => void;
 }) => async (e: ChangeEvent<HTMLInputElement>) => {
   setIsSearching(true);
-  const users = await findUsers({ userName: e.target.value });
+  const users = await findUsers({userName: e.target.value});
   setFoundUsers(users);
   setIsSearching(false);
 }
