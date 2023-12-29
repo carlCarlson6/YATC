@@ -1,9 +1,9 @@
 "use server"
 
 import type { User } from "src/server/user/profile/userProfile.drizzle.schema";
-import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "../follows/counting";
-import { type DrizzleDb } from "../../infrastructure/drizzle";
-import { checkIfFollowingWithDrizzle } from "../follows/checkIfFollowing";
+import { countFollowersOnDrizzle, countFollowingOnDrizzle } from "../../follows/counting";
+import { type DrizzleDb } from "../../../infrastructure/drizzle";
+import { checkIfFollowingWithDrizzle } from "../../follows/checkIfFollowing";
 import { getUserProfileWithDrizzle } from "./getUserProfileWithDrizzle";
 import { loadUserEmojis } from "src/server/timeline/buildTimeline";
 import { addUserData } from "src/server/timeline/addUserData";

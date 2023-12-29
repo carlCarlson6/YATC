@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation'
 import { fetchUserProfile } from "src/server/api";
 
 export type UserProfileProps = Awaited<ReturnType<typeof fetchUser>>;
+export type UserProfileData = Pick<Awaited<ReturnType<typeof fetchUser>>, "user">['user'];
 
 const fetchUser = async (userName: string) => {
   const session = await getServerSession(authOptions);
@@ -31,11 +32,7 @@ export default async function UserPage({ params }: { params: { userName: string 
   const data = await fetchUser(params.userName);
   return (<>
     <Box>
-      <UserProfileControls 
-        isOwnProfile={data.user.isOwnProfile} 
-        followed={data.user.followed}
-        userId={data.user.id}
-      />
+      <UserProfileControls data={data.user}/>
       <UserProfileDisplay 
         user={data.user} 
         emojeets={data.emojeets} 

@@ -1,9 +1,8 @@
 "use client";
-import { Box, Dialog, Flex, IconButton, Text } from "@radix-ui/themes";
+import { Dialog, Flex, Text } from "@radix-ui/themes";
 import React from "react";
 import EmojiPicker, { SuggestionMode, Theme } from "emoji-picker-react";
-import { SyncLoader } from "react-spinners";
-import { UploadIcon } from "@radix-ui/react-icons";
+import { SendButton } from "../SendButton";
 
 export const PickEmojiDialogConent = ({
   emoji, setEmoji, isSending, canSend, send
@@ -17,7 +16,7 @@ export const PickEmojiDialogConent = ({
   <Dialog.Content>
     <Flex direction={'column'} gap={'3'}>
       <PickEmoji emoji={emoji} setEmoji={setEmoji} />
-      <DialogButtons
+      <SendButton
         isSending={isSending}
         canSend={canSend}
         send={send} />
@@ -42,32 +41,3 @@ const PickEmoji: React.FC<{
   </Flex>
 </>);
 
-const DialogButtons: React.FC<{
-  isSending: boolean,
-  canSend: boolean,
-  send: () => void,
-}> = ({
-  isSending, canSend, send
-}) => (<>
-  <Flex justify={'end'}>{
-    isSending ?
-      <Box pt={'1'}>
-        <SyncLoader
-          size={7}
-          color="#9EB1FF"
-          speedMultiplier={0.5}
-        />
-      </Box> :
-      <>
-        <IconButton
-          color="plum"
-          variant="outline"
-          style={{ cursor: 'pointer' }}
-          disabled={!canSend}
-          onClick={send}
-        >
-          <UploadIcon />
-        </IconButton>
-      </>
-  }</Flex>
-</>);
