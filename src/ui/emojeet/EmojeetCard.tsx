@@ -16,7 +16,7 @@ export const EmojeetCard = ({ emojeet }: { emojeet: Emojeet; }) => {
       size={'1'}
       variant={'surface'}
       style={{
-        width: '60rem'
+        width: '30rem'
       }}
     >
       <Flex

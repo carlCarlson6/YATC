@@ -27,7 +27,12 @@ const Reactions = ({
   emojis: string[],
 }) => (
   <Flex direction={'row'} align={'center'} justify={'start'} gap={'2'}>
-    <Grid columns={`${Math.round(emojis.length / 2)}`} gap={'2'} pt={'2'} pr={'2'}>
+    <Grid 
+      columns={`${Math.floor(Math.sqrt(emojis.length)+1)}`} 
+      gap={'2'} 
+      pt={'2'} 
+      pr={'2'}
+    >
       {emojis.map(x => (
         <EmojiReaction key={x} emoji={x} />
       ))}
