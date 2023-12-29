@@ -11,7 +11,7 @@ export const buildTimelineFromDb = (db: DrizzleDb) => async (userId: string): Pr
   return [...userEmojis, ...followingEmojis].sort((a,b) => Number.parseFloat(a.publishedAt) - Number.parseFloat(b.publishedAt)).reverse();
 }
 
-const loadUserEmojis = async (db: DrizzleDb, userId: string) => {
+export const loadUserEmojis = async (db: DrizzleDb, userId: string) => {
   const userEmojis = await db
     .select()
     .from(emojisTable)
